@@ -1,0 +1,68 @@
+{
+  "env": {
+    "browser": true,
+    "es2020": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/stylistic-type-checked",
+    "plugin:react-hooks/recommended",
+    "plugin: testing-library/react",
+    "plugin:jest-dom/recommended"
+  ],
+
+  "parser": "@typescript-eslint/parser",
+  "ignorePatterns": ["dist", ".eslintrc.cjs"],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 11,
+    // "project": "./tsconfig.json",
+    "sourceType": "module"
+  },
+  "plugins": ["react", "@typescript-eslint", "react-refresh", "testing-library", "jest-dom"],
+
+  "rules": {
+    "prettier/prettier": "off",
+    "react/jsx-filename-extension": "off",
+    "import/no-unresolved": "off",
+    "import/extensions": "off",
+    "react/display-name": "off",
+    "@typescript-eslint/comma-dangle": "off",
+    "import/prefer-default-export": "off",
+    "jsx-a11y/anchor-is-valid": "off",
+    "comma-dangle": "off",
+    "max-len": "off",
+    "no-console": "off",
+    "no-param-reassign": "off",
+    "no-plusplus": "off",
+    "no-return-assign": "off",
+    "object-curly-newline": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/require-default-props": "off",
+    "typescript-eslint/no-unused-vars": "off",
+    "import/no-extraneous-dependencies": "off",
+    "react/no-unescaped-entities": "off",
+    "react/forbid-prop-types": "off",
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": ["off"],
+    "@typescript-eslint/no-unused-vars": ["off"],
+    "@typescript-eslint/no-shadow": ["off"],
+    "@typescript-eslint/dot-notation": ["off"],
+    "@typescript-eslint/prefer-nullish-coalescing": ["off"],
+    "react/prop-types": ["off"],
+    "@typescript-eslint/naming-convention": ["off"],
+    "@typescript-eslint/no-explicit-any": ["off"],
+    "testing-library/await-async-queries": ["error"],
+    "testing-library/no-await-sync-queries": ["error"],
+    "testing-library/no-debugging-utils": ["warn"],
+    "testing-library/no-dom-import": ["off"],
+    "jest-dom/prefer-checked": ["error"],
+    "jest-dom/prefer-enabled-disabled": ["error"],
+    "jest-dom/prefer-required": ["error"],
+    "jest-dom/prefer-to-have-attribute": ["error"]
+  }
+}
