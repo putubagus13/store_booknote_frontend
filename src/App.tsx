@@ -1,14 +1,18 @@
 import { QueryClient, QueryClientProvider } from "react-query";
 import { useRoutes } from "react-router-dom";
 import routes from "./router";
-import { ThemeProvider } from "./components/theme-provider";
+import { Theme, ThemeProvider } from "./components/theme-provider";
 const queryClient = new QueryClient();
 
 function App() {
   const content = useRoutes(routes());
+  const defaoutTheme = localStorage.getItem("vite-ui-theme") as Theme;
+
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider defaultTheme="system">{content}</ThemeProvider>
+      <ThemeProvider defaultTheme={defaoutTheme ?? "system"}>
+        {content}
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }

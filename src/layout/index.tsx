@@ -1,4 +1,5 @@
 // import Dropdown from "@/components/Dropdownl";
+import { Theme } from "@/components/theme-provider";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -24,22 +25,44 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useThemeStore } from "@/store";
 import {
   CircleUser,
   Home,
   LineChart,
+  Moon,
   Package,
   Package2,
   PanelLeft,
   Search,
   Settings,
   ShoppingCart,
+  Sun,
   Users2,
 } from "lucide-react";
-import { ReactNode } from "react";
+import { FC, ReactNode, useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 
-export default function Layout({ children }: { children: ReactNode }) {
+interface Props {
+  children: ReactNode;
+}
+
+const Layout: FC<Props> = ({ children }) => {
+  let themeStorage = localStorage.getItem("vite-ui-theme") as Theme;
+  const [theme, setTheme] = useState<Theme>(themeStorage);
+
+  const selectedTheme = useThemeStore((state) => state.selectedTheme);
+
+  const handleSwitchSelect = () => {
+    const newTheme: Theme = theme === "dark" ? "light" : "dark";
+    localStorage.setItem("vite-ui-theme", newTheme);
+    selectedTheme(newTheme);
+    setTheme(newTheme);
+  };
+
+  useEffect(() => {
+    themeStorage = localStorage.getItem("vite-ui-theme") as Theme;
+  }, [handleSwitchSelect]);
   return (
     <div className="w-full h-screen flex justify-center items-center bg-background">
       <aside className="fixed inset-y-0 left-0 z-30 hidden w-14 flex-col border-r bg-background sm:flex items-start">
@@ -116,6 +139,15 @@ export default function Layout({ children }: { children: ReactNode }) {
           <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
             <Tooltip>
               <TooltipTrigger asChild>
+                <Button onClick={handleSwitchSelect} variant="ghost" size="sm">
+                  {theme === "dark" ? <Moon size={20} /> : <Sun size={20} />}
+                  <span className="sr-only">Theme</span>
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent side="right">Theme</TooltipContent>
+            </Tooltip>
+            <Tooltip>
+              <TooltipTrigger asChild>
                 <Link
                   to="#"
                   className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
@@ -182,6 +214,13 @@ export default function Layout({ children }: { children: ReactNode }) {
                   <LineChart className="h-5 w-5" />
                   Settings
                 </Link>
+                <button
+                  onClick={handleSwitchSelect}
+                  className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
+                >
+                  {theme === "dark" ? <Moon size={20} /> : <Sun size={20} />}
+                  Theme
+                </button>
               </nav>
             </SheetContent>
           </Sheet>
@@ -194,18 +233,18 @@ export default function Layout({ children }: { children: ReactNode }) {
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
-                <BreadcrumbLink asChild>
-                  <Link to="#">Products</Link>
-                </BreadcrumbLink>
+                <BreadcrumbPage>
+                  <Link to="/product">Products</Link>
+                </BreadcrumbPage>
               </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
+              {/* <BreadcrumbSeparator /> */}
+              {/* <BreadcrumbItem>
                 <BreadcrumbPage>All Products</BreadcrumbPage>
-              </BreadcrumbItem>
+              </BreadcrumbItem> */}
             </BreadcrumbList>
           </Breadcrumb>
           <div className="relative ml-auto flex-1 md:grow-0">
-            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+            <Search className="absolute left-2.5 top-3 h-4 w-4 text-muted-foreground" />
             <Input
               type="search"
               placeholder="Search..."
@@ -247,4 +286,6 @@ export default function Layout({ children }: { children: ReactNode }) {
       </div>
     </div>
   );
-}
+};
+
+export default Layout;

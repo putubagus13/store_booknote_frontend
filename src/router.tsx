@@ -8,8 +8,19 @@ const Loader = (_Component: any) => (_props: any) =>
     </Suspense>
   );
 const Layout = Loader(React.lazy(() => import("./layout/index.tsx")));
+const AuthLayout = Loader(React.lazy(() => import("./layout/AuthLayout")));
 
-const Home = Loader(React.lazy(() => import("./content/Dashboard")));
+const Home = Loader(React.lazy(() => import("./content/Home")));
+
+const Login = Loader(React.lazy(() => import("./content/Auth/Login")));
+
+const Signup = Loader(React.lazy(() => import("./content/Auth/Signup.tsx")));
+
+const ForgotPassword = Loader(
+  React.lazy(() => import("./content/Auth/ForgotPassword"))
+);
+
+const Dashboard = Loader(React.lazy(() => import("./content/Dashboard")));
 
 const Product = Loader(React.lazy(() => import("./content/Product")));
 
@@ -20,11 +31,33 @@ const routes = (): RouteObject[] => [
     children: [
       {
         path: "dashboard",
-        element: <Home />,
+        element: <Dashboard />,
       },
       {
         path: "product",
         element: <Product />,
+      },
+    ],
+  },
+  {
+    path: "home",
+    element: <Home />,
+  },
+  {
+    path: "auth",
+    element: <AuthLayout />,
+    children: [
+      {
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "register",
+        element: <Signup />,
+      },
+      {
+        path: "forgot-password",
+        element: <ForgotPassword />,
       },
     ],
   },
