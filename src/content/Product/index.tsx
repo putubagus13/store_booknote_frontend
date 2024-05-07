@@ -1,12 +1,212 @@
+import HeaderPage from "@/components/HeaderPage";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { TypographyH4 } from "@/components/ui/typograpgy";
+// import { Separator } from "@radix-ui/react-dropdown-menu";
+import { Plus, Search } from "lucide-react";
+import ListCategory from "./components/ListCategory";
+import { Separator } from "@/components/ui/separator";
+import CardProduct from "@/components/CardProduct";
+import { Input } from "@/components/ui/input";
+
 export default function Product() {
+  const handleAddProduct = () => {
+    console.log("add product");
+  };
   return (
-    <div>
-      <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
-        Product
-      </h1>
-      <p className="leading-7 [&:not(:first-child)]:mt-6">
-        Welcome to the product!
-      </p>
-    </div>
+    <HeaderPage
+      onClick={handleAddProduct}
+      label="Product"
+      description="Kelola produkmu disini"
+      // overflow
+    >
+      <div className="flex flex-col md:flex-row w-full h-full gap-2 md:gap-0">
+        <Card id="nav-category" className="w-full md:w-[250px] h-max">
+          <CardHeader className="flex flex-row items-center justify-between rounded-md bg-accent">
+            {/* #######################  LIST CATEGORY  ############################## */}
+            <TypographyH4>Kategory</TypographyH4>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant={"outline"}
+                    size={"icon"}
+                    className="rounded-full"
+                  >
+                    <Plus size={18} />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent side="right">Tambah kategory</TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </CardHeader>
+          <CardContent className="p-1">
+            <ListCategory />
+          </CardContent>
+        </Card>
+        <Separator
+          orientation="vertical"
+          className="mx-4 hidden md:block h-[80%]"
+        />
+        <div className="flex flex-col gap-4">
+          {/* ############################  FILTER  ################################# */}
+          <div className="flex w-full">
+            <div className="flex gap-2">
+              <Button size="sm" className="h-8">
+                Terlaris
+              </Button>
+              <Button size="sm" className="h-8">
+                Termurah
+              </Button>
+              <Button size="sm" className="h-8">
+                Termahal
+              </Button>
+            </div>
+            <div className="relative ml-auto flex-1 md:grow-0">
+              <Search className="absolute left-2.5 top-3 h-4 w-4 text-muted-foreground" />
+              <Input
+                type="search"
+                placeholder="Cari produk..."
+                className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[336px]"
+              />
+            </div>
+          </div>
+
+          {/* #########################  LIST PRODUCT  ############################ */}
+          <div
+            className={`grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 
+            xl:grid-cols-6 2xl:grid-cols-8 gap-6 w-full h-[75%] bg-inherit shadow-inner 
+            p-4 rounded-md overflow-y-scroll scrollbar-hide`}
+          >
+            <CardProduct
+              name="Cake"
+              price={10000}
+              image="https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg"
+            />
+            <CardProduct
+              name="Cake"
+              price={10000}
+              image="https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg"
+            />
+            <CardProduct
+              name="Cake"
+              price={10000}
+              image="https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg"
+            />
+            <CardProduct
+              name="Cake"
+              price={10000}
+              image="https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg"
+            />
+            <CardProduct
+              name="Cake"
+              price={10000}
+              image="https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg"
+            />
+            <CardProduct
+              name="Cake"
+              price={10000}
+              image="https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg"
+            />
+            <CardProduct
+              name="Cake"
+              price={10000}
+              image="https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg"
+            />
+            <CardProduct
+              name="Cake"
+              price={10000}
+              image="https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg"
+            />
+            <CardProduct
+              name="Cake"
+              price={10000}
+              image="https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg"
+            />
+            <CardProduct
+              name="Cake"
+              price={10000}
+              image="https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg"
+            />
+            <CardProduct
+              name="Cake"
+              price={10000}
+              image="https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg"
+            />
+            <CardProduct
+              name="Cake"
+              price={10000}
+              image="https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg"
+            />
+            <CardProduct
+              name="Cake"
+              price={10000}
+              image="https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg"
+            />
+            <CardProduct
+              name="Cake"
+              price={10000}
+              image="https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg"
+            />
+            <CardProduct
+              name="Cake"
+              price={10000}
+              image="https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg"
+            />
+            <CardProduct
+              name="Cake"
+              price={10000}
+              image="https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg"
+            />
+            <CardProduct
+              name="Cake"
+              price={10000}
+              image="https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg"
+            />
+            <CardProduct
+              name="Cake"
+              price={10000}
+              image="https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg"
+            />
+            <CardProduct
+              name="Cake"
+              price={10000}
+              image="https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg"
+            />
+            <CardProduct
+              name="Cake"
+              price={10000}
+              image="https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg"
+            />
+            <CardProduct
+              name="Cake"
+              price={10000}
+              image="https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg"
+            />
+            <CardProduct
+              name="Cake"
+              price={10000}
+              image="https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg"
+            />
+            <CardProduct
+              name="Cake"
+              price={10000}
+              image="https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg"
+            />
+            <CardProduct
+              name="Cake"
+              price={10000}
+              image="https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg"
+            />
+          </div>
+        </div>
+      </div>
+    </HeaderPage>
   );
 }

@@ -1,4 +1,5 @@
 // import Dropdown from "@/components/Dropdownl";
+import ListCustom from "@/components/ListCustom";
 import { Theme } from "@/components/theme-provider";
 import {
   Breadcrumb,
@@ -25,6 +26,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { LOGIN } from "@/route";
 import { useThemeStore } from "@/store";
 import {
   CircleUser,
@@ -75,66 +77,31 @@ const Layout: FC<Props> = ({ children }) => {
               <Package2 className="h-4 w-4 transition-all group-hover:scale-110" />
               <span className="sr-only">Acme Inc</span>
             </Link>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Link
-                  to="/dashboard"
-                  className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-                >
-                  <Home className="h-5 w-5" />
-                  <span className="sr-only">Dashboard</span>
-                </Link>
-              </TooltipTrigger>
-              <TooltipContent side="right">Dashboard</TooltipContent>
-            </Tooltip>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Link
-                  to="#"
-                  className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent text-accent-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-                >
-                  <ShoppingCart className="h-5 w-5" />
-                  <span className="sr-only">Orders</span>
-                </Link>
-              </TooltipTrigger>
-              <TooltipContent side="right">Orders</TooltipContent>
-            </Tooltip>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Link
-                  to="/product"
-                  className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-                >
-                  <Package className="h-5 w-5" />
-                  <span className="sr-only">Products</span>
-                </Link>
-              </TooltipTrigger>
-              <TooltipContent side="right">Products</TooltipContent>
-            </Tooltip>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Link
-                  to="#"
-                  className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-                >
-                  <Users2 className="h-5 w-5" />
-                  <span className="sr-only">Customers</span>
-                </Link>
-              </TooltipTrigger>
-              <TooltipContent side="right">Customers</TooltipContent>
-            </Tooltip>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Link
-                  to="#"
-                  className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-                >
-                  <LineChart className="h-5 w-5" />
-                  <span className="sr-only">Analytics</span>
-                </Link>
-              </TooltipTrigger>
-              <TooltipContent side="right">Analytics</TooltipContent>
-            </Tooltip>
+            <ListCustom
+              to="/dashboard"
+              label="Dashboard"
+              children={<Home className="h-5 w-5" />}
+            />
+            <ListCustom
+              to="/orders"
+              label="Orders"
+              children={<ShoppingCart className="h-5 w-5" />}
+            />
+            <ListCustom
+              to="/product"
+              label="Products"
+              children={<Package className="h-5 w-5" />}
+            />
+            <ListCustom
+              to="/customers"
+              label="Customers"
+              children={<Users2 className="h-5 w-5" />}
+            />
+            <ListCustom
+              to="/analytics"
+              label="Analytics"
+              children={<LineChart className="h-5 w-5" />}
+            />
           </nav>
           <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
             <Tooltip>
@@ -146,22 +113,15 @@ const Layout: FC<Props> = ({ children }) => {
               </TooltipTrigger>
               <TooltipContent side="right">Theme</TooltipContent>
             </Tooltip>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Link
-                  to="#"
-                  className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-                >
-                  <Settings className="h-5 w-5" />
-                  <span className="sr-only">Settings</span>
-                </Link>
-              </TooltipTrigger>
-              <TooltipContent side="right">Settings</TooltipContent>
-            </Tooltip>
+            <ListCustom
+              to="#"
+              label="Settings"
+              children={<Settings className="h-5 w-5" />}
+            />
           </nav>
         </TooltipProvider>
       </aside>
-      <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14 h-full w-full">
+      <div className="fixed flex flex-col sm:gap-4 sm:py-4 sm:pl-14 w-full h-full">
         <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:border-0 sm:bg-transparent sm:px-6">
           <Sheet>
             <SheetTrigger asChild>
@@ -267,22 +227,13 @@ const Layout: FC<Props> = ({ children }) => {
               <DropdownMenuItem>Settings</DropdownMenuItem>
               <DropdownMenuItem>Support</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Logout</DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link to={LOGIN}>Logout</Link>
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </header>
-        <main className="h-full flex justify-center items-center">
-          {children || <Outlet />}
-          {/* <div>
-            <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
-              The Joke Tax Chronicles
-            </h1>
-            <p className="leading-7 [&:not(:first-child)]:mt-6">
-              Once upon a time, in a far-off land, there was a very lazy king
-              who spent all day lounging on his throne. One day, his advisors
-            </p>
-          </div> */}
-        </main>
+        <main className="h-full w-full">{children || <Outlet />}</main>
       </div>
     </div>
   );
