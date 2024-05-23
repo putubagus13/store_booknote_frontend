@@ -26,7 +26,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { LOGIN } from "@/route";
+import { DASHBOARD, LOGIN, ORDER, PRODUCT } from "@/route";
 import { useThemeStore } from "@/store";
 import {
   CircleUser,
@@ -66,29 +66,29 @@ const Layout: FC<Props> = ({ children }) => {
     themeStorage = localStorage.getItem("vite-ui-theme") as Theme;
   }, [handleSwitchSelect]);
   return (
-    <div className="w-full h-screen flex justify-center items-center bg-background">
+    <div className="w-full md:h-screen flex justify-center items-center bg-background">
       <aside className="fixed inset-y-0 left-0 z-30 hidden w-14 flex-col border-r bg-background sm:flex items-start">
         <TooltipProvider>
           <nav className="flex flex-col items-center gap-4 px-2 sm:py-5">
             <Link
-              to="#"
+              to={DASHBOARD}
               className="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base"
             >
               <Package2 className="h-4 w-4 transition-all group-hover:scale-110" />
               <span className="sr-only">Acme Inc</span>
             </Link>
             <ListCustom
-              to="/dashboard"
+              to={DASHBOARD}
               label="Dashboard"
               children={<Home className="h-5 w-5" />}
             />
             <ListCustom
-              to="/orders"
+              to={ORDER}
               label="Orders"
               children={<ShoppingCart className="h-5 w-5" />}
             />
             <ListCustom
-              to="/product"
+              to={PRODUCT}
               label="Products"
               children={<Package className="h-5 w-5" />}
             />
@@ -121,8 +121,8 @@ const Layout: FC<Props> = ({ children }) => {
           </nav>
         </TooltipProvider>
       </aside>
-      <div className="fixed flex flex-col sm:gap-4 sm:py-4 sm:pl-14 w-full h-full">
-        <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:border-0 sm:bg-transparent sm:px-6">
+      <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14 w-full h-full">
+        <header className="sticky md:fixed w-full top-0 right-0 flex h-14 items-center gap-4 border-b bg-background px-4 sm:border-0 sm:px-6 sm:pl-20 shadow-sm">
           <Sheet>
             <SheetTrigger asChild>
               <Button size="icon" variant="outline" className="sm:hidden">

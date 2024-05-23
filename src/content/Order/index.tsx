@@ -1,19 +1,11 @@
+import CardProduct from "@/components/CardProduct";
 import HeaderPage from "@/components/HeaderPage";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { TypographyH4 } from "@/components/ui/typograpgy";
-// import { Separator } from "@radix-ui/react-dropdown-menu";
-import { Plus, Search } from "lucide-react";
-import ListCategory from "./components/ListCategory";
-import { Separator } from "@/components/ui/separator";
-import CardProduct from "@/components/CardProduct";
+import { Card, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { TypographyH3, TypographyH4 } from "@/components/ui/typograpgy";
+import { Search } from "lucide-react";
+import { FC } from "react";
 
 interface IDataProduct {
   id: string;
@@ -26,18 +18,14 @@ interface IDataProduct {
 const emptyDataStype = (data: IDataProduct[]) => {
   if (data.length > 0) {
     return `grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 
-    xl:grid-cols-6 2xl:grid-cols-8 gap-6 w-full h-full bg-inherit shadow-inner 
-    p-4 rounded-md overflow-y-scroll scrollbar-hide`;
+      xl:grid-cols-6 2xl:grid-cols-8 gap-6 w-full h-full bg-inherit shadow-inner 
+      p-4 rounded-md overflow-y-scroll scrollbar-hide`;
   } else {
     return "flex items-center justify-center w-full h-full";
   }
 };
 
-export default function Product() {
-  const handleAddProduct = () => {
-    console.log("add product");
-  };
-
+const Order: FC = () => {
   const data: IDataProduct[] = [
     {
       id: "1",
@@ -180,45 +168,11 @@ export default function Product() {
       totalSold: 10,
     },
   ];
-
   return (
-    <HeaderPage
-      onClick={handleAddProduct}
-      label="Product"
-      description="Kelola produkmu disini"
-      // overflow
-    >
-      <div className="flex flex-col md:flex-row w-full h-full gap-2 md:gap-0">
-        <Card id="nav-category" className="w-full md:w-[250px] h-max">
-          <CardHeader className="flex flex-row items-center justify-between rounded-md bg-accent">
-            {/* #######################  LIST CATEGORY  ############################## */}
-            <TypographyH4>Kategory</TypographyH4>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button
-                    variant={"outline"}
-                    size={"icon"}
-                    className="rounded-full"
-                  >
-                    <Plus size={18} />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent side="right">Tambah kategory</TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </CardHeader>
-          <CardContent className="p-1">
-            <ListCategory />
-          </CardContent>
-        </Card>
-        <Separator
-          orientation="vertical"
-          className="mx-4 hidden md:block h-[80%]"
-        />
+    <HeaderPage label="Order">
+      <div className="flex gap-2 w-full h-full">
         <div className="flex w-full h-full flex-col gap-4">
-          {/* ############################  FILTER  ################################# */}
-          <div className="flex w-full items-center gap-10">
+          <div className="flex w-full items-center gap-10 pt-2">
             <div className="flex gap-2">
               <Button size="sm" className="h-8">
                 Terlaris
@@ -240,7 +194,6 @@ export default function Product() {
             </div>
           </div>
 
-          {/* #########################  LIST PRODUCT  ############################ */}
           <div className={emptyDataStype(data)}>
             {data.length > 0 ? (
               data.map((item: IDataProduct) => {
@@ -251,7 +204,6 @@ export default function Product() {
                     price={item.price}
                     image={item.image}
                     totalSold={item.totalSold}
-                    edit
                   />
                 );
               })
@@ -271,7 +223,14 @@ export default function Product() {
             )}
           </div>
         </div>
+        <Card className="w-[600px] h-max bg-secondary">
+          <CardHeader>
+            <TypographyH3>Customer Order</TypographyH3>
+          </CardHeader>
+        </Card>
       </div>
     </HeaderPage>
   );
-}
+};
+
+export default Order;

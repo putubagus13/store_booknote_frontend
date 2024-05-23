@@ -24,18 +24,24 @@ const Dashboard = Loader(React.lazy(() => import("./content/Dashboard")));
 
 const Product = Loader(React.lazy(() => import("./content/Product")));
 
+const Order = Loader(React.lazy(() => import("./content/Order")));
+
 const routes = (): RouteObject[] => [
   {
     path: "/",
     element: <Layout />,
     children: [
       {
-        path: "dashboard",
+        path: "/",
         element: <Dashboard />,
       },
       {
         path: "product",
         element: <Product />,
+      },
+      {
+        path: "order",
+        element: <Order />,
       },
     ],
   },
