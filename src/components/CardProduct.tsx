@@ -2,6 +2,7 @@ import { FC } from "react";
 import { Card, CardContent, CardDescription } from "./ui/card";
 import { TypographyH4 } from "./ui/typograpgy";
 import { Edit, ShoppingCart } from "lucide-react";
+import { conversion } from "@/utils/general";
 
 interface Props {
   price: number;
@@ -32,7 +33,7 @@ const CardProduct: FC<Props> = ({
         </div>
         <CardContent className="pt-4 bg-secondary px-2 text-left">
           <TypographyH4 className="text-[16px]">{name}</TypographyH4>
-          <p className="text-[12px]">Rp{price}</p>
+          <p className="text-[12px]">{conversion(price)}</p>
           <div className="w-full flex justify-end items-center gap-1">
             <ShoppingCart size={14} />
             <p className="text-[12px]">{totalSold ?? 0}</p>

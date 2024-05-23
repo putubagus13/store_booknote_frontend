@@ -1,19 +1,24 @@
 import CardProduct from "@/components/CardProduct";
 import HeaderPage from "@/components/HeaderPage";
 import { Button } from "@/components/ui/button";
-import { Card, CardHeader } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { TypographyH3, TypographyH4 } from "@/components/ui/typograpgy";
-import { Search } from "lucide-react";
-import { FC } from "react";
-
-interface IDataProduct {
-  id: string;
-  name: string;
-  price: number;
-  image: string;
-  totalSold: number;
-}
+import { Search, ShoppingCart } from "lucide-react";
+import { FC, useState } from "react";
+import CardOrder from "./components/CardOrder";
+import { Separator } from "@/components/ui/separator";
+import { conversion } from "@/utils/general";
+import { IDataProduct } from "@/models/product";
+import { dataProduct as data } from "@/utils/damiData";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
 
 const emptyDataStype = (data: IDataProduct[]) => {
   if (data.length > 0) {
@@ -26,148 +31,23 @@ const emptyDataStype = (data: IDataProduct[]) => {
 };
 
 const Order: FC = () => {
-  const data: IDataProduct[] = [
-    {
-      id: "1",
-      name: "Cake",
-      price: 10000,
-      image: "https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg",
-      totalSold: 10,
-    },
-    {
-      id: "2",
-      name: "Cake",
-      price: 10000,
-      image: "https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg",
-      totalSold: 10,
-    },
-    {
-      id: "3",
-      name: "Cake",
-      price: 10000,
-      image: "https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg",
-      totalSold: 10,
-    },
-    {
-      id: "4",
-      name: "Cake",
-      price: 10000,
-      image: "https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg",
-      totalSold: 10,
-    },
-    {
-      id: "5",
-      name: "Cake",
-      price: 10000,
-      image: "https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg",
-      totalSold: 10,
-    },
-    {
-      id: "6",
-      name: "Cake",
-      price: 10000,
-      image: "https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg",
-      totalSold: 10,
-    },
-    {
-      id: "7",
-      name: "Cake",
-      price: 10000,
-      image: "https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg",
-      totalSold: 10,
-    },
-    {
-      id: "8",
-      name: "Cake",
-      price: 10000,
-      image: "https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg",
-      totalSold: 10,
-    },
-    {
-      id: "9",
-      name: "Cake",
-      price: 10000,
-      image: "https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg",
-      totalSold: 10,
-    },
-    {
-      id: "10",
-      name: "Cake",
-      price: 10000,
-      image: "https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg",
-      totalSold: 10,
-    },
-    {
-      id: "11",
-      name: "Cake",
-      price: 10000,
-      image: "https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg",
-      totalSold: 10,
-    },
-    {
-      id: "12",
-      name: "Cake",
-      price: 10000,
-      image: "https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg",
-      totalSold: 10,
-    },
-    {
-      id: "13",
-      name: "Cake",
-      price: 10000,
-      image: "https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg",
-      totalSold: 10,
-    },
-    {
-      id: "14",
-      name: "Cake",
-      price: 10000,
-      image: "https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg",
-      totalSold: 10,
-    },
-    {
-      id: "15",
-      name: "Cake",
-      price: 10000,
-      image: "https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg",
-      totalSold: 10,
-    },
-    {
-      id: "16",
-      name: "Cake",
-      price: 10000,
-      image: "https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg",
-      totalSold: 10,
-    },
-    {
-      id: "17",
-      name: "Cake",
-      price: 10000,
-      image: "https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg",
-      totalSold: 10,
-    },
-    {
-      id: "18",
-      name: "Cake",
-      price: 10000,
-      image: "https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg",
-      totalSold: 10,
-    },
-    {
-      id: "19",
-      name: "Cake",
-      price: 10000,
-      image: "https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg",
-      totalSold: 10,
-    },
-    {
-      id: "20",
-      name: "Cake",
-      price: 10000,
-      image: "https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg",
-      totalSold: 10,
-    },
-  ];
+  const [order, setOrder] = useState<IDataProduct[]>([]);
+
+  const handleClickProduct = (id: string) => {
+    const product = data.find((item) => item.id === id);
+    if (product) {
+      const isExist = order.find((item) => item.id === id);
+      if (!isExist) {
+        setOrder([...order, product]);
+      }
+    }
+  };
+
+  const totalOrder = order.reduce(
+    (acc, item) => acc + (item.totalOrder ? item.totalOrder : 0),
+    0
+  );
+
   return (
     <HeaderPage label="Order">
       <div className="flex gap-2 w-full h-full">
@@ -204,6 +84,7 @@ const Order: FC = () => {
                     price={item.price}
                     image={item.image}
                     totalSold={item.totalSold}
+                    onClick={() => handleClickProduct(item.id)}
                   />
                 );
               })
@@ -225,8 +106,77 @@ const Order: FC = () => {
         </div>
         <Card className="w-[600px] h-max bg-secondary">
           <CardHeader>
-            <TypographyH3>Customer Order</TypographyH3>
+            <TypographyH3 className="flex gap-2">
+              Customer Order <ShoppingCart className="h-7 w-7" />
+            </TypographyH3>
           </CardHeader>
+          <Separator color="white" />
+          <CardContent>
+            <div className="flex flex-col gap-2 pt-2">
+              {order.length > 0 ? (
+                order.map((item: IDataProduct, index: number) => {
+                  return (
+                    <CardOrder
+                      key={index}
+                      onDelete={() => {
+                        const newOrder = order.filter((_, i) => i !== index);
+                        setOrder(newOrder);
+                      }}
+                      product={item}
+                      callBack={(id, quantity, totalOrder) => {
+                        const selectProduct = order.find(
+                          (item) => item.id === id
+                        );
+                        if (selectProduct) {
+                          const newOrder = order.map((item) => {
+                            if (item.id === id) {
+                              return { ...item, quantity, totalOrder };
+                            }
+                            return item;
+                          });
+                          setOrder(newOrder);
+                          return;
+                        }
+                        setOrder([...order, { ...item, quantity, totalOrder }]);
+                      }}
+                    />
+                  );
+                })
+              ) : (
+                <p>Belum ada order</p>
+              )}
+            </div>
+            <Separator color="white" className="my-4" />
+            <div className="w-full flex justify-between">
+              <TypographyH3>Total</TypographyH3>
+              <TypographyH3>{conversion(totalOrder)}</TypographyH3>
+            </div>
+            <Accordion type="single" collapsible>
+              <AccordionItem value="item-1">
+                <AccordionTrigger>Metode Pembayaran</AccordionTrigger>
+                <AccordionContent>
+                  <RadioGroup
+                    defaultValue="cash"
+                    className="flex flex-col gap-4"
+                  >
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="cash" id="r1" />
+                      <Label htmlFor="r1">CASH</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="qris" id="r2" />
+                      <Label htmlFor="r2">QRIS</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="debit" id="r3" />
+                      <Label htmlFor="r3">DEBIT</Label>
+                    </div>
+                  </RadioGroup>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+            <Button className="ml-auto w-full mt-4">Submit</Button>
+          </CardContent>
         </Card>
       </div>
     </HeaderPage>

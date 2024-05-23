@@ -38,6 +38,7 @@ import {
   PanelLeft,
   Search,
   Settings,
+  ShoppingBag,
   ShoppingCart,
   Sun,
   Users2,
@@ -85,7 +86,7 @@ const Layout: FC<Props> = ({ children }) => {
             <ListCustom
               to={ORDER}
               label="Orders"
-              children={<ShoppingCart className="h-5 w-5" />}
+              children={<ShoppingBag className="h-5 w-5" />}
             />
             <ListCustom
               to={PRODUCT}

@@ -22,7 +22,7 @@ export const TypographyH2: FC<TypographyProps> = ({ children, className }) => {
   return (
     <h2
       className={cn(
-        "scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0",
+        "scroll-m-20 text-3xl font-semibold tracking-tight first:mt-0",
         className
       )}
     >
@@ -70,7 +70,7 @@ export const TypographyBlockquote: FC<TypographyProps> = ({
   className,
 }) => {
   return (
-    <blockquote className={cn("mt-6 border-l-2 pl-6 italic", className)}>
+    <blockquote className={cn("italic", className)}>
       {children || ""}
     </blockquote>
   );
