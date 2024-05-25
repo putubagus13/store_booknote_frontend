@@ -26,9 +26,10 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { DASHBOARD, LOGIN, ORDER, PRODUCT } from "@/route";
+import { DASHBOARD, LOGIN, CASHIER, PRODUCT } from "@/route";
 import { useThemeStore } from "@/store";
 import {
+  Calculator,
   CircleUser,
   Home,
   LineChart,
@@ -38,7 +39,6 @@ import {
   PanelLeft,
   Search,
   Settings,
-  ShoppingBag,
   ShoppingCart,
   Sun,
   Users2,
@@ -84,9 +84,9 @@ const Layout: FC<Props> = ({ children }) => {
               children={<Home className="h-5 w-5" />}
             />
             <ListCustom
-              to={ORDER}
-              label="Orders"
-              children={<ShoppingBag className="h-5 w-5" />}
+              to={CASHIER}
+              label="Cashier"
+              children={<Calculator className="h-5 w-5" />}
             />
             <ListCustom
               to={PRODUCT}

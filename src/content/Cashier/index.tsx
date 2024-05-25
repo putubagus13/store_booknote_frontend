@@ -30,7 +30,7 @@ const emptyDataStype = (data: IDataProduct[]) => {
   }
 };
 
-const Order: FC = () => {
+const Cashier: FC = () => {
   const [order, setOrder] = useState<IDataProduct[]>([]);
 
   const handleClickProduct = (id: string) => {
@@ -49,7 +49,7 @@ const Order: FC = () => {
   );
 
   return (
-    <HeaderPage label="Order">
+    <HeaderPage label="Cashier">
       <div className="flex gap-2 w-full h-full">
         <div className="flex w-full h-full flex-col gap-4">
           <div className="flex w-full items-center gap-10 pt-2">
@@ -183,4 +183,4 @@ const Order: FC = () => {
   );
 };
 
-export default Order;
+export default Cashier;
