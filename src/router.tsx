@@ -28,6 +28,8 @@ const Cashier = Loader(React.lazy(() => import("./content/Cashier/index.tsx")));
 
 const Order = Loader(React.lazy(() => import("./content/Order")));
 
+const Analytic = Loader(React.lazy(() => import("./content/Analytic")));
+
 const routes = (): RouteObject[] => [
   {
     path: "/",
@@ -45,6 +47,10 @@ const routes = (): RouteObject[] => [
       {
         path: "order",
         element: <Order />,
+      },
+      {
+        path: "analytic",
+        element: <Analytic />,
       },
     ],
   },

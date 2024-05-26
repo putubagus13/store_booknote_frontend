@@ -16,7 +16,7 @@ const CardList: FC = () => {
         />
         <AvatarFallback>CK</AvatarFallback>
       </Avatar>
-      <div className="flex w-full justify-between">
+      <div className="flex w-full justify-between dark:text-black">
         <TypographyP className="text-[14px] font-medium">Cake</TypographyP>
         <TypographyBlockquote className="font-bold text-[16px] flex gap-3">
           2x

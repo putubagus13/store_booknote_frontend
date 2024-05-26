@@ -142,3 +142,90 @@ export const dataProduct: IDataProduct[] = [
     totalSold: 10,
   },
 ];
+
+export const invoices = [
+  {
+    code: "INV001",
+    customer: "Lex",
+    totalAmount: 250000,
+    paymentMethod: "Cash",
+  },
+  {
+    code: "INV002",
+    customer: "Jhon",
+    totalAmount: 150000,
+    paymentMethod: "Cash",
+  },
+  {
+    code: "INV003",
+    customer: "Maxalister",
+    totalAmount: 35000,
+    paymentMethod: "Qris",
+  },
+  {
+    code: "INV004",
+    customer: "Paity",
+    totalAmount: 45000,
+    paymentMethod: "Cash",
+  },
+  {
+    code: "INV005",
+    customer: "Noah",
+    totalAmount: 50000,
+    paymentMethod: "Qris",
+  },
+  {
+    code: "INV006",
+    customer: "Lucas",
+    totalAmount: 200000,
+    paymentMethod: "Cash",
+  },
+  {
+    code: "INV007",
+    customer: "Jhosua",
+    totalAmount: 34000,
+    paymentMethod: "Qris",
+  },
+  {
+    code: "INV001",
+    customer: "Lex",
+    totalAmount: 250000,
+    paymentMethod: "Cash",
+  },
+  {
+    code: "INV002",
+    customer: "Jhon",
+    totalAmount: 150000,
+    paymentMethod: "Cash",
+  },
+  {
+    code: "INV003",
+    customer: "Maxalister",
+    totalAmount: 35000,
+    paymentMethod: "Qris",
+  },
+  {
+    code: "INV004",
+    customer: "Paity",
+    totalAmount: 45000,
+    paymentMethod: "Cash",
+  },
+  {
+    code: "INV005",
+    customer: "Noah",
+    totalAmount: 50000,
+    paymentMethod: "Qris",
+  },
+  {
+    code: "INV006",
+    customer: "Lucas",
+    totalAmount: 200000,
+    paymentMethod: "Cash",
+  },
+  {
+    code: "INV007",
+    customer: "Jhosua",
+    totalAmount: 34000,
+    paymentMethod: "Qris",
+  },
+];

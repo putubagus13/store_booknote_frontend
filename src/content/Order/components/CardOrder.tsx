@@ -14,7 +14,7 @@ const CardOrder: FC = () => {
   return (
     <Card className="w-60 bg-primary-foreground border-primary shadow-lg">
       <CardHeader className="h-10 px-5 py-0 flex justify-center">
-        <TypographyBlockquote className="text-[20px] font-medium flex justify-between">
+        <TypographyBlockquote className="text-[20px] font-medium flex justify-between dark:text-black">
           <span>Lify</span>
           <span>Meja 4</span>
         </TypographyBlockquote>

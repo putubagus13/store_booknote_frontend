@@ -6,3 +6,4 @@ export const DASHBOARD = "/dashboard";
 export const PRODUCT = "/product";
 export const CASHIER = "";
 export const ORDER = "/order";
+export const ANALYTIC = "/analytic";
