@@ -20,11 +20,13 @@ const ForgotPassword = Loader(
   React.lazy(() => import("./content/Auth/ForgotPassword"))
 );
 
-const Dashboard = Loader(React.lazy(() => import("./content/Dashboard")));
+// const Dashboard = Loader(React.lazy(() => import("./content/Dashboard")));
 
 const Product = Loader(React.lazy(() => import("./content/Product")));
 
 const Cashier = Loader(React.lazy(() => import("./content/Cashier/index.tsx")));
+
+const Order = Loader(React.lazy(() => import("./content/Order")));
 
 const routes = (): RouteObject[] => [
   {
@@ -32,16 +34,17 @@ const routes = (): RouteObject[] => [
     element: <Layout />,
     children: [
       {
-        path: "/",
-        element: <Dashboard />,
+        path: "",
+        element: <Cashier />,
       },
       {
         path: "product",
         element: <Product />,
       },
+
       {
-        path: "cashier",
-        element: <Cashier />,
+        path: "order",
+        element: <Order />,
       },
     ],
   },

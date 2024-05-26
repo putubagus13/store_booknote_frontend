@@ -17,7 +17,7 @@ interface Props {
   callBack?: (id: string, quantity: number, totalOrder: number) => void;
 }
 
-const CardOrder: FC<Props> = ({ product, callBack, onDelete }) => {
+const CardCount: FC<Props> = ({ product, callBack, onDelete }) => {
   const [quantity, setQuantity] = useState<number>(1);
 
   const nickname = product?.name.split(" ")[0];
@@ -79,7 +79,7 @@ const CardOrder: FC<Props> = ({ product, callBack, onDelete }) => {
       </CardContent>
       <Button
         size="icon"
-        className="absolute -left-1 -top-1 h-6 w-6 rounded-full"
+        className="absolute -left-1 -top-1 h-6 w-6 rounded-full bg-destructive hover:bg-destructive"
         onClick={onDelete}
       >
         <CrossIcon className="rotate-45" size={10} />
@@ -88,4 +88,4 @@ const CardOrder: FC<Props> = ({ product, callBack, onDelete }) => {
   );
 };
 
-export default CardOrder;
+export default CardCount;

@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { TypographyH3, TypographyH4 } from "@/components/ui/typograpgy";
 import { Search, ShoppingCart } from "lucide-react";
 import { FC, useState } from "react";
-import CardOrder from "./components/CardOrder";
+import CarCount from "./components/CardCount";
 import { Separator } from "@/components/ui/separator";
 import { conversion } from "@/utils/general";
 import { IDataProduct } from "@/models/product";
@@ -116,7 +116,7 @@ const Cashier: FC = () => {
               {order.length > 0 ? (
                 order.map((item: IDataProduct, index: number) => {
                   return (
-                    <CardOrder
+                    <CarCount
                       key={index}
                       onDelete={() => {
                         const newOrder = order.filter((_, i) => i !== index);

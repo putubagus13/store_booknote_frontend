@@ -26,7 +26,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { DASHBOARD, LOGIN, CASHIER, PRODUCT } from "@/route";
+import { LOGIN, CASHIER, PRODUCT, ORDER } from "@/route";
 import { useThemeStore } from "@/store";
 import {
   Calculator,
@@ -39,6 +39,7 @@ import {
   PanelLeft,
   Search,
   Settings,
+  ShoppingBag,
   ShoppingCart,
   Sun,
   Users2,
@@ -71,18 +72,18 @@ const Layout: FC<Props> = ({ children }) => {
       <aside className="fixed inset-y-0 left-0 z-30 hidden w-14 flex-col border-r bg-background sm:flex items-start">
         <TooltipProvider>
           <nav className="flex flex-col items-center gap-4 px-2 sm:py-5">
-            <Link
-              to={DASHBOARD}
+            <div
+              // to={DASHBOARD}
               className="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base"
             >
               <Package2 className="h-4 w-4 transition-all group-hover:scale-110" />
               <span className="sr-only">Acme Inc</span>
-            </Link>
-            <ListCustom
+            </div>
+            {/* <ListCustom
               to={DASHBOARD}
               label="Dashboard"
               children={<Home className="h-5 w-5" />}
-            />
+            /> */}
             <ListCustom
               to={CASHIER}
               label="Cashier"
@@ -94,9 +95,9 @@ const Layout: FC<Props> = ({ children }) => {
               children={<Package className="h-5 w-5" />}
             />
             <ListCustom
-              to="/customers"
-              label="Customers"
-              children={<Users2 className="h-5 w-5" />}
+              to={ORDER}
+              label="Orders"
+              children={<ShoppingBag className="h-5 w-5" />}
             />
             <ListCustom
               to="/analytics"
