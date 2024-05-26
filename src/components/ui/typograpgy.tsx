@@ -59,7 +59,7 @@ export const TypographyH4: FC<TypographyProps> = ({ children, className }) => {
 
 export const TypographyP: FC<TypographyProps> = ({ children, className }) => {
   return (
-    <p className={cn("leading-7 [&:not(:first-child)]:mt-6", className)}>
+    <p className={cn("leading-7 [&:not(:first-child)]:mt-2", className)}>
       {children || ""}
     </p>
   );

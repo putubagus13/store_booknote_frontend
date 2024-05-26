@@ -26,7 +26,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { LOGIN, CASHIER, PRODUCT, ORDER } from "@/route";
+import { LOGIN, CASHIER, PRODUCT, ORDER, ANALYTIC } from "@/route";
 import { useThemeStore } from "@/store";
 import {
   Calculator,
@@ -100,7 +100,7 @@ const Layout: FC<Props> = ({ children }) => {
               children={<ShoppingBag className="h-5 w-5" />}
             />
             <ListCustom
-              to="/analytics"
+              to={ANALYTIC}
               label="Analytics"
               children={<LineChart className="h-5 w-5" />}
             />

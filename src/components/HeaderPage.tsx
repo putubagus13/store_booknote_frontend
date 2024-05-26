@@ -24,8 +24,12 @@ const HeaderPage: FC<Props> = ({
       <CardHeader>
         <div className="flex justify-between w-full items-center">
           <div>
-            <TypographyH1 className="lg:text-4xl">{label}</TypographyH1>
-            <CardDescription className="pt-2">{description}</CardDescription>
+            <TypographyH1 className="lg:text-4xl dark:text-primary">
+              {label}
+            </TypographyH1>
+            <CardDescription className="pt-2 dark:text-white">
+              {description}
+            </CardDescription>
           </div>
           {onClick && (
             <Button onClick={onClick} size="sm" className="gap-2">
@@ -37,7 +41,7 @@ const HeaderPage: FC<Props> = ({
         <Separator className="my-4" />
       </CardHeader>
       <CardContent
-        className={`w-full h-full sm:overflow-auto md:${
+        className={`w-full h-full bg-gray-500/10 pt-2 sm:overflow-auto md:${
           overflow ? "overflow-auto" : "overflow-hidden"
         }`}
       >
