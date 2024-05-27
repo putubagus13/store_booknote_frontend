@@ -16,12 +16,12 @@ const Analytic: FC = () => {
     <>
       <Helmet title="Squirrel - Analytic" />
       <HeaderPage label="Analytic">
-        <div className="flex flex-col w-full mb-4">
-          <TypographyP className="font-semibold">Timeframe :</TypographyP>
-          <DatePickerWithRange />
-        </div>
-        <div className="flex flex-col xl:flex-row gap-4">
+        <div className="flex flex-col xl:flex-row gap-4 h-full]">
           <div className="flex flex-col gap-4 w-full xl:w-1/2">
+            <div className="flex flex-col w-full h-auto">
+              <TypographyP className="font-semibold">Timeframe :</TypographyP>
+              <DatePickerWithRange />
+            </div>
             <div className="flex gap-4">
               <CardValue
                 label="Minggu Ini"
@@ -38,7 +38,7 @@ const Analytic: FC = () => {
             </div>
             <ChartData />
           </div>
-          <div className="w-full">
+          <div className="w-full h-full">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between">
                 <TypographyH3 className="text-[20px]">
