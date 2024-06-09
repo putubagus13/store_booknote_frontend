@@ -16,7 +16,7 @@ import CardProduct from "@/components/CardProduct";
 import { Input } from "@/components/ui/input";
 import { IDataProduct } from "@/models/product";
 import { dataProduct as data } from "@/utils/damiData";
-import { FC } from "react";
+import { FC, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -26,16 +26,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import FormAdddProduct from "./components/FormAddProfuct";
-
-const emptyDataStype = (data: IDataProduct[]) => {
-  if (data.length > 0) {
-    return `grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 
-    xl:grid-cols-6 2xl:grid-cols-8 gap-6 w-full h-full bg-inherit shadow-inner 
-    p-4 rounded-md overflow-y-scroll scrollbar-hide`;
-  } else {
-    return "flex items-center justify-center w-full h-full";
-  }
-};
+import FormEditProduct from "./components/FormEditProduct";
 
 const ModalAddProduct: FC = () => {
   return (
@@ -63,6 +54,26 @@ export default function Product() {
   // const handleAddProduct = () => {
   //   console.log("add product");
   // };
+  const [editProduct, setEditProduct] = useState<boolean>(false);
+
+  const emptyDataStype = (data: IDataProduct[]) => {
+    if (data.length > 0) {
+      return `grid ${
+        editProduct
+          ? "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-5"
+          : "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8"
+      }
+      gap-6 w-full h-full bg-inherit shadow-inner 
+      p-4 rounded-md overflow-y-scroll scrollbar-hide`;
+    } else {
+      return "flex items-center justify-center w-full h-full";
+    }
+  };
+
+  const onEditproduct = () => {
+    setEditProduct(true);
+  };
+
   return (
     <HeaderPage
       // onClick={handleAddProduct}
@@ -72,8 +83,8 @@ export default function Product() {
       modalComponent={<ModalAddProduct />}
       // overflow
     >
-      <div className="flex flex-col md:flex-row w-full h-full gap-2 md:gap-0">
-        <Card id="nav-category" className="w-full md:w-[250px] h-max">
+      <div className="flex flex-col lg:flex-row w-full lg:h-full gap-2 md:gap-0">
+        <Card id="nav-category" className="w-full md:w-[200px] h-max">
           <CardHeader className="flex flex-row items-center justify-between rounded-md bg-accent">
             {/* #######################  LIST CATEGORY  ############################## */}
             <TypographyH4>Kategory</TypographyH4>
@@ -100,7 +111,7 @@ export default function Product() {
           orientation="vertical"
           className="mx-4 hidden md:block h-[80%]"
         />
-        <div className="flex w-full h-full flex-col gap-4">
+        <div className="flex flex-1 w-full h-full flex-col gap-4">
           {/* ############################  FILTER  ################################# */}
           <div className="flex w-full items-center gap-10">
             <div className="flex gap-2">
@@ -131,6 +142,7 @@ export default function Product() {
                 return (
                   <CardProduct
                     key={item.id}
+                    onClick={onEditproduct}
                     name={item.name}
                     price={item.price}
                     image={item.image}
@@ -155,6 +167,16 @@ export default function Product() {
             )}
           </div>
         </div>
+
+        {editProduct && (
+          <>
+            <Separator
+              orientation="vertical"
+              className="mx-4 hidden md:block h-[80%]"
+            />
+            <FormEditProduct onClose={() => setEditProduct(false)} />
+          </>
+        )}
       </div>
     </HeaderPage>
   );

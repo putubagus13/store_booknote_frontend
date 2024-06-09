@@ -12,6 +12,7 @@ import {
 import { FC, useState } from "react";
 import MultipleSelector, { Option } from "@/components/ui/multiple-selector";
 import { Button } from "@/components/ui/button";
+import { TypographyH3 } from "@/components/ui/typograpgy";
 // import { conversion } from "@/utils/general";
 
 const OPTIONS: Option[] = [
@@ -26,13 +27,20 @@ const OPTIONS: Option[] = [
   },
 ];
 
-const FormAddProduct: FC = () => {
+interface Props {
+  onClose?: () => void;
+}
+
+const FormEditProduct: FC<Props> = ({ onClose }) => {
   const [selected, setSelected] = useState<Option[]>([]);
 
   console.log(selected);
 
   return (
-    <Card>
+    <Card className="w-full md:w-[400px]">
+      <CardHeader>
+        <TypographyH3>Edit Produk</TypographyH3>
+      </CardHeader>
       <CardContent className="pt-5 overflow-auto scrollbar-hide">
         <form className="flex flex-col gap-5 h-[500px]">
           <div className="flex flex-col gap-2">
@@ -118,11 +126,14 @@ const FormAddProduct: FC = () => {
               />
             </CardContent>
           </Card>
-          <Button>Tambah Produk</Button>
+          <Button type="submit">Tambah Produk</Button>
+          <Button onClick={onClose} variant="outline">
+            Close
+          </Button>
         </form>
       </CardContent>
     </Card>
   );
 };
 
-export default FormAddProduct;
+export default FormEditProduct;
