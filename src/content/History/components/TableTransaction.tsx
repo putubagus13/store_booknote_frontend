@@ -16,7 +16,7 @@ import { FC } from "react";
 
 const TableTrransaction: FC = () => {
   return (
-    <div className="h-[710px] overflow-auto">
+    <div className="h-[710px] overflow-auto scrollbar-hide">
       <Table className="w-full mt-4">
         <TableCaption>A list of your recent invoices.</TableCaption>
 

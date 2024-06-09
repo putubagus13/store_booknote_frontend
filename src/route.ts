@@ -7,3 +7,5 @@ export const PRODUCT = "/product";
 export const CASHIER = "/";
 export const ORDER = "/order";
 export const ANALYTIC = "/analytic";
+export const SETTING = "/setting";
+export const HISTORY = "/history";

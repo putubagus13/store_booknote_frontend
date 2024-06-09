@@ -3,13 +3,8 @@ import { FC } from "react";
 import { Helmet } from "react-helmet-async";
 import CardValue from "./components/CardValue";
 import ChartData from "./components/Chart";
-import TableTrransaction from "./components/TableTransaction";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { TypographyH3, TypographyP } from "@/components/ui/typograpgy";
-import { Search } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import FilterSearch from "./components/FilterSearch";
 import DatePickerWithRange from "@/components/DatePickerWithRange";
+import { TypographyP } from "@/components/ui/typograpgy";
 
 const Analytic: FC = () => {
   return (
@@ -17,7 +12,7 @@ const Analytic: FC = () => {
       <Helmet title="Squirrel - Analytic" />
       <HeaderPage label="Analytic">
         <div className="flex flex-col xl:flex-row gap-4 h-full]">
-          <div className="flex flex-col gap-4 w-full xl:w-1/2">
+          <div className="flex flex-col gap-4 w-full">
             <div className="flex flex-col w-full h-auto">
               <TypographyP className="font-semibold">Timeframe :</TypographyP>
               <DatePickerWithRange />
@@ -35,31 +30,23 @@ const Analytic: FC = () => {
                 percentage={-25}
                 description="dari bulain sebelumnya"
               />
+              <CardValue
+                label="Bulain Ini"
+                values={200000}
+                percentage={-25}
+                description="dari bulain sebelumnya"
+              />
+              <CardValue
+                label="Bulain Ini"
+                values={200000}
+                percentage={-25}
+                description="dari bulain sebelumnya"
+              />
             </div>
-            <ChartData />
-          </div>
-          <div className="w-full h-full">
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between">
-                <TypographyH3 className="text-[20px]">
-                  Riwayat Transaksi
-                </TypographyH3>
-                <div className="flex gap-2">
-                  <FilterSearch />
-                  <div className="relative ml-auto flex-1 md:grow-0">
-                    <Search className="absolute left-2.5 top-3 h-4 w-4 text-muted-foreground" />
-                    <Input
-                      type="search"
-                      placeholder="Cari..."
-                      className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[336px]"
-                    />
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <TableTrransaction />
-              </CardContent>
-            </Card>
+            <div className="w-full flex gap-4">
+              <ChartData label="Grafik Penjualan" />
+              <ChartData label="Top Produk" />
+            </div>
           </div>
         </div>
       </HeaderPage>

@@ -26,11 +26,20 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { LOGIN, CASHIER, PRODUCT, ORDER, ANALYTIC } from "@/route";
+import {
+  LOGIN,
+  CASHIER,
+  PRODUCT,
+  // ORDER,
+  ANALYTIC,
+  SETTING,
+  HISTORY,
+} from "@/route";
 import { useThemeStore } from "@/store";
 import {
   Calculator,
   CircleUser,
+  History,
   Home,
   LineChart,
   Moon,
@@ -39,8 +48,8 @@ import {
   PanelLeft,
   Search,
   Settings,
-  ShoppingBag,
-  ShoppingCart,
+  // ShoppingBag,
+  // ShoppingCart,
   Sun,
   Users2,
 } from "lucide-react";
@@ -94,15 +103,20 @@ const Layout: FC<Props> = ({ children }) => {
               label="Products"
               children={<Package className="h-5 w-5" />}
             />
-            <ListCustom
+            {/* <ListCustom
               to={ORDER}
               label="Orders"
               children={<ShoppingBag className="h-5 w-5" />}
-            />
+            /> */}
             <ListCustom
               to={ANALYTIC}
               label="Analytics"
               children={<LineChart className="h-5 w-5" />}
+            />
+            <ListCustom
+              to={HISTORY}
+              label="Histories"
+              children={<History className="h-5 w-5" />}
             />
           </nav>
           <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
@@ -116,7 +130,7 @@ const Layout: FC<Props> = ({ children }) => {
               <TooltipContent side="right">Theme</TooltipContent>
             </Tooltip>
             <ListCustom
-              to="#"
+              to={SETTING}
               label="Settings"
               children={<Settings className="h-5 w-5" />}
             />
@@ -148,13 +162,13 @@ const Layout: FC<Props> = ({ children }) => {
                   <Home className="h-5 w-5" />
                   Dashboard
                 </Link>
-                <Link
+                {/* <Link
                   to="#"
                   className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
                 >
                   <ShoppingCart className="h-5 w-5" />
                   Orders
-                </Link>
+                </Link> */}
                 <Link
                   to="#"
                   className="flex items-center gap-4 px-2.5 text-foreground"

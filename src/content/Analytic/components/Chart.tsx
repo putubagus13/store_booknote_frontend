@@ -3,7 +3,11 @@ import { TypographyH3 } from "@/components/ui/typograpgy";
 import { FC } from "react";
 import Chart from "react-apexcharts";
 
-const ChartData: FC = () => {
+interface Props {
+  label: string;
+}
+
+const ChartData: FC<Props> = ({ label }) => {
   const state = {
     options: {
       chart: {
@@ -27,7 +31,7 @@ const ChartData: FC = () => {
   return (
     <Card className="w-full">
       <CardHeader>
-        <TypographyH3 className="text-[20px]">Grafik Penjualan</TypographyH3>
+        <TypographyH3 className="text-[20px]">{label}</TypographyH3>
       </CardHeader>
       <CardContent>
         <Chart

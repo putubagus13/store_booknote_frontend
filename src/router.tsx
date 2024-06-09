@@ -26,9 +26,13 @@ const Product = Loader(React.lazy(() => import("./content/Product")));
 
 const Cashier = Loader(React.lazy(() => import("./content/Cashier/index.tsx")));
 
-const Order = Loader(React.lazy(() => import("./content/Order")));
+// const Order = Loader(React.lazy(() => import("./content/Order")));
 
 const Analytic = Loader(React.lazy(() => import("./content/Analytic")));
+
+const Setting = Loader(React.lazy(() => import("./content/Setting")));
+
+const History = Loader(React.lazy(() => import("./content/History")));
 
 const routes = (): RouteObject[] => [
   {
@@ -44,13 +48,21 @@ const routes = (): RouteObject[] => [
         element: <Product />,
       },
 
-      {
-        path: "order",
-        element: <Order />,
-      },
+      // {
+      //   path: "order",
+      //   element: <Order />,
+      // },
       {
         path: "analytic",
         element: <Analytic />,
+      },
+      {
+        path: "setting",
+        element: <Setting />,
+      },
+      {
+        path: "history",
+        element: <History />,
       },
     ],
   },
