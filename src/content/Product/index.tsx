@@ -1,12 +1,12 @@
 import HeaderPage from "@/components/HeaderPage";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+// import {
+//   Tooltip,
+//   TooltipContent,
+//   TooltipProvider,
+//   TooltipTrigger,
+// } from "@/components/ui/tooltip";
 import { TypographyH4 } from "@/components/ui/typograpgy";
 // import { Separator } from "@radix-ui/react-dropdown-menu";
 import { Plus, Search } from "lucide-react";
@@ -77,7 +77,7 @@ export default function Product() {
           <CardHeader className="flex flex-row items-center justify-between rounded-md bg-accent">
             {/* #######################  LIST CATEGORY  ############################## */}
             <TypographyH4>Kategory</TypographyH4>
-            <TooltipProvider>
+            {/* <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
@@ -90,7 +90,7 @@ export default function Product() {
                 </TooltipTrigger>
                 <TooltipContent side="right">Tambah kategory</TooltipContent>
               </Tooltip>
-            </TooltipProvider>
+            </TooltipProvider> */}
           </CardHeader>
           <CardContent className="p-1">
             <ListCategory />

@@ -1,4 +1,4 @@
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/select";
 import { FC, useState } from "react";
 import MultipleSelector, { Option } from "@/components/ui/multiple-selector";
+import { Button } from "@/components/ui/button";
 // import { conversion } from "@/utils/general";
 
 const OPTIONS: Option[] = [
@@ -32,8 +33,8 @@ const FormAdddProduct: FC = () => {
 
   return (
     <Card>
-      <CardContent className="pt-5">
-        <form className="flex flex-col gap-5">
+      <CardContent className="pt-5 overflow-auto">
+        <form className="flex flex-col gap-5 h-[500px]">
           <div className="flex flex-col gap-2">
             <Label>Nama Produk</Label>
             <Input
@@ -57,8 +58,8 @@ const FormAdddProduct: FC = () => {
             <div className="flex flex-col gap-2 w-24">
               <Label>Satuan</Label>
               <Select>
-                <SelectTrigger className="">
-                  <SelectValue />
+                <SelectTrigger>
+                  <SelectValue placeholder="Pilih satuan" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
@@ -108,6 +109,16 @@ const FormAdddProduct: FC = () => {
               touched
             />
           </div>
+          <Card>
+            <CardHeader>Preview</CardHeader>
+            <CardContent className="w-full h-[250px] overflow-hidden">
+              <img
+                src="https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg"
+                className="object-cover h-full w-full"
+              />
+            </CardContent>
+          </Card>
+          <Button>Tambah Produk</Button>
         </form>
       </CardContent>
     </Card>
