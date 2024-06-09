@@ -11,6 +11,8 @@ interface Props {
   description?: string;
   onClick?: () => void;
   overflow?: boolean;
+  modalComponent?: React.ReactNode;
+  buttonLable?: string;
 }
 const HeaderPage: FC<Props> = ({
   children,
@@ -18,6 +20,8 @@ const HeaderPage: FC<Props> = ({
   description,
   onClick,
   overflow,
+  modalComponent,
+  buttonLable,
 }) => {
   return (
     <Card className="flex flex-col w-full h-full pt-6">
@@ -34,9 +38,10 @@ const HeaderPage: FC<Props> = ({
           {onClick && (
             <Button onClick={onClick} size="sm" className="gap-2">
               <Plus size={18} />
-              Produk
+              {buttonLable ?? "Tambah"}
             </Button>
           )}
+          {modalComponent && modalComponent}
         </div>
         <Separator className="my-4" />
       </CardHeader>

@@ -16,6 +16,16 @@ import CardProduct from "@/components/CardProduct";
 import { Input } from "@/components/ui/input";
 import { IDataProduct } from "@/models/product";
 import { dataProduct as data } from "@/utils/damiData";
+import { FC } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import FormAdddProduct from "./components/FormAddProfuct";
 
 const emptyDataStype = (data: IDataProduct[]) => {
   if (data.length > 0) {
@@ -27,15 +37,39 @@ const emptyDataStype = (data: IDataProduct[]) => {
   }
 };
 
+const ModalAddProduct: FC = () => {
+  return (
+    <Dialog>
+      <DialogTrigger>
+        <Button size="sm" className="gap-2">
+          <Plus size={18} />
+          Tambah Produk
+        </Button>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Produk Baru</DialogTitle>
+          <DialogDescription>
+            Isi data produk yang ingin ditambahkan
+          </DialogDescription>
+        </DialogHeader>
+        <FormAdddProduct />
+      </DialogContent>
+    </Dialog>
+  );
+};
+
 export default function Product() {
-  const handleAddProduct = () => {
-    console.log("add product");
-  };
+  // const handleAddProduct = () => {
+  //   console.log("add product");
+  // };
   return (
     <HeaderPage
-      onClick={handleAddProduct}
+      // onClick={handleAddProduct}
       label="Product"
       description="Kelola produkmu disini"
+      // buttonLable="Tambah Produk"
+      modalComponent={<ModalAddProduct />}
       // overflow
     >
       <div className="flex flex-col md:flex-row w-full h-full gap-2 md:gap-0">
