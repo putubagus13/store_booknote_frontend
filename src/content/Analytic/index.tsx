@@ -19,25 +19,29 @@ const Analytic: FC = () => {
             </div>
             <div className="flex gap-4">
               <CardValue
-                label="Minggu Ini"
+                label="Penjualan"
+                timeLabel="Minggu Ini"
                 values={200000}
                 percentage={25}
                 description="dari minggu sebelumnya"
               />
               <CardValue
-                label="Bulain Ini"
+                label="Penjualan"
+                timeLabel="Bulain Ini"
                 values={200000}
                 percentage={-25}
                 description="dari bulain sebelumnya"
               />
               <CardValue
-                label="Bulain Ini"
+                label="Top Produk"
+                timeLabel="Bulain Ini"
                 values={200000}
                 percentage={-25}
                 description="dari bulain sebelumnya"
               />
               <CardValue
-                label="Bulain Ini"
+                label="Top Produk"
+                timeLabel="Bulain Ini"
                 values={200000}
                 percentage={-25}
                 description="dari bulain sebelumnya"
