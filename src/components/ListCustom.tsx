@@ -11,7 +11,7 @@ interface Props {
 
 const ListCustom: FC<Props> = ({ label, children, to }) => {
   const path = window.location.pathname;
-  const isActive = path.includes(to);
+  const isActive = path == to;
   return (
     <>
       <Tooltip>
