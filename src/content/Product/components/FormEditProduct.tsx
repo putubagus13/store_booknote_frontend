@@ -13,6 +13,7 @@ import { FC, useState } from "react";
 import MultipleSelector, { Option } from "@/components/ui/multiple-selector";
 import { Button } from "@/components/ui/button";
 import { TypographyH3 } from "@/components/ui/typograpgy";
+import { ArrowLeft } from "lucide-react";
 // import { conversion } from "@/utils/general";
 
 const OPTIONS: Option[] = [
@@ -38,11 +39,24 @@ const FormEditProduct: FC<Props> = ({ onClose }) => {
 
   return (
     <Card className="w-full md:w-[400px]">
-      <CardHeader>
-        <TypographyH3>Edit Produk</TypographyH3>
+      <CardHeader className="flex">
+        <TypographyH3 className="flex gap-4 items-center">
+          <Button onClick={onClose} size="icon" className="rounded-full">
+            <ArrowLeft size={18} />
+          </Button>
+          Edit Produk
+        </TypographyH3>
       </CardHeader>
       <CardContent className="pt-5 overflow-auto scrollbar-hide">
         <form className="flex flex-col gap-5 h-[500px]">
+          <Card className="mb-4">
+            <CardContent className="w-full h-[250px] overflow-hidden p-1">
+              <img
+                src="https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg"
+                className="object-cover h-full w-full rounded-sm"
+              />
+            </CardContent>
+          </Card>
           <div className="flex flex-col gap-2">
             <Label>Nama Produk</Label>
             <Input
@@ -117,15 +131,7 @@ const FormEditProduct: FC<Props> = ({ onClose }) => {
               touched
             />
           </div>
-          <Card>
-            <CardHeader>Preview</CardHeader>
-            <CardContent className="w-full h-[250px] overflow-hidden">
-              <img
-                src="https://brunchcafe.com/wp-content/uploads/2020/12/IMG_2127.jpeg"
-                className="object-cover h-full w-full"
-              />
-            </CardContent>
-          </Card>
+
           <Button type="submit">Tambah Produk</Button>
           <Button onClick={onClose} variant="outline">
             Close
