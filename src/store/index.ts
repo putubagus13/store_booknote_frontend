@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { iThameSelection } from "./store.inteface";
+import { ITokenVerivication, iThameSelection } from "./store.inteface";
 import { Theme } from "@/components/theme-provider";
 
 export const useThemeStore = create<iThameSelection>()((set) => ({
@@ -10,5 +10,12 @@ export const useThemeStore = create<iThameSelection>()((set) => ({
         defaultTheme: theme ? theme : state.defaultTheme,
       };
     });
+  },
+}));
+
+export const useTokenStore = create<ITokenVerivication>((set) => ({
+  token: "",
+  setToken: (e: string) => {
+    set({ token: e });
   },
 }));
