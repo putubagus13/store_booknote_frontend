@@ -10,7 +10,6 @@ import {
 } from "./ui/alert-dialog";
 import SuccessIcon from "@assets/successIcon.svg";
 import ErrorIcon from "@assets/errorIcon.svg";
-import { AlertDialogAction } from "@radix-ui/react-alert-dialog";
 import { Button } from "./ui/button";
 
 interface PropsAlertSuccess {
