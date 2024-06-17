@@ -37,6 +37,7 @@ import {
   HISTORY,
 } from "@/route";
 import { useAuthenticatedStore, useThemeStore } from "@/store";
+import { capitalizeFirstLetter } from "@/utils/general";
 import {
   Calculator,
   CircleUser,
@@ -62,6 +63,8 @@ interface Props {
 
 const Layout: FC<Props> = ({ children }) => {
   let themeStorage = localStorage.getItem("vite-ui-theme") as Theme;
+  const path = window.location.pathname;
+  const splitPath = path.split("/");
 
   const { data } = useProfile();
   const { setUserProfile } = useAuthenticatedStore();
@@ -232,7 +235,11 @@ const Layout: FC<Props> = ({ children }) => {
               <BreadcrumbSeparator />
               <BreadcrumbItem>
                 <BreadcrumbPage>
-                  <Link to="/product">Products</Link>
+                  <Link to={path}>
+                    {capitalizeFirstLetter(
+                      splitPath[1] == "" ? "cashier" : splitPath[1]
+                    )}
+                  </Link>
                 </BreadcrumbPage>
               </BreadcrumbItem>
               {/* <BreadcrumbSeparator /> */}
@@ -260,13 +267,23 @@ const Layout: FC<Props> = ({ children }) => {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuLabel>Akun Saya</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Settings</DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link to={SETTING}>Setting</Link>
+              </DropdownMenuItem>
               <DropdownMenuItem>Support</DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
-                <Link to={LOGIN}>Logout</Link>
+                <Button
+                  onClick={() => {
+                    localStorage.removeItem("token");
+                    window.location.href = LOGIN;
+                  }}
+                  className="w-full bg-destructive hover:bg-destructive"
+                >
+                  Keluar
+                </Button>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

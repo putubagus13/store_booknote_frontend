@@ -1,3 +1,4 @@
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -10,6 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuthenticatedStore } from "@/store";
+import { PencilLine } from "lucide-react";
 import { FC } from "react";
 
 const FormAccount: FC = () => {
@@ -25,6 +27,29 @@ const FormAccount: FC = () => {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-2 w-full md:max-w-md">
+          <Avatar className="relative h-16 w-16 group cursor-pointer">
+            <AvatarImage
+              className="group-hover:blur-sm"
+              src={userProfile.imageUrl || ""}
+              alt="@shadcn"
+            />
+            <AvatarFallback className="group-hover:blur-sm">
+              {userProfile.fullname[0].toUpperCase() || "N/A"}
+            </AvatarFallback>
+            <label
+              htmlFor="changeProfile"
+              className="absolute -top-10 group-hover:top-5 left-5 duration-150 cursor-pointer"
+            >
+              <PencilLine />
+              <input
+                id="changeProfile"
+                type="file"
+                accept="image/*"
+                className="hidden absolute"
+              />
+            </label>
+          </Avatar>
+
           <div className="space-y-1">
             <Label>Name</Label>
             <Input

@@ -46,7 +46,7 @@ const HeaderPage: FC<Props> = ({
         <Separator className="my-4" />
       </CardHeader>
       <CardContent
-        className={`w-full h-full bg-gray-500/10 pt-2 sm:overflow-auto md:${
+        className={`w-full h-full bg-gray-500/10 pt-2 scrollbar-hide sm:overflow-auto md:${
           overflow ? "overflow-auto" : "overflow-hidden"
         }`}
       >
