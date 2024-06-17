@@ -9,3 +9,16 @@ export interface ITokenVerivication {
   token: string;
   setToken: (e: string) => void;
 }
+
+export interface IUserProfile {
+  userId: string;
+  fullname: string;
+  imageUrl: string | null;
+  phoneNumber: string | null;
+  email: string;
+}
+
+export interface ISession {
+  userProfile: IUserProfile;
+  setUserProfile: (payload: IUserProfile) => void;
+}

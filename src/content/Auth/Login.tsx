@@ -8,14 +8,41 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { FC, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { FcGoogle } from "react-icons/fc";
 import { FaApple } from "react-icons/fa";
+import { useFormik } from "formik";
+import { IPayloadLogin } from "@/models/auth";
+import * as Yup from "yup";
+import { useLogin } from "@/api/useAuth";
+import { LoaderIcon } from "lucide-react";
+
+const validationSchema = Yup.object().shape({
+  email: Yup.string().email("email tidak valid").required("email wajib diisi"),
+  password: Yup.string().required("password wajib diisi"),
+});
 
 const Login: FC = () => {
-  const navigate = useNavigate();
-  const [email, setEmail] = useState<string>("");
+  const [errorMessages, setErrorMessages] = useState<string>("");
+
+  const { mutate, isPending } = useLogin({
+    onError: (error: any) => {
+      setErrorMessages(error.response.data.message);
+    },
+  });
+
+  const { values, errors, touched, handleSubmit, handleChange } =
+    useFormik<IPayloadLogin>({
+      initialValues: {
+        email: "",
+        password: "",
+      },
+      validationSchema,
+      onSubmit: (values) => {
+        mutate(values);
+      },
+    });
   return (
     <>
       <Helmet title="Squirrel - Login" />
@@ -29,22 +56,32 @@ const Login: FC = () => {
             Selamat datang! Ayo masuk atau daftar untuk menikmati semua fitur
             yang tersedia.
           </CardDescription>
-          <form action="" className="flex flex-col gap-4">
+          <CardDescription className="text-destructive font-semibold">
+            {errorMessages ? errorMessages : ""}
+          </CardDescription>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <div className="flex flex-col gap-3">
               <Input
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={handleChange}
                 label="Email"
                 type="email"
                 id="email"
+                name="email"
                 placeholder="name@mail.com"
-                errors={email}
-                touched
+                errors={errors.email}
+                touched={touched.email}
+                value={values.email}
               />
               <Input
                 label="Password"
+                onChange={handleChange}
                 type="password"
                 id="password"
+                name="password"
                 placeholder="password"
+                value={values.password}
+                errors={errors.password}
+                touched={touched.password}
               />
             </div>
             <div className="text-right w-full">
@@ -53,13 +90,14 @@ const Login: FC = () => {
               </CardDescription>
             </div>
             <div className="w-full flex justify-center">
-              <Button
-                size="lg"
-                type="submit"
-                className="rounded-lg bg-accent-foreground"
-                onClick={() => navigate("/")}
-              >
-                Masuk
+              <Button size="lg" type="submit">
+                {isPending ? (
+                  <span className="flex gap-1 items-center">
+                    <LoaderIcon className="animate-spin" /> Proses..
+                  </span>
+                ) : (
+                  "Masuk"
+                )}
               </Button>
             </div>
           </form>

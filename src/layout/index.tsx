@@ -1,4 +1,5 @@
 // import Dropdown from "@/components/Dropdownl";
+import { useProfile } from "@/api/useAuth";
 import ListCustom from "@/components/ListCustom";
 import { Theme } from "@/components/theme-provider";
 import {
@@ -35,7 +36,7 @@ import {
   SETTING,
   HISTORY,
 } from "@/route";
-import { useThemeStore } from "@/store";
+import { useAuthenticatedStore, useThemeStore } from "@/store";
 import {
   Calculator,
   CircleUser,
@@ -48,8 +49,6 @@ import {
   PanelLeft,
   Search,
   Settings,
-  // ShoppingBag,
-  // ShoppingCart,
   Sun,
   Users2,
 } from "lucide-react";
@@ -62,6 +61,9 @@ interface Props {
 
 const Layout: FC<Props> = ({ children }) => {
   let themeStorage = localStorage.getItem("vite-ui-theme") as Theme;
+
+  const { data } = useProfile();
+  const { setUserProfile } = useAuthenticatedStore();
   const [theme, setTheme] = useState<Theme>(themeStorage);
 
   const selectedTheme = useThemeStore((state) => state.selectedTheme);
@@ -76,6 +78,18 @@ const Layout: FC<Props> = ({ children }) => {
   useEffect(() => {
     themeStorage = localStorage.getItem("vite-ui-theme") as Theme;
   }, [handleSwitchSelect]);
+
+  useEffect(() => {
+    data;
+    setUserProfile({
+      userId: data?.data?.userId || "",
+      fullname: data?.data?.fullname || "",
+      imageUrl: data?.data?.imageUrl || "",
+      phoneNumber: data?.data?.phoneNumber || "",
+      email: data?.data?.email || "",
+    });
+  }, [data]);
+
   return (
     <div className="w-full md:h-screen flex justify-center items-center bg-background">
       <aside className="fixed inset-y-0 left-0 z-30 hidden w-14 flex-col border-r bg-background sm:flex items-start">

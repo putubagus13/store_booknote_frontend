@@ -7,11 +7,16 @@ export interface IPayloadRegister {
   confirmPassword: string;
 }
 
-export interface IResRegister {
+export interface IResToken {
   token: string;
 }
 
 export interface IPayloadOtpRegister {
   codeOtp: string;
   token: string;
+}
+
+export interface IPayloadLogin {
+  email: string;
+  password: string;
 }

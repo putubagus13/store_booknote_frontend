@@ -1,5 +1,15 @@
-import React, { Suspense } from "react";
-import { RouteObject } from "react-router-dom";
+import React, { FC, Suspense } from "react";
+import { Navigate, RouteObject } from "react-router-dom";
+import { LOGIN } from "./route.ts";
+
+interface IProtectedRouter {
+  Auth: boolean;
+  children: React.ReactNode;
+}
+
+const ProtectedRouter: FC<IProtectedRouter> = ({ Auth, children }) => {
+  return Auth ? <div>{children}</div> : <Navigate to={LOGIN} />;
+};
 
 const Loader = (_Component: any) => (_props: any) =>
   (
@@ -34,10 +44,14 @@ const Setting = Loader(React.lazy(() => import("./content/Setting")));
 
 const History = Loader(React.lazy(() => import("./content/History")));
 
-const routes = (): RouteObject[] => [
+const routes = (isAuthenticated: boolean): RouteObject[] => [
   {
     path: "/",
-    element: <Layout />,
+    element: (
+      <ProtectedRouter Auth={isAuthenticated}>
+        <Layout />
+      </ProtectedRouter>
+    ),
     children: [
       {
         path: "",

@@ -8,8 +8,8 @@ export interface IBaseResponse<T> {
 }
 
 export interface IStatusResponse {
-  onSuccess: (e) => void;
-  onError: (e: AxiosError) => void;
+  onSuccess?: (e) => void;
+  onError?: (e: AxiosError) => void;
 }
 
 export interface ITampalteResponse {

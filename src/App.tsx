@@ -5,7 +5,9 @@ import { Theme, ThemeProvider } from "./components/theme-provider";
 const queryClient = new QueryClient();
 
 function App() {
-  const content = useRoutes(routes());
+  const isAuthenticated = window.localStorage.getItem("token") ? true : false;
+
+  const content = useRoutes(routes(isAuthenticated));
   const defaoutTheme = localStorage.getItem("vite-ui-theme") as Theme;
 
   return (

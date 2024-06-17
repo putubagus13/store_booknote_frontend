@@ -13,6 +13,9 @@ import { Separator } from "@/components/ui/separator";
 import { FC } from "react";
 
 const FormEditStore: FC = () => {
+  const handleLogout = () => {
+    window.localStorage.removeItem("token");
+  };
   return (
     <form>
       <Card>
@@ -39,7 +42,7 @@ const FormEditStore: FC = () => {
             <Button variant="destructive" className="w-60">
               Hapus Akun
             </Button>
-            <Button variant="outline" className="w-60">
+            <Button onClick={handleLogout} variant="outline" className="w-60">
               Keluar
             </Button>
           </div>

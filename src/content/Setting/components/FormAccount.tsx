@@ -9,9 +9,11 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useAuthenticatedStore } from "@/store";
 import { FC } from "react";
 
 const FormAccount: FC = () => {
+  const { userProfile } = useAuthenticatedStore();
   return (
     <form>
       <Card>
@@ -24,11 +26,18 @@ const FormAccount: FC = () => {
         <CardContent className="space-y-2">
           <div className="space-y-1">
             <Label>Name</Label>
-            <Input id="name" defaultValue="Pedro Duarte" />
+            <Input
+              id="name"
+              defaultValue={userProfile.fullname || "Name Invalid"}
+            />
           </div>
           <div className="space-y-1">
             <Label>Email</Label>
-            <Input id="email" defaultValue="mail@peduarte.com" />
+            <Input
+              id="email"
+              disabled
+              defaultValue={userProfile.email || "email Invalid"}
+            />
           </div>
         </CardContent>
         <CardFooter>
