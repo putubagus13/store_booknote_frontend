@@ -14,6 +14,7 @@ import { FC } from "react";
 
 const FormAccount: FC = () => {
   const { userProfile } = useAuthenticatedStore();
+
   return (
     <form>
       <Card>
@@ -23,12 +24,12 @@ const FormAccount: FC = () => {
             Buat perubahan pada akun Anda di sini. Klik simpan setelah selesai.
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-2">
+        <CardContent className="space-y-2 w-full md:max-w-md">
           <div className="space-y-1">
             <Label>Name</Label>
             <Input
               id="name"
-              defaultValue={userProfile.fullname || "Name Invalid"}
+              defaultValue={userProfile.fullname || "Nama tidak ditemukan"}
             />
           </div>
           <div className="space-y-1">
@@ -36,7 +37,7 @@ const FormAccount: FC = () => {
             <Input
               id="email"
               disabled
-              defaultValue={userProfile.email || "email Invalid"}
+              defaultValue={userProfile.email || "email tidak ditemukan"}
             />
           </div>
         </CardContent>

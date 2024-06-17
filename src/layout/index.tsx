@@ -49,6 +49,7 @@ import {
   PanelLeft,
   Search,
   Settings,
+  Squirrel,
   Sun,
   Users2,
 } from "lucide-react";
@@ -81,13 +82,20 @@ const Layout: FC<Props> = ({ children }) => {
 
   useEffect(() => {
     data;
-    setUserProfile({
-      userId: data?.data?.userId || "",
-      fullname: data?.data?.fullname || "",
-      imageUrl: data?.data?.imageUrl || "",
-      phoneNumber: data?.data?.phoneNumber || "",
-      email: data?.data?.email || "",
-    });
+    if (data?.data) {
+      setUserProfile({
+        userId: data?.data?.userId || "",
+        fullname: data?.data?.fullname || "",
+        imageUrl: data?.data?.imageUrl || "",
+        phoneNumber: data?.data?.phoneNumber || "",
+        email: data?.data?.email || "",
+        storeId: data?.data?.storeId || "",
+        name: data?.data?.name || "",
+        storeImageUrl: data?.data?.storeImageUrl || "",
+        storeType: data?.data?.storeType || null,
+        storeTypeName: data?.data?.storeTypeName || "",
+      });
+    }
   }, [data]);
 
   return (
@@ -99,7 +107,7 @@ const Layout: FC<Props> = ({ children }) => {
               // to={DASHBOARD}
               className="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base"
             >
-              <Package2 className="h-4 w-4 transition-all group-hover:scale-110" />
+              <Squirrel className="h-4 w-4 transition-all group-hover:scale-110" />
               <span className="sr-only">Acme Inc</span>
             </div>
             {/* <ListCustom

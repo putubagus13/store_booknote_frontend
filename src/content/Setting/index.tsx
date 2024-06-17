@@ -12,7 +12,7 @@ const Setting: FC = () => {
       <Helmet title="Squirrel - Setting" />
       <HeaderPage label={"Setting"}>
         <div className="h-full flex flex-col items-center w-full gap-2 pt-20">
-          <Tabs defaultValue="3" className="w-[400px]">
+          <Tabs defaultValue="3" className="w-[60%]">
             <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="1">Akun</TabsTrigger>
               <TabsTrigger value="2">Password</TabsTrigger>

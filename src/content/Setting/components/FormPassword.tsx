@@ -21,7 +21,7 @@ const FormPassword: FC = () => {
             Ubah kata sandi Anda di sini. Setelah menyimpan, Anda akan logout.
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-2">
+        <CardContent className="space-y-2  w-full md:max-w-md">
           <div className="space-y-1">
             <Label>Password Saat Ini</Label>
             <Input id="current" type="password" />

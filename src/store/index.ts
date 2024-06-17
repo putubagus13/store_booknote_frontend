@@ -32,6 +32,11 @@ export const useAuthenticatedStore = create<ISession>((set) => ({
     imageUrl: "",
     phoneNumber: "",
     email: "",
+    storeId: "",
+    name: "",
+    storeImageUrl: "",
+    storeType: null,
+    storeTypeName: "",
   },
   setUserProfile: (payload: IUserProfile) => {
     set((state) => {
@@ -42,6 +47,13 @@ export const useAuthenticatedStore = create<ISession>((set) => ({
           imageUrl: payload.imageUrl || state.userProfile.imageUrl,
           phoneNumber: payload.phoneNumber || state.userProfile.phoneNumber,
           email: payload.email || state.userProfile.email,
+          storeId: payload.storeId || state.userProfile.storeId,
+          name: payload.name || state.userProfile.name,
+          storeImageUrl:
+            payload.storeImageUrl || state.userProfile.storeImageUrl,
+          storeType: payload.storeType || state.userProfile.storeType,
+          storeTypeName:
+            payload.storeTypeName || state.userProfile.storeTypeName,
         },
       };
     });

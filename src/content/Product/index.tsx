@@ -83,7 +83,7 @@ export default function Product() {
       modalComponent={<ModalAddProduct />}
       // overflow
     >
-      <div className="flex flex-col lg:flex-row w-full lg:h-full gap-2 md:gap-0">
+      <div className="flex flex-col lg:flex-row w-full lg:h-auto gap-2 md:gap-0">
         <Card id="nav-category" className="w-full md:w-[200px] h-max">
           <CardHeader className="flex flex-row items-center justify-between rounded-md bg-accent">
             {/* #######################  LIST CATEGORY  ############################## */}

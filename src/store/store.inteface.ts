@@ -16,6 +16,11 @@ export interface IUserProfile {
   imageUrl: string | null;
   phoneNumber: string | null;
   email: string;
+  storeId: string;
+  name: string;
+  storeImageUrl: string | null;
+  storeType: number | null;
+  storeTypeName: string;
 }
 
 export interface ISession {

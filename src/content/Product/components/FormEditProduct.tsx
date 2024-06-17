@@ -38,7 +38,7 @@ const FormEditProduct: FC<Props> = ({ onClose }) => {
   console.log(selected);
 
   return (
-    <Card className="w-full md:w-[400px]">
+    <Card className="w-full md:w-[400px] h-full">
       <CardHeader className="flex">
         <TypographyH3 className="flex gap-4 items-center">
           <Button onClick={onClose} size="icon" className="rounded-full">
@@ -48,7 +48,7 @@ const FormEditProduct: FC<Props> = ({ onClose }) => {
         </TypographyH3>
       </CardHeader>
       <CardContent className="pt-5 overflow-auto scrollbar-hide">
-        <form className="flex flex-col gap-5 h-[500px]">
+        <form className="flex flex-col gap-5">
           <Card className="mb-4">
             <CardContent className="w-full h-[250px] overflow-hidden p-1">
               <img
