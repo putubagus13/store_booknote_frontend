@@ -1,4 +1,4 @@
-import { useForgotPassword } from "@/api/useAuth";
+import { useResetPassword } from "@/api/useAuth";
 import { ErrorPopupAlert, SuccessPopupAlert } from "@/components/AlertPopup";
 import { Button } from "@/components/ui/button";
 import {
@@ -9,21 +9,30 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { IPayloadResetPassword } from "@/models/auth";
+import { LOGIN } from "@/route";
 import { useFormik } from "formik";
 import { LoaderIcon } from "lucide-react";
 import { FC, useState } from "react";
 import * as Yup from "yup";
 
 const validationSchema = Yup.object().shape({
-  email: Yup.string().email("Email tidak valid").required("Email wajib diisi"),
+  password: Yup.string()
+    .required("password wajib diisi")
+    .min(4, "password minimal 8 karakter"),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref("password")], "konfirmasi password tidak sesuai")
+    .required("konfirmasi password wajib diisi"),
 });
 
-const ForgotPassword: FC = () => {
+const ResetPassword: FC = () => {
   const [openModalSuccess, setOpenModalSuccess] = useState<boolean>(false);
   const [openModalError, setOpenModalError] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
 
-  const { mutate, isPending } = useForgotPassword({
+  const token = new URLSearchParams(window.location.search).get("token");
+
+  const { mutate, isPending } = useResetPassword({
     onSuccess: () => {
       setOpenModalSuccess(true);
     },
@@ -33,43 +42,52 @@ const ForgotPassword: FC = () => {
     },
   });
 
-  const { values, errors, touched, handleSubmit, handleChange } = useFormik<{
-    email: string;
-  }>({
-    initialValues: {
-      email: "",
-    },
-    validationSchema,
-    onSubmit: (values) => {
-      mutate(values.email);
-    },
-  });
+  const { values, errors, touched, handleSubmit, handleChange } =
+    useFormik<IPayloadResetPassword>({
+      initialValues: {
+        password: "",
+        confirmPassword: "",
+        token: token || "",
+      },
+      validationSchema,
+      onSubmit: (values) => {
+        mutate(values);
+      },
+    });
   return (
     <>
       <Card className="h-full w-full">
         <CardHeader className="flex flex-col gap-2">
           <CardTitle className="text-4xl font-semibold">
-            Lupa Password
+            Reset Password
           </CardTitle>
           <hr className="w-full" />
         </CardHeader>
         <CardContent className="flex flex-col gap-4">
-          <CardDescription>
-            Masukkan email anda yang sudah terdaftar untuk mendapatkan link
-            reset password.
-          </CardDescription>
+          <CardDescription>Masukkan password baru anda.</CardDescription>
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <div className="flex flex-col gap-3">
               <Input
                 onChange={handleChange}
-                label="Email"
-                type="email"
-                id="email"
-                name="email"
-                placeholder="name@mail.com"
-                errors={errors.email}
-                touched={touched.email}
-                value={values.email}
+                label="Password Baru"
+                type="password"
+                id="password"
+                name="password"
+                placeholder="masukkan password baru"
+                errors={errors.password}
+                touched={touched.password}
+                value={values.password}
+              />
+              <Input
+                onChange={handleChange}
+                label="Korfirmasi Password"
+                type="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                placeholder="konfirmasi password baru"
+                errors={errors.confirmPassword}
+                touched={touched.confirmPassword}
+                value={values.confirmPassword}
               />
             </div>
             <div className="w-full flex justify-center">
@@ -79,7 +97,7 @@ const ForgotPassword: FC = () => {
                     <LoaderIcon className="animate-spin" /> Proses..
                   </span>
                 ) : (
-                  "Kirim Permintaan"
+                  "Reset Password"
                 )}
               </Button>
             </div>
@@ -88,8 +106,11 @@ const ForgotPassword: FC = () => {
       </Card>
       <SuccessPopupAlert
         open={openModalSuccess}
-        message="Permintaan berhasil di buat. Silahkan cek pesan email"
-        onClick={() => setOpenModalSuccess(false)}
+        message="Password berhasil direset. Silahkan login."
+        onClick={() => {
+          setOpenModalSuccess(false);
+          window.location.href = LOGIN;
+        }}
       />
       <ErrorPopupAlert
         open={openModalError}
@@ -100,4 +121,4 @@ const ForgotPassword: FC = () => {
   );
 };
 
-export default ForgotPassword;
+export default ResetPassword;

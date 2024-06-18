@@ -3,6 +3,7 @@ import {
   IPayloadLogin,
   IPayloadOtpRegister,
   IPayloadRegister,
+  IPayloadResetPassword,
   IResToken,
 } from "@/models/auth";
 import {
@@ -78,5 +79,33 @@ export const useProfile = () => {
       return response.data;
     },
     refetchOnWindowFocus: false,
+  });
+};
+
+export const useForgotPassword = ({ onSuccess, onError }: IStatusResponse) => {
+  return useMutation({
+    mutationFn: async (email: string) => {
+      const response = await httpClient.post<ITampalteResponse>(
+        "/auth/user/forgot-password",
+        { email }
+      );
+      return response.data;
+    },
+    onSuccess,
+    onError,
+  });
+};
+
+export const useResetPassword = ({ onSuccess, onError }: IStatusResponse) => {
+  return useMutation({
+    mutationFn: async (payload: IPayloadResetPassword) => {
+      const response = await httpClient.put<ITampalteResponse>(
+        "/auth/user/reset-password",
+        payload
+      );
+      return response.data;
+    },
+    onSuccess,
+    onError,
   });
 };

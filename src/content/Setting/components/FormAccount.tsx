@@ -17,6 +17,11 @@ import { IPayloadUpdateProfile } from "@/models/user";
 import { useFormik } from "formik";
 import { LoaderIcon, PencilLine } from "lucide-react";
 import { ChangeEvent, FC, useEffect, useState } from "react";
+import * as Yup from "yup";
+
+const validationSchema = Yup.object().shape({
+  fullname: Yup.string().required("Nama wajib diisi"),
+});
 
 const FormAccount: FC = () => {
   const [errorMessage, setErrorMessage] = useState<string>("");
@@ -41,17 +46,25 @@ const FormAccount: FC = () => {
     },
   });
 
-  const { values, handleChange, handleSubmit, setValues, setFieldValue } =
-    useFormik<IPayloadUpdateProfile>({
-      initialValues: {
-        fullname: userProfile?.data?.fullname || "",
-        imageUrl: userProfile?.data?.imageUrl || "",
-      },
-      onSubmit: (values) => {
-        console.log(values);
-        handleUpdate(values);
-      },
-    });
+  const {
+    values,
+    errors,
+    touched,
+    handleChange,
+    handleSubmit,
+    setValues,
+    setFieldValue,
+  } = useFormik<IPayloadUpdateProfile>({
+    initialValues: {
+      fullname: userProfile?.data?.fullname || "",
+      imageUrl: userProfile?.data?.imageUrl || "",
+    },
+    validationSchema,
+    onSubmit: (values) => {
+      console.log(values);
+      handleUpdate(values);
+    },
+  });
 
   const { mutate: handleUploadImage } = useUploadImage({
     onSuccess: (data) => {
@@ -138,6 +151,8 @@ const FormAccount: FC = () => {
                 defaultValue={
                   userProfile?.data?.fullname || "Nama tidak ditemukan"
                 }
+                errors={errors.fullname}
+                touched={touched.fullname}
               />
             </div>
             <div className="space-y-1">

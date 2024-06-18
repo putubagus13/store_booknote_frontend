@@ -30,6 +30,10 @@ const ForgotPassword = Loader(
   React.lazy(() => import("./content/Auth/ForgotPassword"))
 );
 
+const ResetPassword = Loader(
+  React.lazy(() => import("./content/Auth/ResetPassword"))
+);
+
 // const Dashboard = Loader(React.lazy(() => import("./content/Dashboard")));
 
 const Product = Loader(React.lazy(() => import("./content/Product")));
@@ -99,6 +103,10 @@ const routes = (isAuthenticated: boolean): RouteObject[] => [
       {
         path: "forgot-password",
         element: <ForgotPassword />,
+      },
+      {
+        path: "reset-password",
+        element: <ResetPassword />,
       },
     ],
   },

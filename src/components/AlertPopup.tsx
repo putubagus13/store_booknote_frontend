@@ -41,7 +41,7 @@ export const SuccessPopupAlert: FC<PropsAlertSuccess> = ({
           </AlertDialogTitle>
           <AlertDialogDescription className="w-full text-center">
             {message ||
-              "This action cannot be undone. This will permanently delete your account and remove your data from our servers."}
+              "Internal server error. Please try again later or contact our support team."}
           </AlertDialogDescription>
         </AlertDialogHeader>
         {onClick && (
@@ -79,7 +79,7 @@ export const ErrorPopupAlert: FC<PropsAlertError> = ({
           </AlertDialogTitle>
           <AlertDialogDescription className="w-full text-center">
             {message ||
-              "This action cannot be undone. This will permanently delete your account and remove your data from our servers."}
+              "Internal server error. Please try again later or contact our support team."}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

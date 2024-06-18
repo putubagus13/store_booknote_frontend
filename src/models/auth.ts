@@ -20,3 +20,9 @@ export interface IPayloadLogin {
   email: string;
   password: string;
 }
+
+export interface IPayloadResetPassword {
+  password: string;
+  confirmPassword: string;
+  token: string;
+}
