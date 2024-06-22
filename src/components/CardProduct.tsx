@@ -27,12 +27,12 @@ const CardProduct: FC<Props> = ({
       onClick={onClick}
       className="hover:scale-105 transition-all duration-200"
     >
-      <Card className="relative scale-100 md:scale-110 h-[180px] overflow-hidden bg-accent-foreground shadow-md group mb-4">
+      <Card className="relative scale-100 md:scale-110 min-h-[180px] overflow-hidden bg-accent-foreground shadow-md group mb-4">
         <div className="overflow-hidden">
           <img className="w-full h-24 object-cover" src={image} alt="food" />
         </div>
         <CardContent className="pt-4 bg-secondary px-2 text-left">
-          <TypographyH4 className="text-[16px]">{name}</TypographyH4>
+          <TypographyH4 className="text-[14px]">{name}</TypographyH4>
           <p className="text-[12px]">{conversion(price)}</p>
           <div className="w-full flex justify-end items-center gap-1">
             <ShoppingCart size={14} />

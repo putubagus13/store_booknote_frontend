@@ -1,5 +1,12 @@
 import { AxiosError } from "axios";
 
+export interface IPaginationAtribute<T> {
+  totalPage: number;
+  totalData: number;
+  currentPage: number;
+  items: T[];
+}
+
 export interface IBaseResponse<T> {
   message: string;
   status: boolean;

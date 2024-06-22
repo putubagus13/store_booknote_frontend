@@ -9,54 +9,21 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 // } from "@/components/ui/tooltip";
 import { TypographyH4 } from "@/components/ui/typograpgy";
 // import { Separator } from "@radix-ui/react-dropdown-menu";
-import { Plus, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import ListCategory from "./components/ListCategory";
 import { Separator } from "@/components/ui/separator";
 import CardProduct from "@/components/CardProduct";
 import { Input } from "@/components/ui/input";
-import { IDataProduct } from "@/models/product";
-import { dataProduct as data } from "@/utils/damiData";
-import { FC, useState } from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { IResDataProduct } from "@/models/product";
+import { useState } from "react";
 import FormAdddProduct from "./components/FormAddProfuct";
 import FormEditProduct from "./components/FormEditProduct";
-
-const ModalAddProduct: FC = () => {
-  return (
-    <Dialog>
-      <DialogTrigger>
-        <Button size="sm" className="gap-2">
-          <Plus size={18} />
-          Tambah Produk
-        </Button>
-      </DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Produk Baru</DialogTitle>
-          <DialogDescription>
-            Isi data produk yang ingin ditambahkan
-          </DialogDescription>
-        </DialogHeader>
-        <FormAdddProduct />
-      </DialogContent>
-    </Dialog>
-  );
-};
+import { getProduct } from "@/api/useProduct";
 
 export default function Product() {
-  // const handleAddProduct = () => {
-  //   console.log("add product");
-  // };
   const [editProduct, setEditProduct] = useState<boolean>(false);
 
-  const emptyDataStype = (data: IDataProduct[]) => {
+  const emptyDataStype = (data: IResDataProduct[]) => {
     if (data.length > 0) {
       return `grid ${
         editProduct
@@ -70,9 +37,21 @@ export default function Product() {
     }
   };
 
+  const { data, isLoading, refetch } = getProduct({
+    page: 1,
+    limit: 10,
+    search: "",
+    sort: "name",
+    order: "asc",
+    status: "active",
+    categoryIds: "",
+  });
+
   const onEditproduct = () => {
     setEditProduct(true);
   };
+
+  console.log(data?.data);
 
   return (
     <HeaderPage
@@ -80,8 +59,7 @@ export default function Product() {
       label="Product"
       description="Kelola produkmu disini"
       // buttonLable="Tambah Produk"
-      modalComponent={<ModalAddProduct />}
-      // overflow
+      modalComponent={<FormAdddProduct actionSuccess={() => refetch()} />}
     >
       <div className="flex flex-col lg:flex-row w-full lg:h-auto gap-2 md:gap-0">
         <Card id="nav-category" className="w-full md:w-[200px] h-max">
@@ -136,16 +114,16 @@ export default function Product() {
           </div>
 
           {/* #########################  LIST PRODUCT  ############################ */}
-          <div className={emptyDataStype(data)}>
-            {data.length > 0 ? (
-              data.map((item: IDataProduct) => {
+          <div className={emptyDataStype(data?.data?.items || [])}>
+            {!isLoading && (data?.data?.items?.length || []) ? (
+              data?.data?.items?.map((item: IResDataProduct) => {
                 return (
                   <CardProduct
                     key={item.id}
                     onClick={onEditproduct}
                     name={item.name}
                     price={item.price}
-                    image={item.image}
+                    image={item.imageUrl}
                     totalSold={item.totalSold}
                     edit
                   />
