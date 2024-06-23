@@ -15,12 +15,22 @@ import { Separator } from "@/components/ui/separator";
 import CardProduct from "@/components/CardProduct";
 import { Input } from "@/components/ui/input";
 import { IResDataProduct } from "@/models/product";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import FormAdddProduct from "./components/FormAddProfuct";
 import FormEditProduct from "./components/FormEditProduct";
 import { getProduct } from "@/api/useProduct";
 import FilterDropdown from "@/components/FilterDropdown";
 import { useCategory } from "@/api/useCategory";
+
+const emptyDataStype = (data: IResDataProduct[]) => {
+  if (data.length > 0) {
+    return `flex flex-wrap 
+    gap-6 w-full h-full bg-inherit shadow-inner 
+    p-4 rounded-md overflow-y-scroll scrollbar-hide`;
+  } else {
+    return "flex items-center justify-center w-full h-full";
+  }
+};
 
 export default function Product() {
   const [editProduct, setEditProduct] = useState<boolean>(false);
@@ -29,15 +39,6 @@ export default function Product() {
   const [search, setSearch] = useState<string>("");
   const [category, setCategory] = useState<string>("");
   const [productId, setProductId] = useState<string>("");
-  const emptyDataStype = (data: IResDataProduct[]) => {
-    if (data.length > 0) {
-      return `flex flex-wrap 
-      gap-6 w-full h-full bg-inherit shadow-inner 
-      p-4 rounded-md overflow-y-scroll scrollbar-hide`;
-    } else {
-      return "flex items-center justify-center w-full h-full";
-    }
-  };
 
   const { data, isLoading, refetch } = getProduct({
     page: 1,
@@ -49,8 +50,6 @@ export default function Product() {
     categoryIds: category,
   });
 
-  console.log(category, "category");
-
   const onEditproduct = (productId: string) => {
     setProductId(productId);
     setEditProduct(true);
@@ -58,15 +57,19 @@ export default function Product() {
 
   const { data: listCategory } = useCategory();
 
+  useEffect(() => {
+    if (data?.data?.items?.length === 0) {
+      setEditProduct(false);
+    }
+  }, [data?.data?.items?.length]);
+
   return (
     <HeaderPage
-      // onClick={handleAddProduct}
       label="Product"
       description="Kelola produkmu disini"
-      // buttonLable="Tambah Produk"
       modalComponent={<FormAdddProduct actionSuccess={() => refetch()} />}
     >
-      <div className="flex flex-col lg:flex-row w-full lg:h-auto gap-2 md:gap-0">
+      <div className="flex gap-2 w-full h-auto flex-col lg:flex-row">
         <div className="flex flex-1 w-full h-full flex-col gap-4">
           {/* ############################  FILTER  ################################# */}
           <div className="flex w-full items-center justify-between gap-10">
@@ -156,7 +159,7 @@ export default function Product() {
                 );
               })
             ) : (
-              <div className="flex flex-col gap-1 justify-center items-center">
+              <div className="flex flex-col h-96 gap-1 justify-center items-center">
                 <div className="w-32 h-32 overflow-hidden">
                   <img
                     src="/src/assets/empty-data.svg"

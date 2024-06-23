@@ -8,8 +8,9 @@ export interface IResDataProduct {
   stock: number;
   totalSold: number;
   createdDt: Date;
+  totalOrder: number;
+  quantity: number;
 }
-
 export interface IResDetailProduct {
   id: string;
   name: string;

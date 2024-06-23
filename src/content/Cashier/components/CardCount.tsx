@@ -6,14 +6,14 @@ import {
   TypographyH3,
   TypographyP,
 } from "@/components/ui/typograpgy";
-import { IDataProduct } from "@/models/product";
+import { IResDataProduct } from "@/models/product";
 import { conversion } from "@/utils/general";
 import { CrossIcon, Minus, Plus } from "lucide-react";
 import { FC, useEffect, useState } from "react";
 
 interface Props {
   onDelete: () => void;
-  product: IDataProduct;
+  product: IResDataProduct;
   callBack?: (id: string, quantity: number, totalOrder: number) => void;
 }
 
@@ -42,13 +42,13 @@ const CardCount: FC<Props> = ({ product, callBack, onDelete }) => {
         <div className="flex gap-2 h-full w-full items-center pt-4">
           <Avatar className="h-16 w-16">
             <AvatarImage
-              src={product?.image}
+              src={product?.imageUrl}
               alt={product?.name || "product"}
             />
             <AvatarFallback>{nickname}</AvatarFallback>
           </Avatar>
           <div className="flex flex-col justify-center">
-            <TypographyP className="font-medium">Cake</TypographyP>
+            <TypographyP className="font-medium">{product.name}</TypographyP>
             <TypographyBlockquote className="font-bold">
               {conversion(product?.price * quantity) || "price not found"}
             </TypographyBlockquote>

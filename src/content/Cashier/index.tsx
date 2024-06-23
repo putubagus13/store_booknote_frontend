@@ -4,85 +4,199 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { TypographyH3, TypographyH4 } from "@/components/ui/typograpgy";
-import { Search, ShoppingCart } from "lucide-react";
-import { FC, useState } from "react";
+import { LoaderIcon, RotateCcw, Search, ShoppingCart } from "lucide-react";
+import { ChangeEvent, FC, useState } from "react";
 import CarCount from "./components/CardCount";
 import { Separator } from "@/components/ui/separator";
 import { conversion } from "@/utils/general";
-import { IDataProduct } from "@/models/product";
-import { dataProduct as data } from "@/utils/damiData";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Label } from "@/components/ui/label";
+import { IResDataProduct } from "@/models/product";
+// import {
+//   Accordion,
+//   AccordionContent,
+//   AccordionItem,
+//   AccordionTrigger,
+// } from "@/components/ui/accordion";
+// import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+// import { Label } from "@/components/ui/label";
+import { getProduct } from "@/api/useProduct";
+import FilterDropdown from "@/components/FilterDropdown";
+import { useCategory } from "@/api/useCategory";
+import { productOrder } from "@/api/useTransaction";
+import { IPayloadProductOrder } from "@/models/transaction";
+import { useAuthenticatedStore } from "@/store";
+import { ErrorPopupAlert, SuccessPopupAlert } from "@/components/AlertPopup";
 
-const emptyDataStype = (data: IDataProduct[]) => {
+const emptyDataStype = (data: IResDataProduct[]) => {
   if (data.length > 0) {
-    return `grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 
-      xl:grid-cols-6 2xl:grid-cols-8 gap-6 w-full h-full bg-inherit shadow-inner 
-      p-4 rounded-md overflow-y-scroll scrollbar-hide`;
+    return `flex flex-wrap 
+    gap-6 w-full h-auto bg-inherit shadow-inner 
+    p-4 rounded-md overflow-y-scroll scrollbar-hide`;
   } else {
     return "flex items-center justify-center w-full h-full";
   }
 };
 
 const Cashier: FC = () => {
-  const [order, setOrder] = useState<IDataProduct[]>([]);
+  const [orderProduct, setOrderProduct] = useState<IResDataProduct[]>([]);
+  const [sort, setSort] = useState<string>("");
+  const [order, setOrder] = useState<string>("desc");
+  const [search, setSearch] = useState<string>("");
+  const [category, setCategory] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [openModalSuccess, setOpenModalSuccess] = useState<boolean>(false);
+  const [openModalError, setOpenModalError] = useState<boolean>(false);
+
+  const { userProfile } = useAuthenticatedStore();
+
+  const { data: listCategory } = useCategory();
+  const {
+    data: product,
+    isLoading,
+    refetch,
+  } = getProduct({
+    page: 1,
+    limit: 10,
+    search: search,
+    sort: sort,
+    order: order,
+    status: "active",
+    categoryIds: category,
+  });
 
   const handleClickProduct = (id: string) => {
-    const product = data.find((item) => item.id === id);
-    if (product) {
-      const isExist = order.find((item) => item.id === id);
+    const itemProduct = product?.data?.items.find((item) => item.id === id);
+    if (itemProduct) {
+      const isExist = orderProduct.find((item) => item.id === id);
       if (!isExist) {
-        setOrder([...order, product]);
+        setOrderProduct([...orderProduct, itemProduct]);
       }
     }
   };
 
-  const totalOrder = order.reduce(
+  const totalOrder = orderProduct.reduce(
     (acc, item) => acc + (item.totalOrder ? item.totalOrder : 0),
     0
   );
 
+  const { mutate, isPending } = productOrder({
+    onError: (error: any) => {
+      setErrorMessage(error.response.data.message);
+      setOpenModalError(true);
+    },
+  });
+
+  const handleSubmitOrder = (payload: IResDataProduct[]) => {
+    try {
+      payload.forEach((item: IResDataProduct) => {
+        const dataProduct: IPayloadProductOrder = {
+          productId: item.id,
+          productQuantity: item.quantity,
+          amount: item.totalOrder,
+          storeId: userProfile.storeId,
+          paymentMethod: "cash",
+        };
+
+        mutate(dataProduct);
+      });
+
+      setOpenModalSuccess(true);
+      setInterval(() => {
+        setOpenModalSuccess(false);
+        refetch();
+        setOrderProduct([]);
+      }, 2500);
+    } catch (error) {
+      setErrorMessage("transaksi gagal");
+      setOpenModalError(true);
+    }
+  };
+
   return (
-    <HeaderPage label="Cashier">
+    <HeaderPage
+      label="Cashier"
+      description="Fitur untuk melakukan kalkulasi transaksi dengan mudah"
+    >
       <div className="flex gap-2 w-full h-full">
         <div className="flex w-full h-full flex-col gap-4">
-          <div className="flex w-full items-center gap-10 pt-2">
+          <div className="flex w-full items-center justify-between gap-10 pt-2">
             <div className="flex gap-2">
-              <Button size="sm" className="h-8">
+              <Button
+                onClick={() => {
+                  setSort("totalSold");
+                  setOrder("desc");
+                }}
+                size="sm"
+                className="h-8"
+              >
                 Terlaris
               </Button>
-              <Button size="sm" className="h-8">
+              <Button
+                onClick={() => {
+                  setSort("price");
+                  setOrder("asc");
+                }}
+                size="sm"
+                className="h-8"
+              >
                 Termurah
               </Button>
-              <Button size="sm" className="h-8">
+              <Button
+                onClick={() => {
+                  setSort("price");
+                  setOrder("desc");
+                }}
+                size="sm"
+                className="h-8"
+              >
                 Termahal
               </Button>
+              <Button
+                onClick={() => {
+                  setSort("");
+                  setOrder("");
+                  setCategory("");
+                }}
+                size="icon"
+                variant="outline"
+                className="h-8"
+              >
+                <RotateCcw size={18} />
+              </Button>
             </div>
-            <div className="relative ml-auto flex-1 md:grow-0">
-              <Search className="absolute left-2.5 top-3 h-4 w-4 text-muted-foreground" />
-              <Input
-                type="search"
-                placeholder="Cari produk..."
-                className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[336px]"
+            <div className="flex gap-2">
+              <FilterDropdown
+                data={
+                  listCategory?.data?.map((item) => ({
+                    label: item.name,
+                    value: item.id,
+                  })) || []
+                }
+                selected={category}
+                onClick={setCategory}
               />
+              <div className="relative ml-auto flex-1 md:grow-0">
+                <Search className="absolute z-10 left-2.5 top-3 h-4 w-4 text-muted-foreground" />
+                <Input
+                  type="search"
+                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    setSearch(e.target.value)
+                  }
+                  placeholder="Cari produk..."
+                  className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[336px]"
+                />
+              </div>
             </div>
           </div>
 
-          <div className={emptyDataStype(data)}>
-            {data.length > 0 ? (
-              data.map((item: IDataProduct) => {
+          <div className={emptyDataStype(product?.data?.items || [])}>
+            {!isLoading && product?.data?.items?.length ? (
+              product?.data?.items?.map((item: IResDataProduct) => {
                 return (
                   <CardProduct
                     key={item.id}
                     name={item.name}
                     price={item.price}
-                    image={item.image}
+                    image={item.imageUrl}
                     totalSold={item.totalSold}
                     onClick={() => handleClickProduct(item.id)}
                   />
@@ -113,31 +227,36 @@ const Cashier: FC = () => {
           <Separator color="white" />
           <CardContent>
             <div className="flex flex-col gap-2 pt-2">
-              {order.length > 0 ? (
-                order.map((item: IDataProduct, index: number) => {
+              {orderProduct.length > 0 ? (
+                orderProduct.map((item: IResDataProduct, index: number) => {
                   return (
                     <CarCount
                       key={index}
                       onDelete={() => {
-                        const newOrder = order.filter((_, i) => i !== index);
-                        setOrder(newOrder);
+                        const newOrder = orderProduct.filter(
+                          (_, i) => i !== index
+                        );
+                        setOrderProduct(newOrder);
                       }}
                       product={item}
                       callBack={(id, quantity, totalOrder) => {
-                        const selectProduct = order.find(
+                        const selectProduct = orderProduct.find(
                           (item) => item.id === id
                         );
                         if (selectProduct) {
-                          const newOrder = order.map((item) => {
+                          const newOrder = orderProduct.map((item) => {
                             if (item.id === id) {
                               return { ...item, quantity, totalOrder };
                             }
                             return item;
                           });
-                          setOrder(newOrder);
+                          setOrderProduct(newOrder);
                           return;
                         }
-                        setOrder([...order, { ...item, quantity, totalOrder }]);
+                        setOrderProduct([
+                          ...orderProduct,
+                          { ...item, quantity, totalOrder },
+                        ]);
                       }}
                     />
                   );
@@ -151,7 +270,7 @@ const Cashier: FC = () => {
               <TypographyH3>Total</TypographyH3>
               <TypographyH3>{conversion(totalOrder)}</TypographyH3>
             </div>
-            <Accordion type="single" collapsible>
+            {/* <Accordion type="single" collapsible>
               <AccordionItem value="item-1">
                 <AccordionTrigger>Metode Pembayaran</AccordionTrigger>
                 <AccordionContent>
@@ -174,11 +293,31 @@ const Cashier: FC = () => {
                   </RadioGroup>
                 </AccordionContent>
               </AccordionItem>
-            </Accordion>
-            <Button className="ml-auto w-full mt-4">Submit</Button>
+            </Accordion> */}
+            <Button
+              onClick={() => handleSubmitOrder(orderProduct)}
+              className="ml-auto w-full mt-4"
+            >
+              {isPending ? (
+                <span className="flex gap-1 items-center">
+                  <LoaderIcon className="animate-spin" /> Proses..
+                </span>
+              ) : (
+                "Submit"
+              )}
+            </Button>
           </CardContent>
         </Card>
       </div>
+      <ErrorPopupAlert
+        message={errorMessage}
+        onClose={() => setOpenModalError(!openModalError)}
+        open={openModalError}
+      />
+      <SuccessPopupAlert
+        message="transaksi berhasil!"
+        open={openModalSuccess}
+      />
     </HeaderPage>
   );
 };
