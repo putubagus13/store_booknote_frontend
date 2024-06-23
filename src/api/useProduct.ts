@@ -10,6 +10,7 @@ import {
   IPayloadAddProduct,
   IPayloadUpdateProduct,
   IResDataProduct,
+  IResDetailProduct,
 } from "@/models/product";
 import { useAuthenticatedStore } from "@/store";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -28,11 +29,14 @@ export const addProduct = ({ onSuccess, onError }: IStatusResponse) => {
   });
 };
 
-export const updateProduct = ({ onSuccess, onError }: IStatusResponse) => {
+export const updateProduct = (
+  { onSuccess, onError }: IStatusResponse,
+  productId
+) => {
   return useMutation({
     mutationFn: async (payload: IPayloadUpdateProduct) => {
       const response = await httpClient.put<ITampalteResponse>(
-        "/product/" + payload.productId,
+        "/product/" + productId,
         payload
       );
       return response.data;
@@ -49,10 +53,14 @@ export const getProduct = ({
   sort,
   order,
   status,
+  categoryIds,
 }: IGetAllProduct) => {
   const { userProfile } = useAuthenticatedStore();
   return useQuery({
-    queryKey: ["getProduct", [page, limit, search, sort, order, status]],
+    queryKey: [
+      "getProduct",
+      [page, limit, search, sort, order, status, categoryIds],
+    ],
     queryFn: async () => {
       const response = await httpClient.get<
         IBaseResponse<IPaginationAtribute<IResDataProduct>>
@@ -64,10 +72,12 @@ export const getProduct = ({
           sort,
           order,
           status,
+          categoryIds,
         },
       });
       return response.data;
     },
+    refetchOnWindowFocus: false,
   });
 };
 
@@ -93,5 +103,31 @@ export const uploadImage = ({ onSuccess, onError }: IStatusResponse) => {
     },
     onError,
     onSuccess,
+  });
+};
+
+export const deleteProduct = ({ onSuccess, onError }: IStatusResponse) => {
+  return useMutation({
+    mutationFn: async (productId: string) => {
+      const response = await httpClient.delete<ITampalteResponse>(
+        `/product/${productId}`
+      );
+      return response.data;
+    },
+    onError,
+    onSuccess,
+  });
+};
+
+export const getProductById = (productId: string) => {
+  return useQuery({
+    queryKey: ["getProductById", [productId]],
+    queryFn: async () => {
+      const response = await httpClient.get<IBaseResponse<IResDetailProduct>>(
+        `/product/detail/${productId}`
+      );
+      return response.data;
+    },
+    refetchOnWindowFocus: false,
   });
 };

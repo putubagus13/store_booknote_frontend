@@ -1,3 +1,5 @@
+import { Option } from "@/components/ui/multiple-selector";
+
 export interface IResDataProduct {
   id: string;
   name: string;
@@ -8,6 +10,15 @@ export interface IResDataProduct {
   createdDt: Date;
 }
 
+export interface IResDetailProduct {
+  id: string;
+  name: string;
+  unit: string;
+  price: number;
+  imageUrl: string;
+  stock: number;
+  productCategories: Option[];
+}
 export interface IPayloadAddProduct {
   productName: string;
   price: number;
@@ -24,7 +35,6 @@ export interface IPayloadUpdateProduct {
   stock: number;
   categoryIds: string;
   imageUrl: string;
-  productId: string;
   unit: string;
 }
 

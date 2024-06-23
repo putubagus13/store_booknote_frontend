@@ -1,6 +1,6 @@
 import HeaderPage from "@/components/HeaderPage";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+// import { Card, CardContent, CardHeader } from "@/components/ui/card";
 // import {
 //   Tooltip,
 //   TooltipContent,
@@ -9,27 +9,29 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 // } from "@/components/ui/tooltip";
 import { TypographyH4 } from "@/components/ui/typograpgy";
 // import { Separator } from "@radix-ui/react-dropdown-menu";
-import { Search } from "lucide-react";
-import ListCategory from "./components/ListCategory";
+import { RotateCcw, Search } from "lucide-react";
+// import ListCategory from "./components/ListCategory";
 import { Separator } from "@/components/ui/separator";
 import CardProduct from "@/components/CardProduct";
 import { Input } from "@/components/ui/input";
 import { IResDataProduct } from "@/models/product";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import FormAdddProduct from "./components/FormAddProfuct";
 import FormEditProduct from "./components/FormEditProduct";
 import { getProduct } from "@/api/useProduct";
+import FilterDropdown from "@/components/FilterDropdown";
+import { useCategory } from "@/api/useCategory";
 
 export default function Product() {
   const [editProduct, setEditProduct] = useState<boolean>(false);
-
+  const [sort, setSort] = useState<string>("");
+  const [order, setOrder] = useState<string>("desc");
+  const [search, setSearch] = useState<string>("");
+  const [category, setCategory] = useState<string>("");
+  const [productId, setProductId] = useState<string>("");
   const emptyDataStype = (data: IResDataProduct[]) => {
     if (data.length > 0) {
-      return `grid ${
-        editProduct
-          ? "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-5"
-          : "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8"
-      }
+      return `flex flex-wrap 
       gap-6 w-full h-full bg-inherit shadow-inner 
       p-4 rounded-md overflow-y-scroll scrollbar-hide`;
     } else {
@@ -40,18 +42,21 @@ export default function Product() {
   const { data, isLoading, refetch } = getProduct({
     page: 1,
     limit: 10,
-    search: "",
-    sort: "name",
-    order: "asc",
+    search: search,
+    sort: sort,
+    order: order,
     status: "active",
-    categoryIds: "",
+    categoryIds: category,
   });
 
-  const onEditproduct = () => {
+  console.log(category, "category");
+
+  const onEditproduct = (productId: string) => {
+    setProductId(productId);
     setEditProduct(true);
   };
 
-  console.log(data?.data);
+  const { data: listCategory } = useCategory();
 
   return (
     <HeaderPage
@@ -62,65 +67,86 @@ export default function Product() {
       modalComponent={<FormAdddProduct actionSuccess={() => refetch()} />}
     >
       <div className="flex flex-col lg:flex-row w-full lg:h-auto gap-2 md:gap-0">
-        <Card id="nav-category" className="w-full md:w-[200px] h-max">
-          <CardHeader className="flex flex-row items-center justify-between rounded-md bg-accent">
-            {/* #######################  LIST CATEGORY  ############################## */}
-            <TypographyH4>Kategory</TypographyH4>
-            {/* <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button
-                    variant={"outline"}
-                    size={"icon"}
-                    className="rounded-full"
-                  >
-                    <Plus size={18} />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent side="right">Tambah kategory</TooltipContent>
-              </Tooltip>
-            </TooltipProvider> */}
-          </CardHeader>
-          <CardContent className="p-1">
-            <ListCategory />
-          </CardContent>
-        </Card>
-        <Separator
-          orientation="vertical"
-          className="mx-4 hidden md:block h-[80%]"
-        />
         <div className="flex flex-1 w-full h-full flex-col gap-4">
           {/* ############################  FILTER  ################################# */}
-          <div className="flex w-full items-center gap-10">
+          <div className="flex w-full items-center justify-between gap-10">
             <div className="flex gap-2">
-              <Button size="sm" className="h-8">
+              <Button
+                onClick={() => {
+                  setSort("totalSold");
+                  setOrder("desc");
+                }}
+                size="sm"
+                className="h-8"
+              >
                 Terlaris
               </Button>
-              <Button size="sm" className="h-8">
+              <Button
+                onClick={() => {
+                  setSort("price");
+                  setOrder("asc");
+                }}
+                size="sm"
+                className="h-8"
+              >
                 Termurah
               </Button>
-              <Button size="sm" className="h-8">
+              <Button
+                onClick={() => {
+                  setSort("price");
+                  setOrder("desc");
+                }}
+                size="sm"
+                className="h-8"
+              >
                 Termahal
               </Button>
+              <Button
+                onClick={() => {
+                  setSort("");
+                  setOrder("");
+                  setCategory("");
+                }}
+                size="icon"
+                variant="outline"
+                className="h-8"
+              >
+                <RotateCcw size={18} />
+              </Button>
             </div>
-            <div className="relative ml-auto flex-1 md:grow-0">
-              <Search className="absolute left-2.5 top-3 h-4 w-4 text-muted-foreground" />
-              <Input
-                type="search"
-                placeholder="Cari produk..."
-                className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[336px]"
+            <div className="flex gap-2">
+              <FilterDropdown
+                data={
+                  listCategory?.data?.map((item) => ({
+                    label: item.name,
+                    value: item.id,
+                  })) || []
+                }
+                selected={category}
+                onClick={setCategory}
               />
+              <div className="relative ml-auto flex-1 md:grow-0">
+                <Search className="absolute z-10 left-2.5 top-3 h-4 w-4 text-muted-foreground" />
+                <Input
+                  type="search"
+                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    setSearch(e.target.value)
+                  }
+                  placeholder="Cari produk..."
+                  className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[336px]"
+                />
+              </div>
             </div>
           </div>
 
           {/* #########################  LIST PRODUCT  ############################ */}
           <div className={emptyDataStype(data?.data?.items || [])}>
-            {!isLoading && (data?.data?.items?.length || []) ? (
+            {!isLoading && data?.data?.items?.length ? (
               data?.data?.items?.map((item: IResDataProduct) => {
                 return (
                   <CardProduct
                     key={item.id}
-                    onClick={onEditproduct}
+                    onClick={() => onEditproduct(item.id)}
                     name={item.name}
                     price={item.price}
                     image={item.imageUrl}
@@ -152,7 +178,14 @@ export default function Product() {
               orientation="vertical"
               className="mx-4 hidden md:block h-[80%]"
             />
-            <FormEditProduct onClose={() => setEditProduct(false)} />
+            <FormEditProduct
+              productId={productId}
+              onClose={() => {
+                setProductId("");
+                setEditProduct(false);
+              }}
+              actionSuccess={() => refetch()}
+            />
           </>
         )}
       </div>

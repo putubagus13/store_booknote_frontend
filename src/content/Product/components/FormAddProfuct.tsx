@@ -46,6 +46,7 @@ const validationSchema = Yup.object().shape({
 });
 const FormAddProduct: FC<Props> = ({ actionSuccess }) => {
   const [selectedCategoryIds, setSelectedCategoryIds] = useState<string[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<Option[]>([]);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [openModalSuccess, setOpenModalSuccess] = useState<boolean>(false);
   const [openModalError, setOpenModalError] = useState<boolean>(false);
@@ -58,6 +59,8 @@ const FormAddProduct: FC<Props> = ({ actionSuccess }) => {
     },
     onSuccess: () => {
       resetForm();
+      setSelectedCategory([]);
+      setSelectedCategoryIds([]);
       setOpenModalSuccess(true);
       setInterval(() => {
         setOpenModalSuccess(false);
@@ -177,9 +180,8 @@ const FormAddProduct: FC<Props> = ({ actionSuccess }) => {
                     <Label>Satuan</Label>
                     <Select
                       name="unit"
-                      onValueChange={(value) =>
-                        setFieldValue("selectedCrops", value)
-                      }
+                      value={values.unit}
+                      onValueChange={(value) => setFieldValue("unit", value)}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Pilih satuan" />
@@ -205,6 +207,7 @@ const FormAddProduct: FC<Props> = ({ actionSuccess }) => {
                 <div className="flex flex-col gap-2">
                   <Label>Produk Kategory</Label>
                   <MultipleSelector
+                    value={selectedCategory}
                     defaultOptions={
                       !isLoading
                         ? data?.data?.map((item: ICategory, _) => {
@@ -219,9 +222,10 @@ const FormAddProduct: FC<Props> = ({ actionSuccess }) => {
                       </p>
                     }
                     inputProps={{ maxLength: 5 }}
-                    onChange={(value: Option[]) =>
-                      setSelectedCategoryIds(value.map((item) => item.value))
-                    }
+                    onChange={(value: Option[]) => {
+                      setSelectedCategoryIds(value.map((item) => item.value));
+                      setSelectedCategory(value);
+                    }}
                   />
                   {errors.categoryIds && touched.categoryIds && (
                     <label className="text-[10px] text-destructive">
