@@ -15,9 +15,15 @@ interface IProps {
   data: Option[];
   onClick: (e: string) => void;
   selected?: string;
+  parentLabel?: string;
 }
 
-const FilterDropdown: FC<IProps> = ({ data, onClick, selected }) => {
+const FilterDropdown: FC<IProps> = ({
+  data,
+  onClick,
+  selected,
+  parentLabel,
+}) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -26,7 +32,7 @@ const FilterDropdown: FC<IProps> = ({ data, onClick, selected }) => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-44">
-        <DropdownMenuLabel>Filter Kategory</DropdownMenuLabel>
+        <DropdownMenuLabel>{parentLabel || ""}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         {(data ?? []).map((item, index) => {
           return (
