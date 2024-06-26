@@ -1,6 +1,6 @@
 import * as React from "react";
-import { addDays, format } from "date-fns";
-import { Calendar as CalendarIcon } from "lucide-react";
+import { format, startOfMonth } from "date-fns";
+import { Calendar as CalendarIcon, RotateCcw } from "lucide-react";
 import { DateRange } from "react-day-picker";
 
 import { cn } from "@/lib/utils";
@@ -12,18 +12,37 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-const DatePickerWithRange: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
+interface DatePickerWithRangeProps
+  extends React.HTMLAttributes<HTMLDivElement> {
+  selectedDate?: (e: DateRange) => void;
+}
+
+const DatePickerWithRange: React.FC<DatePickerWithRangeProps> = ({
   className,
+  selectedDate,
 }) => {
   const [date, setDate] = React.useState<DateRange | undefined>({
-    from: new Date(2022, 0, 20),
-    to: addDays(new Date(2022, 0, 20), 20),
+    from: startOfMonth(new Date()),
+    to: new Date(),
   });
 
+  React.useEffect(() => {
+    if (date) {
+      selectedDate && selectedDate(date);
+    }
+  }, [date]);
+
+  const handleReset = () => {
+    setDate({
+      from: startOfMonth(new Date()),
+      to: new Date(),
+    });
+  };
+
   return (
-    <div className={cn("grid gap-2", className)}>
+    <div className={cn("flex", className)}>
       <Popover>
-        <PopoverTrigger asChild>
+        <PopoverTrigger asChild className="border-r-none rounded-r-none">
           <Button
             id="date"
             variant={"outline"}
@@ -58,6 +77,14 @@ const DatePickerWithRange: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
           />
         </PopoverContent>
       </Popover>
+      <Button
+        size="icon"
+        variant="outline"
+        className=" border-l-0 rounded-l-none"
+        onClick={handleReset}
+      >
+        <RotateCcw size={18} />
+      </Button>
     </div>
   );
 };
