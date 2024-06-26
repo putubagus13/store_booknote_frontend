@@ -3,7 +3,8 @@ import { TypographyH1 } from "./ui/typograpgy";
 import { Card, CardContent, CardDescription, CardHeader } from "./ui/card";
 import { Separator } from "./ui/separator";
 import { Button } from "./ui/button";
-import { Plus } from "lucide-react";
+import { ArrowLeft, Plus } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   children: React.ReactNode;
@@ -13,6 +14,7 @@ interface Props {
   overflow?: boolean;
   modalComponent?: React.ReactNode;
   buttonLable?: string;
+  backButton?: boolean;
 }
 const HeaderPage: FC<Props> = ({
   children,
@@ -22,19 +24,33 @@ const HeaderPage: FC<Props> = ({
   overflow,
   modalComponent,
   buttonLable,
+  backButton,
 }) => {
+  const navigate = useNavigate();
   return (
     <Card className="flex flex-col w-full h-full pt-6">
       <CardHeader>
         <div className="flex justify-between w-full items-center">
-          <div>
-            <TypographyH1 className="lg:text-4xl dark:text-primary">
-              {label}
-            </TypographyH1>
-            <CardDescription className="pt-2 dark:text-white">
-              {description}
-            </CardDescription>
+          <div className="flex flex-col gap-4">
+            <div>
+              <TypographyH1 className="lg:text-4xl dark:text-primary">
+                {label}
+              </TypographyH1>
+              <CardDescription className="pt-2 dark:text-white">
+                {description}
+              </CardDescription>
+            </div>
+            {backButton && (
+              <Button
+                onClick={() => navigate(-1)}
+                size="icon"
+                className=" rounded-full"
+              >
+                <ArrowLeft size={18} />
+              </Button>
+            )}
           </div>
+
           {onClick && (
             <Button onClick={onClick} size="sm" className="gap-2">
               <Plus size={18} />
