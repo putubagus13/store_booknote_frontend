@@ -100,11 +100,11 @@ const Cashier: FC = () => {
       });
 
       setOpenModalSuccess(true);
-      setInterval(() => {
+      setTimeout(() => {
         setOpenModalSuccess(false);
         refetch();
-        setOrderProduct([]);
       }, 2500);
+      setOrderProduct([]);
     } catch (error) {
       setErrorMessage("transaksi gagal");
       setOpenModalError(true);

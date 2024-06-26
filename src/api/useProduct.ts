@@ -7,10 +7,12 @@ import {
 } from "@/models/general";
 import {
   IGetAllProduct,
+  IGetProductHostory,
   IPayloadAddProduct,
   IPayloadUpdateProduct,
   IResDataProduct,
   IResDetailProduct,
+  IResProductHistory,
 } from "@/models/product";
 import { useAuthenticatedStore } from "@/store";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -126,6 +128,43 @@ export const getProductById = (productId: string) => {
       const response = await httpClient.get<IBaseResponse<IResDetailProduct>>(
         `/product/detail/${productId}`
       );
+      return response.data;
+    },
+    refetchOnWindowFocus: false,
+  });
+};
+
+export const getProductHistory = ({
+  page,
+  limit,
+  order,
+  search,
+  sort,
+  status,
+  startDate,
+  endDate,
+  productId,
+}: IGetProductHostory) => {
+  return useQuery({
+    queryKey: [
+      "getProductById",
+      [productId, page, limit, search, sort, status, startDate, endDate, order],
+    ],
+    queryFn: async () => {
+      const response = await httpClient.get<
+        IBaseResponse<IPaginationAtribute<IResProductHistory>>
+      >(`/product/history/${productId}`, {
+        params: {
+          page,
+          limit,
+          search,
+          sort,
+          status,
+          startDate,
+          endDate,
+          order,
+        },
+      });
       return response.data;
     },
     refetchOnWindowFocus: false,

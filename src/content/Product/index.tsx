@@ -127,6 +127,7 @@ export default function Product() {
                 }
                 selected={category}
                 onClick={setCategory}
+                parentLabel="Kategori"
               />
               <div className="relative ml-auto flex-1 md:grow-0">
                 <Search className="absolute z-10 left-2.5 top-3 h-4 w-4 text-muted-foreground" />

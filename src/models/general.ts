@@ -24,3 +24,15 @@ export interface ITampalteResponse {
   status: boolean;
   statusCode: number;
 }
+
+export interface IHeadPayload {
+  label: string;
+  key: string | null;
+}
+
+export type TSortTable = "asc" | "desc";
+
+export interface ISorting {
+  sort: string;
+  order: TSortTable;
+}

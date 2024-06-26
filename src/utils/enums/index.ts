@@ -1,0 +1,6 @@
+export enum StatusProductHistory {
+  UPDATE_STOCK = "UPDATE_STOCK",
+  UPDATE_STOCK_PRICE = "UPDATE_STOCK_PRICE",
+  UPDATE_PRICE = "UPDATE_PRICE",
+  CREATE = "CREATE",
+}

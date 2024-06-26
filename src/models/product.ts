@@ -19,6 +19,13 @@ export interface IResDetailProduct {
   imageUrl: string;
   stock: number;
   productCategories: Option[];
+  productHistory: {
+    id: string;
+    profit: number;
+    totalSold: number;
+    stock: number;
+    unit: string;
+  };
 }
 export interface IPayloadAddProduct {
   productName: string;
@@ -47,4 +54,25 @@ export interface IGetAllProduct {
   order?: string;
   status?: string;
   categoryIds?: string;
+}
+
+export interface IResProductHistory {
+  id: string;
+  status: string;
+  priceGap: number | null;
+  stockGap: number;
+  fullname: string;
+  createdDt: Date;
+}
+
+export interface IGetProductHostory {
+  page?: number;
+  limit?: number;
+  search?: string;
+  sort?: string;
+  order?: string;
+  status?: string;
+  startDate?: string;
+  endDate?: string;
+  productId: string;
 }

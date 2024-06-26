@@ -1,3 +1,5 @@
+import { Option } from "@/components/ui/multiple-selector";
+
 export const UNIT_OPTIONS = [
   "Kg", // Kilogram
   "g", // Gram
@@ -19,4 +21,27 @@ export const UNIT_OPTIONS = [
   "sheet", // Sheet
   "carton", // Carton
   "bundle", // Bundle
+];
+
+export const STATUS_PRODUCT_OPTIONS: Option[] = [
+  {
+    label: "All",
+    value: "",
+  },
+  {
+    label: "Update Stock",
+    value: "UPDATE_STOCK",
+  },
+  {
+    label: "Update Stock Price",
+    value: "UPDATE_STOCK_PRICE",
+  },
+  {
+    label: "Create",
+    value: "CREATE",
+  },
+  {
+    label: "Update Price",
+    value: "UPDATE_PRICE",
+  },
 ];

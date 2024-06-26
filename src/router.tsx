@@ -37,6 +37,9 @@ const ResetPassword = Loader(
 // const Dashboard = Loader(React.lazy(() => import("./content/Dashboard")));
 
 const Product = Loader(React.lazy(() => import("./content/Product")));
+const ProductHistory = Loader(
+  React.lazy(() => import("./content/Product/ProductHistory"))
+);
 
 const Cashier = Loader(React.lazy(() => import("./content/Cashier/index.tsx")));
 
@@ -63,7 +66,10 @@ const routes = (isAuthenticated: boolean): RouteObject[] => [
       },
       {
         path: "product",
-        element: <Product />,
+        children: [
+          { path: "", element: <Product /> },
+          { path: "history/:id", element: <ProductHistory /> },
+        ],
       },
 
       // {

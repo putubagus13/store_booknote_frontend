@@ -26,6 +26,8 @@ import { useFormik } from "formik";
 import { IPayloadUpdateProduct } from "@/models/product";
 import * as Yup from "yup";
 import { ErrorPopupAlert, SuccessPopupAlert } from "@/components/AlertPopup";
+import { useNavigate } from "react-router-dom";
+import { PRODUCT_HISTORY } from "@/route";
 // import { conversion } from "@/utils/general";
 
 interface Props {
@@ -46,6 +48,7 @@ const validationSchema = Yup.object().shape({
 });
 
 const FormEditProduct: FC<Props> = ({ onClose, productId, actionSuccess }) => {
+  const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState<Option[]>([]);
   const [selectedCategoryIds, setSelectedCategoryIds] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
@@ -320,6 +323,12 @@ const FormEditProduct: FC<Props> = ({ onClose, productId, actionSuccess }) => {
                 ) : (
                   "Ubah Product"
                 )}
+              </Button>
+              <Button
+                onClick={() => navigate(`${PRODUCT_HISTORY}/${productId}`)}
+                variant="outline"
+              >
+                Riwayat Produk
               </Button>
               <Button onClick={onClose} variant="outline">
                 Close
