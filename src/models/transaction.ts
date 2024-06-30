@@ -18,6 +18,7 @@ export interface IGetTransactionHostory {
 
 export interface IResTransactionHistory {
   id: string;
+  productId: string;
   name: string;
   amount: number;
   productQuantity: number;

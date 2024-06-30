@@ -29,6 +29,8 @@ import { DateRange } from "react-day-picker";
 import { getTransactionHistory } from "@/api/useTransaction";
 import { format } from "date-fns";
 import PaginationCustom from "@/components/PaginationCustom";
+import { useNavigate } from "react-router-dom";
+import { PRODUCT_HISTORY } from "@/route";
 
 const HEAD_TABLE: IHeadPayload[] = [
   { key: null, label: "No" },
@@ -41,9 +43,8 @@ const HEAD_TABLE: IHeadPayload[] = [
 ];
 
 const History: FC = () => {
+  const navigate = useNavigate();
   const [timeFrame, setTimeFrame] = useState<DateRange | null>(null);
-  // const [filterStatus, setFilterStatus] = useState<string>("");
-  //   const [offset, setOffset] = useState<number>(0);
   const [sort, setSort] = useState<string>("");
   const [order, setOrder] = useState<TSortTable>("desc");
   const [search, setSearch] = useState<string>("");
@@ -155,7 +156,16 @@ const History: FC = () => {
                           {index + 1 + offset}
                         </TableCell>
                         <TableCell>{item.code}</TableCell>
-                        <TableCell>{item.name}</TableCell>
+                        <TableCell className="group">
+                          <button
+                            className=" underline group-hover:text-primary"
+                            onClick={() =>
+                              navigate(`${PRODUCT_HISTORY}/${item.productId}`)
+                            }
+                          >
+                            {item.name}
+                          </button>
+                        </TableCell>
                         <TableCell>{item.productQuantity}</TableCell>
                         <TableCell>
                           {item.paymentMethod.toUpperCase()}
