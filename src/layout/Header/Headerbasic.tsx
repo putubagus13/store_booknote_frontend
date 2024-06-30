@@ -59,7 +59,7 @@ const Headerbasic: FC = () => {
                 variant={"ghost"}
                 className="rounded-lg"
               >
-                Beranda
+                Home
               </Button>
             </NavigationMenuItem>
             <NavigationMenuItem>
@@ -69,7 +69,7 @@ const Headerbasic: FC = () => {
                 // variant={"ghost"}
                 className="rounded-lg"
               >
-                Masuk
+                Sign In
               </Button>
             </NavigationMenuItem>
             <NavigationMenuItem>
@@ -79,7 +79,7 @@ const Headerbasic: FC = () => {
                 variant={"ghost"}
                 className="rounded-lg"
               >
-                Daftar
+                Sign Up
               </Button>
             </NavigationMenuItem>
           </NavigationMenuList>
@@ -103,24 +103,20 @@ const Headerbasic: FC = () => {
           </SheetTrigger>
           <SheetContent className="w-[300px] sm:w-[440px]">
             <SheetHeader>
-              <SheetTitle>Hai Sobat!</SheetTitle>
-              {/* <Menubar className="gap-2 border-none">
-                <Home size={24} />
-                Home
-              </Menubar> */}
+              <SheetTitle>Hi Friends!</SheetTitle>
               <SheetDescription className="text-left">
-                Selamat datang! Ayo masuk atau daftar untuk menikmati semua
-                fitur yang tersedia.
+                WELCOME! Come on in or register to enjoy it all available
+                features.
               </SheetDescription>
               <div className="pt-10">
                 <Menubar className="gap-2 border-none">
                   <Button size="sm" variant="default" className="w-full">
-                    Masuk
+                    Sign In
                   </Button>
                 </Menubar>
                 <Menubar className="gap-2 border-none">
                   <Button size="sm" variant="outline" className="w-full">
-                    Daftar
+                    Sign Up
                   </Button>
                 </Menubar>
               </div>

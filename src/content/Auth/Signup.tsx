@@ -89,13 +89,12 @@ const Signup: FC = () => {
     <>
       <Card className="h-full w-full">
         <CardHeader className="flex flex-col gap-2">
-          <CardTitle className="text-4xl font-semibold">Daftar</CardTitle>
+          <CardTitle className="text-4xl font-semibold">Sign Up</CardTitle>
           <hr className="w-full" />
         </CardHeader>
         <CardContent className="flex flex-col gap-4">
           <CardDescription>
-            Selamat datang! Ayo daftar untuk menikmati semua fitur yang
-            tersedia.
+            WELCOME! Come on, register to enjoy all the features available.
           </CardDescription>
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <div className="flex flex-col gap-3">
@@ -105,7 +104,7 @@ const Signup: FC = () => {
                 label="Fullname"
                 id="fullname"
                 name="fullname"
-                placeholder="nama lengkap"
+                placeholder="enter your fullname"
                 errors={errors.fullname}
                 touched={touched.fullname}
               />
@@ -138,18 +137,18 @@ const Signup: FC = () => {
                 name="confirmPassword"
                 type="password"
                 id="confirm-password"
-                placeholder="konfirmasi password"
+                placeholder="confirm password"
                 errors={errors.confirmPassword}
                 touched={touched.confirmPassword}
               />
               <Input
-                label="Data Toko"
+                label="Store"
                 onChange={handleChange}
                 value={values.storeName}
                 name="storeName"
                 type="text"
                 id="store-name"
-                placeholder="nama toko"
+                placeholder="enter store name"
                 errors={errors.storeName}
                 touched={touched.storeName}
               />
@@ -160,7 +159,7 @@ const Signup: FC = () => {
                   }
                 >
                   <SelectTrigger className="w-full">
-                    <SelectValue placeholder="pilih tipe toko" />
+                    <SelectValue placeholder="choose store type" />
                   </SelectTrigger>
                   <SelectContent>
                     {!isLoading &&
@@ -188,7 +187,7 @@ const Signup: FC = () => {
                     <LoaderIcon className="animate-spin" /> Proses..
                   </span>
                 ) : (
-                  "Daftar"
+                  "Regsiter"
                 )}
               </Button>
             </div>
@@ -196,19 +195,19 @@ const Signup: FC = () => {
           <div className="flex flex-col gap-4 pt-2">
             <div className="text-center w-full">
               <CardDescription>
-                sudah punya akun? Ayo
+                Have an account?{" "}
                 <Button
                   onClick={() => navigate(LOGIN)}
                   size="sm"
                   className="-ml-2"
                   variant={"link"}
                 >
-                  Masuk
+                  Sign In
                 </Button>
               </CardDescription>
             </div>
             <CardDescription className="text-center">
-              Atau daftar dengan
+              Or Sign Up with
             </CardDescription>
             <Card className="border-none shadow-none flex justify-center gap-2">
               <Button variant="outline">

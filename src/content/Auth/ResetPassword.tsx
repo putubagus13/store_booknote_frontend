@@ -64,27 +64,29 @@ const ResetPassword: FC = () => {
           <hr className="w-full" />
         </CardHeader>
         <CardContent className="flex flex-col gap-4">
-          <CardDescription>Masukkan password baru anda.</CardDescription>
+          <CardDescription>
+            Submit your new password to reset your account.
+          </CardDescription>
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <div className="flex flex-col gap-3">
               <Input
                 onChange={handleChange}
-                label="Password Baru"
+                label="New Password"
                 type="password"
                 id="password"
                 name="password"
-                placeholder="masukkan password baru"
+                placeholder="enter new password"
                 errors={errors.password}
                 touched={touched.password}
                 value={values.password}
               />
               <Input
                 onChange={handleChange}
-                label="Korfirmasi Password"
+                label="Confirm Password"
                 type="password"
                 id="confirmPassword"
                 name="confirmPassword"
-                placeholder="konfirmasi password baru"
+                placeholder="confirm new password"
                 errors={errors.confirmPassword}
                 touched={touched.confirmPassword}
                 value={values.confirmPassword}
@@ -106,7 +108,7 @@ const ResetPassword: FC = () => {
       </Card>
       <SuccessPopupAlert
         open={openModalSuccess}
-        message="Password berhasil direset. Silahkan login."
+        message="Password has been reset successfully! Please login."
         onClick={() => {
           setOpenModalSuccess(false);
           window.location.href = LOGIN;

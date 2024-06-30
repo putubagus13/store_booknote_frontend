@@ -49,14 +49,13 @@ const ForgotPassword: FC = () => {
       <Card className="h-full w-full">
         <CardHeader className="flex flex-col gap-2">
           <CardTitle className="text-4xl font-semibold">
-            Lupa Password
+            Forgot Password
           </CardTitle>
           <hr className="w-full" />
         </CardHeader>
         <CardContent className="flex flex-col gap-4">
           <CardDescription>
-            Masukkan email anda yang sudah terdaftar untuk mendapatkan link
-            reset password.
+            Enter your registered email to get the link reset password.
           </CardDescription>
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <div className="flex flex-col gap-3">
@@ -79,7 +78,7 @@ const ForgotPassword: FC = () => {
                     <LoaderIcon className="animate-spin" /> Proses..
                   </span>
                 ) : (
-                  "Kirim Permintaan"
+                  "Send Email"
                 )}
               </Button>
             </div>
@@ -88,7 +87,7 @@ const ForgotPassword: FC = () => {
       </Card>
       <SuccessPopupAlert
         open={openModalSuccess}
-        message="Permintaan berhasil di buat. Silahkan cek pesan email"
+        message="Email has been sent successfully, please check your email."
         onClick={() => setOpenModalSuccess(false)}
       />
       <ErrorPopupAlert

@@ -3,6 +3,7 @@ export interface IPayloadRegister {
   password: string;
   fullname: string;
   storeName: string;
+  name?: string;
   storeType: number | null;
   confirmPassword: string;
 }

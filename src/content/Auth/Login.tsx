@@ -48,13 +48,13 @@ const Login: FC = () => {
       <Helmet title="Squirrel - Login" />
       <Card className="h-full w-full">
         <CardHeader className="flex flex-col gap-2">
-          <CardTitle className="text-4xl font-semibold">Masuk</CardTitle>
+          <CardTitle className="text-4xl font-semibold">Sign In</CardTitle>
           <hr className="w-full" />
         </CardHeader>
         <CardContent className="flex flex-col gap-4">
           <CardDescription>
-            Selamat datang! Ayo masuk atau daftar untuk menikmati semua fitur
-            yang tersedia.
+            WELCOME! Come on in or register to enjoy all the features which are
+            available.
           </CardDescription>
           <CardDescription className="text-destructive font-semibold">
             {errorMessages ? errorMessages : ""}
@@ -86,7 +86,7 @@ const Login: FC = () => {
             </div>
             <div className="text-right w-full">
               <CardDescription>
-                <Link to="/auth/forgot-password">Lupa Password?</Link>
+                <Link to="/auth/forgot-password">Forgot Password?</Link>
               </CardDescription>
             </div>
             <div className="w-full flex justify-center">
@@ -96,14 +96,14 @@ const Login: FC = () => {
                     <LoaderIcon className="animate-spin" /> Proses..
                   </span>
                 ) : (
-                  "Masuk"
+                  "Sign In"
                 )}
               </Button>
             </div>
           </form>
           <div className="flex flex-col gap-4 pt-4">
             <CardDescription className="text-center">
-              Atau masuk dengan
+              Or Sign In with
             </CardDescription>
             <Card className="border-none shadow-none flex justify-center gap-2">
               <Button variant="outline">

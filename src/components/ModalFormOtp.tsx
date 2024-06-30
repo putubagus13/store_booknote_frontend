@@ -80,13 +80,13 @@ const ModalFormOtp: FC<Props> = ({ open }) => {
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle className="text-center w-full">
-              Verifikasi Registrasi
+              Verifikasi OTP
             </AlertDialogTitle>
             <AlertDialogDescription className="text-center w-full">
-              Kami telah mengirimkan kode OTP ke alamat email anda
+              we have sent a verification code to your email
             </AlertDialogDescription>
             <AlertDialogDescription className="text-center w-full font-semibold flex flex-col gap-2">
-              Masukkan kode OTP
+              Submit the OTP code to verify your account
               {errorMessages && (
                 <span className="text-destructive">{errorMessages}</span>
               )}
@@ -114,7 +114,7 @@ const ModalFormOtp: FC<Props> = ({ open }) => {
                     <LoaderIcon className="animate-spin" /> Proses..
                   </span>
                 ) : (
-                  "Verifikasi OTP"
+                  "Verify OTP"
                 )}
               </AlertDialogAction>
               <Button
@@ -123,7 +123,7 @@ const ModalFormOtp: FC<Props> = ({ open }) => {
                 variant="secondary"
                 className="text-accent-foreground min-w-36"
               >
-                {isCounting ? `Kirim ulang dalam ${time}s` : "Kirim ulang OTP"}
+                {isCounting ? `Resend in ${time}s` : "Resend OTP"}
               </Button>
             </div>
           </AlertDialogFooter>
@@ -131,7 +131,7 @@ const ModalFormOtp: FC<Props> = ({ open }) => {
       </AlertDialog>
       <SuccessPopupAlert
         open={openModalSuccess}
-        message="Registrasi Berhasil. Silahkan lakukan login."
+        message="Account has been verified successfully! Please login."
         onClick={() => {
           setOpenModalSuccess(false);
           navigate(LOGIN);

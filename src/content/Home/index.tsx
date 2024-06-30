@@ -8,12 +8,12 @@ const Home: FC = () => {
       <Headerbasic />
       <div className="w-full h-full flex flex-col gap-4 justify-center items-start p-[10%] md:p-24">
         <h1 className="font-semibold w-full md:w-[600px] text-4xl">
-          Optimalkan Kelancaran Bisnis Anda dengan Aplikasi Kasir & Pembukuan
-          Profesional!
+          Optimize the smooth running of your business with the cashier &
+          bookkeeping application Professional!
         </h1>
         <p className="w-full md:w-[600px]">
-          Nikmati kemudahan dalam mengelola transaksi, stok, dan keuangan bisnis
-          Anda dengan aplikasi kami yang intuitif dan andal.
+          Enjoy the convenience of managing transactions, stock and business
+          finances you with our intuitive and reliable application.
         </p>
       </div>
     </div>

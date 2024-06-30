@@ -2,6 +2,8 @@
 import { useProfile } from "@/api/useAuth";
 import ListCustom from "@/components/ListCustom";
 import { Theme } from "@/components/theme-provider";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -19,7 +21,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
+// import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
   Tooltip,
@@ -48,9 +50,10 @@ import {
   Package,
   Package2,
   PanelLeft,
-  Search,
+  // Search,
   Settings,
   Squirrel,
+  Store,
   Sun,
   Users2,
 } from "lucide-react";
@@ -163,7 +166,7 @@ const Layout: FC<Props> = ({ children }) => {
         </TooltipProvider>
       </aside>
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14 w-full h-full">
-        <header className="sticky md:fixed w-full top-0 right-0 flex h-14 items-center gap-4 border-b bg-background px-4 sm:border-0 sm:px-6 sm:pl-20 shadow-sm">
+        <header className="sticky md:fixed justify-between w-full top-0 right-0 flex h-14 items-center gap-4 border-b bg-background px-4 sm:border-0 sm:px-6 sm:pl-20 shadow-sm">
           <Sheet>
             <SheetTrigger asChild>
               <Button size="icon" variant="outline" className="sm:hidden">
@@ -225,49 +228,62 @@ const Layout: FC<Props> = ({ children }) => {
               </nav>
             </SheetContent>
           </Sheet>
-          <Breadcrumb className="hidden md:flex">
-            <BreadcrumbList>
-              <BreadcrumbItem>
-                <BreadcrumbLink asChild>
-                  <Link to="#">Dashboard</Link>
-                </BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbPage>
-                  <Link to={path}>
-                    {capitalizeFirstLetter(
-                      splitPath[1] == "" ? "cashier" : splitPath[1]
-                    )}
-                  </Link>
-                </BreadcrumbPage>
-              </BreadcrumbItem>
-              {/* <BreadcrumbSeparator /> */}
-              {/* <BreadcrumbItem>
-                <BreadcrumbPage>All Products</BreadcrumbPage>
-              </BreadcrumbItem> */}
-            </BreadcrumbList>
-          </Breadcrumb>
-          <div className="relative ml-auto flex-1 md:grow-0">
-            <Search className="absolute left-2.5 top-3 h-4 w-4 text-muted-foreground" />
-            <Input
-              type="search"
-              placeholder="Search..."
-              className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[336px]"
-            />
+          <div className="flex gap-4 items-center">
+            <Badge className="h-10 flex gap-2" variant="secondary">
+              <Store size={20} />
+              {data?.data?.name}
+            </Badge>
+            <Breadcrumb className="hidden md:flex">
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild>
+                    <Link to="#">Dashboard</Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>
+                    <Link to={path}>
+                      {capitalizeFirstLetter(
+                        splitPath[1] == "" ? "cashier" : splitPath[1]
+                      )}
+                    </Link>
+                  </BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
           </div>
           <DropdownMenu>
-            <DropdownMenuTrigger asChild>
+            <DropdownMenuTrigger className="flex items-center gap-2" asChild>
               <Button
                 variant="outline"
-                size="icon"
-                className="overflow-hidden rounded-full"
+                // size="icon"
+                className="overflow-hidden rounded-full pl-0"
               >
-                <CircleUser className="overflow-hidden rounded-full h-36 w-36"></CircleUser>
+                {data?.data?.imageUrl ? (
+                  <Avatar className="relative h-16 w-16 group cursor-pointer rounded-none">
+                    <AvatarImage
+                      className="object-cover"
+                      src={data?.data?.imageUrl || ""}
+                      alt="@shadcn"
+                    />
+                    <AvatarFallback className="group-hover:blur-sm">
+                      {data?.data?.fullname[0].toUpperCase() || "N/A"}
+                    </AvatarFallback>
+                  </Avatar>
+                ) : (
+                  <CircleUser className="overflow-hidden rounded-full h-36 w-36"></CircleUser>
+                )}
+                <span>
+                  {data?.data?.fullname ||
+                    data?.data?.email ||
+                    "User not found"}
+                </span>
               </Button>
+              {/* <div>{data?.data?.fullname || data?.data?.email}</div> */}
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Akun Saya</DropdownMenuLabel>
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
                 <Link to={SETTING}>Setting</Link>
@@ -282,7 +298,7 @@ const Layout: FC<Props> = ({ children }) => {
                   }}
                   className="w-full bg-destructive hover:bg-destructive"
                 >
-                  Keluar
+                  Log out
                 </Button>
               </DropdownMenuItem>
             </DropdownMenuContent>
