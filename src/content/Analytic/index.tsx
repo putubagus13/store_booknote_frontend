@@ -28,6 +28,10 @@ const Analytic: FC = () => {
   const [selectedWeekTimeframe, setSelectedWeekTimeframe] = useState<string>(
     moment().endOf("week").format("YYYY-MM-DD")
   );
+  const [selectedMonthLable, setSelectedMonthLable] =
+    useState<string>("This Month");
+  const [selectedWeekLable, setSelectedWeekLable] =
+    useState<string>("This Week");
 
   const { data, isLoading } = getCardAnalityc({
     weekTimeFrame: selectedWeekTimeframe,
@@ -91,6 +95,17 @@ const Analytic: FC = () => {
     setMonthOptions(monthOptionFuncton());
   }, []);
 
+  useEffect(() => {
+    setSelectedMonthLable(
+      monthOptions.find((option) => option.value === selectedMonthTimeframe)
+        ?.label || ""
+    );
+    setSelectedWeekLable(
+      weekOptions.find((option) => option.value === selectedWeekTimeframe)
+        ?.label || ""
+    );
+  }, [selectedMonthTimeframe, selectedWeekTimeframe]);
+
   return (
     <>
       <Helmet title="Squirrel - Analytic" />
@@ -150,7 +165,7 @@ const Analytic: FC = () => {
             <div className="flex gap-4">
               <CardValue
                 label="Seling"
-                timeLabel="This Month"
+                timeLabel={selectedMonthLable}
                 values={data?.data?.totalAmountThisMonth || 0}
                 percentage={data?.data?.growPercentThisMonth || "0%"}
                 totalTransaction={data?.data?.totalTransactionThisMonth || 0}
@@ -159,27 +174,13 @@ const Analytic: FC = () => {
               />
               <CardValue
                 label="Seling"
-                timeLabel="This Week"
+                timeLabel={selectedWeekLable}
                 values={data?.data?.totalAmountThisWeek || 0}
                 percentage={data?.data?.growPercentThisWeek || "0%"}
                 totalTransaction={data?.data?.totalTransactionThisWeek || 0}
                 description="from the previous week"
                 isLoading={isLoading}
               />
-              {/* <CardValue
-                label="Top Produk"
-                timeLabel="Bulain Ini"
-                values={200000}
-                percentage={"-25"}
-                description="dari bulain sebelumnya"
-              />
-              <CardValue
-                label="Top Produk"
-                timeLabel="Bulain Ini"
-                values={200000}
-                percentage={"-25"}
-                description="dari bulain sebelumnya"
-              /> */}
             </div>
             <div className="w-full flex flex-col lg:flex-row gap-4">
               <ChartData

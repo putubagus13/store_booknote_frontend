@@ -26,3 +26,6 @@ export const SETTING = "/setting";
 
 //History Transaction
 export const HISTORY = "/history";
+
+//Journal
+export const JOURNAL = "/journal";

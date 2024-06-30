@@ -51,6 +51,8 @@ const Setting = Loader(React.lazy(() => import("./content/Setting")));
 
 const History = Loader(React.lazy(() => import("./content/History")));
 
+const Journal = Loader(React.lazy(() => import("./content/Journal")));
+
 const routes = (isAuthenticated: boolean): RouteObject[] => [
   {
     path: "/",
@@ -87,6 +89,10 @@ const routes = (isAuthenticated: boolean): RouteObject[] => [
       {
         path: "history",
         element: <History />,
+      },
+      {
+        path: "journal",
+        element: <Journal />,
       },
     ],
   },

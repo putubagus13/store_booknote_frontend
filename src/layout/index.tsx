@@ -37,6 +37,7 @@ import {
   ANALYTIC,
   SETTING,
   HISTORY,
+  JOURNAL,
 } from "@/route";
 import { useAuthenticatedStore, useThemeStore } from "@/store";
 import { capitalizeFirstLetter } from "@/utils/general";
@@ -47,6 +48,7 @@ import {
   Home,
   LineChart,
   Moon,
+  Notebook,
   Package,
   Package2,
   PanelLeft,
@@ -145,6 +147,11 @@ const Layout: FC<Props> = ({ children }) => {
               to={HISTORY}
               label="Histories"
               children={<History className="h-5 w-5" />}
+            />
+            <ListCustom
+              to={JOURNAL}
+              label="Journal"
+              children={<Notebook className="h-5 w-5" />}
             />
           </nav>
           <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
