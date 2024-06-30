@@ -15,7 +15,7 @@ const ListCategory: FC = () => {
     <Command>
       <CommandInput placeholder="cari kategory" />
       <CommandList>
-        <CommandEmpty>hasil tidak ditemukan</CommandEmpty>
+        <CommandEmpty>result not found</CommandEmpty>
         <CommandGroup heading="Kategory">
           {(data?.data ?? []).map((item) => (
             <CommandItem key={item.id}>{item.name}</CommandItem>

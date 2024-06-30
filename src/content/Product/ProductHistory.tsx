@@ -110,18 +110,16 @@ const ProductHistory: FC = () => {
     }
   }, [data?.data?.items]);
 
-  console.log(page, data, filterStatus);
-
   return (
     <HeaderPage
       label="Product History"
       backButton
-      description="Produk History adalah menu yang memberikan informasi tentang perubahan data pada produck"
+      description="Product History is a feature that allows you to see the history of product changes."
     >
       <div className="flex gap-4 w-full h-dvh">
         <Card className="w-[400px] h-[600px]">
           <CardHeader>
-            <TypographyH4>Detail Produk</TypographyH4>
+            <TypographyH4>Product Detail</TypographyH4>
           </CardHeader>
           <CardContent>
             <Card>
@@ -136,12 +134,12 @@ const ProductHistory: FC = () => {
 
             <div className="pt-4 flex flex-col gap-2">
               <CardProductDetail
-                lable="Total Penjualan"
+                lable="Total Seling"
                 value={Number(product?.data?.productHistory.profit) || 0}
                 icon={<CircleDollarSign size={24} className=" text-primary" />}
               />
               <CardProductDetail
-                lable="Terjual"
+                lable="Sold Out"
                 value={product?.data?.productHistory.totalSold || 0}
                 unit={product?.data?.unit || ""}
                 icon={<ShoppingCart size={24} className=" text-primary" />}
@@ -158,7 +156,9 @@ const ProductHistory: FC = () => {
         <Card className="w-full flex-1 h-full flex flex-col gap-2 justify-between">
           <Card className="border-none shadow-none">
             <CardHeader className="flex flex-row items-center justify-between">
-              <TypographyH3 className="text-[20px]">Nama Produk</TypographyH3>
+              <TypographyH3 className="text-[20px]">
+                {product?.data?.name || "Product not found"}
+              </TypographyH3>
               <div className="flex gap-2 items-center">
                 <div className="flex gap-2 pt-7 items-center">
                   <Button
@@ -198,13 +198,7 @@ const ProductHistory: FC = () => {
                   <TypographyP className="font-semibold">
                     Timeframe :
                   </TypographyP>
-                  <DatePickerWithRange
-                    selectedDate={(value) => {
-                      setTimeFrame(value);
-                      setListProductHistory([]);
-                      setPage(1);
-                    }}
-                  />
+                  <DatePickerWithRange selectedDate={setTimeFrame} />
                 </div>
               </div>
             </CardHeader>

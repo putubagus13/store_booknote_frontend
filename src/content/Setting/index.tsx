@@ -10,13 +10,16 @@ const Setting: FC = () => {
   return (
     <>
       <Helmet title="Squirrel - Setting" />
-      <HeaderPage label={"Setting"}>
+      <HeaderPage
+        label={"Setting"}
+        description="Setting Akun, Password, dan Toko"
+      >
         <div className="h-auto flex flex-col items-center w-full gap-2 pt-20">
           <Tabs defaultValue="3" className="w-[60%]">
             <TabsList className="grid w-full grid-cols-3">
-              <TabsTrigger value="1">Akun</TabsTrigger>
+              <TabsTrigger value="1">Account</TabsTrigger>
               <TabsTrigger value="2">Password</TabsTrigger>
-              <TabsTrigger value="3">Toko</TabsTrigger>
+              <TabsTrigger value="3">Store</TabsTrigger>
             </TabsList>
             <TabsContent value="1">
               <FormAccount />

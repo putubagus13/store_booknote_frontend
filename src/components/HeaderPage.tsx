@@ -54,7 +54,7 @@ const HeaderPage: FC<Props> = ({
           {onClick && (
             <Button onClick={onClick} size="sm" className="gap-2">
               <Plus size={18} />
-              {buttonLable ?? "Tambah"}
+              {buttonLable ?? "Add"}
             </Button>
           )}
           {modalComponent && modalComponent}

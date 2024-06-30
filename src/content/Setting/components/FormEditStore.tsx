@@ -23,16 +23,16 @@ const FormEditStore: FC = () => {
     <>
       <Card>
         <CardHeader>
-          <CardTitle>Profile Toko</CardTitle>
+          <CardTitle>Store Profile</CardTitle>
           <CardDescription>
-            Setting tokomu sesuai kebutuhanmu. Klik simpan setelah selesai.
+            Set up your shop according to your needs. Click save when finished.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-2 w-full md:max-w-md">
           <form>
             {userProfile.name ? (
               <div className="space-y-1">
-                <Label>Nama Toko</Label>
+                <Label>Store Name</Label>
                 <Input
                   id="storename"
                   defaultValue={userProfile.name || "Nama toko tidak ditemukan"}
@@ -46,12 +46,11 @@ const FormEditStore: FC = () => {
             )}
             {userProfile.storeTypeName ? (
               <div className="space-y-1">
-                <Label>Tipe Toko</Label>
+                <Label>Store Type</Label>
                 <Input
                   id="category"
                   defaultValue={
-                    userProfile.storeTypeName ||
-                    "Nama tipe toko tidak ditemukan"
+                    userProfile.storeTypeName || "Type store not found"
                   }
                   disabled
                 />
@@ -63,7 +62,7 @@ const FormEditStore: FC = () => {
               </div>
             )}
             <div className="pt-8">
-              <Button className="">Perbarui</Button>
+              <Button className="">Save Change</Button>
             </div>
           </form>
         </CardContent>
@@ -72,10 +71,10 @@ const FormEditStore: FC = () => {
           <Separator />
           <div className="flex flex-col gap-2">
             <Button variant="destructive" className="w-60">
-              Hapus Akun
+              Delete Account
             </Button>
             <Button onClick={handleLogout} variant="outline" className="w-60">
-              Keluar
+              Log Out
             </Button>
           </div>
         </CardFooter>

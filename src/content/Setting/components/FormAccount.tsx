@@ -107,8 +107,7 @@ const FormAccount: FC = () => {
           <CardHeader>
             <CardTitle>Akun</CardTitle>
             <CardDescription>
-              Buat perubahan pada akun Anda di sini. Klik simpan setelah
-              selesai.
+              Make changes to your account here. Click save after finished.
             </CardDescription>
             {errorMessage && (
               <CardDescription className="font-semibold text-destructive">
@@ -173,7 +172,7 @@ const FormAccount: FC = () => {
                   <LoaderIcon className="animate-spin" /> Proses..
                 </span>
               ) : (
-                "Simpan Perubahan"
+                "Save Change"
               )}
             </Button>
           </CardFooter>
@@ -181,7 +180,7 @@ const FormAccount: FC = () => {
       </form>
       <SuccessPopupAlert
         open={openModalSuccess}
-        message="Profile berhasil diperbaharui"
+        message="Profile success updated"
       />
       <ErrorPopupAlert
         open={openModalError}

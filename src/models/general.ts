@@ -30,6 +30,11 @@ export interface IHeadPayload {
   key: string | null;
 }
 
+export interface IOption {
+  label: string;
+  value: string;
+}
+
 export type TSortTable = "asc" | "desc";
 
 export interface ISorting {

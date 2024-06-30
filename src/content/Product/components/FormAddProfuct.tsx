@@ -35,14 +35,16 @@ interface Props {
 }
 
 const validationSchema = Yup.object().shape({
-  productName: Yup.string().required("Nama produk wajib diisi"),
-  imageUrl: Yup.string().required("Image wajib diisi"),
-  stock: Yup.number().min(1, "Jumlah minimum 1").required("Image wajib diisi"),
+  productName: Yup.string().required("Product name is required"),
+  imageUrl: Yup.string().required("Product picture is required"),
+  stock: Yup.number()
+    .min(1, "Min. quantity 1")
+    .required("Product qty is required"),
   price: Yup.number()
-    .min(100, "nilai harga minimum 100")
-    .required("Image wajib diisi"),
-  categoryIds: Yup.string().required("Produk kategory wajib diisi"),
-  unit: Yup.string().required("satuan wajib diisi"),
+    .min(100, "Min. price 100")
+    .required("Product price is required"),
+  categoryIds: Yup.string().required("Product category is required"),
+  unit: Yup.string().required("Product unit is required"),
 });
 const FormAddProduct: FC<Props> = ({ actionSuccess }) => {
   const [selectedCategoryIds, setSelectedCategoryIds] = useState<string[]>([]);
@@ -136,15 +138,13 @@ const FormAddProduct: FC<Props> = ({ actionSuccess }) => {
         <DialogTrigger>
           <Button onClick={() => resetForm()} size="sm" className="gap-2">
             <Plus size={18} />
-            Tambah Produk
+            Add Product
           </Button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Produk Baru</DialogTitle>
-            <DialogDescription>
-              Isi data produk yang ingin ditambahkan
-            </DialogDescription>
+            <DialogTitle>New Product</DialogTitle>
+            <DialogDescription>Please fill in product data</DialogDescription>
           </DialogHeader>
           <Card>
             <CardContent className="pt-5 overflow-auto scrollbar-hide">
@@ -153,10 +153,10 @@ const FormAddProduct: FC<Props> = ({ actionSuccess }) => {
                 className="flex flex-col gap-5 h-[500px]"
               >
                 <div className="flex flex-col gap-2">
-                  <Label>Nama Produk</Label>
+                  <Label>Product Name</Label>
                   <Input
                     name="productName"
-                    placeholder="Masukan nama produk"
+                    placeholder="enter product name"
                     errors={errors.productName}
                     touched={touched.productName}
                     value={values.productName}
@@ -165,11 +165,11 @@ const FormAddProduct: FC<Props> = ({ actionSuccess }) => {
                 </div>
                 <div className="flex gap-2">
                   <div className="flex flex-col gap-2">
-                    <Label>Jumlah Produk</Label>
+                    <Label>Product Quantity</Label>
                     <Input
                       name="stock"
                       type="number"
-                      placeholder="Masukan jumlah produk"
+                      placeholder="enter product qty"
                       errors={errors.stock}
                       touched={touched.stock || touched.unit}
                       value={values.stock}
@@ -177,14 +177,14 @@ const FormAddProduct: FC<Props> = ({ actionSuccess }) => {
                     />
                   </div>
                   <div className="flex flex-col gap-2 w-34">
-                    <Label>Satuan</Label>
+                    <Label>Unit</Label>
                     <Select
                       name="unit"
                       value={values.unit}
                       onValueChange={(value) => setFieldValue("unit", value)}
                     >
                       <SelectTrigger>
-                        <SelectValue placeholder="Pilih satuan" />
+                        <SelectValue placeholder="choose unit" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectGroup>
@@ -205,7 +205,7 @@ const FormAddProduct: FC<Props> = ({ actionSuccess }) => {
                   </div>
                 </div>
                 <div className="flex flex-col gap-2">
-                  <Label>Produk Kategory</Label>
+                  <Label>Product Category</Label>
                   <MultipleSelector
                     value={selectedCategory}
                     defaultOptions={
@@ -215,10 +215,10 @@ const FormAddProduct: FC<Props> = ({ actionSuccess }) => {
                           }) || []
                         : []
                     }
-                    placeholder="Pilih kategory produk"
+                    placeholder="choose product category"
                     emptyIndicator={
                       <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">
-                        Kategory tidak ditemukan
+                        category not found
                       </p>
                     }
                     inputProps={{ maxLength: 5 }}
@@ -240,7 +240,7 @@ const FormAddProduct: FC<Props> = ({ actionSuccess }) => {
                     name="price"
                     className="pl-8"
                     type="number"
-                    placeholder="Masukan harga produk"
+                    placeholder="enter product price"
                     errors={errors.price}
                     touched={touched.price}
                     value={values.price}
@@ -251,14 +251,14 @@ const FormAddProduct: FC<Props> = ({ actionSuccess }) => {
                   </Label>
                 </div>
                 <div className="relative flex flex-col gap-2">
-                  <Label>Gambar Product</Label>
+                  <Label>Product Picture</Label>
                   {errorMessage && (
                     <Label className="text-destructive">{errorMessage}</Label>
                   )}
                   <Input
                     name="imageUrl"
                     type="file"
-                    placeholder="Pilih gambar produk"
+                    placeholder="upload product image"
                     onChange={handleChageImage}
                   />
                 </div>
@@ -284,7 +284,7 @@ const FormAddProduct: FC<Props> = ({ actionSuccess }) => {
                       <LoaderIcon className="animate-spin" /> Proses..
                     </span>
                   ) : (
-                    "Tambah Product"
+                    "Add Product"
                   )}
                 </Button>
               </form>
@@ -299,7 +299,7 @@ const FormAddProduct: FC<Props> = ({ actionSuccess }) => {
         open={openModalError}
       />
       <SuccessPopupAlert
-        message="Product berhasil ditambahkan!"
+        message="Product success added!"
         open={openModalSuccess}
       />
     </>

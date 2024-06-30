@@ -61,16 +61,17 @@ const FormPassword: FC = () => {
           <CardHeader>
             <CardTitle>Password</CardTitle>
             <CardDescription>
-              Ubah kata sandi Anda di sini. Setelah menyimpan, Anda akan logout.
+              Change your password here. After saving
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-2  w-full md:max-w-md">
             <div className="space-y-1">
-              <Label>Password Saat Ini</Label>
+              <Label>Current Password</Label>
               <Input
                 id="current"
                 type="password"
                 name="oldPassword"
+                placeholder="Enter your current password"
                 onChange={handleChange}
                 value={values.oldPassword}
                 errors={errors.oldPassword}
@@ -78,11 +79,12 @@ const FormPassword: FC = () => {
               />
             </div>
             <div className="space-y-1">
-              <Label>Password Baru</Label>
+              <Label>New Password</Label>
               <Input
                 id="new"
                 type="password"
                 name="newPassword"
+                placeholder="Enter your new password"
                 onChange={handleChange}
                 value={values.newPassword}
                 errors={errors.newPassword}
@@ -97,7 +99,7 @@ const FormPassword: FC = () => {
                   <LoaderIcon className="animate-spin" /> Proses..
                 </span>
               ) : (
-                "Perbarui Password"
+                "Update Password"
               )}
             </Button>
           </CardFooter>
@@ -105,7 +107,7 @@ const FormPassword: FC = () => {
       </form>
       <SuccessPopupAlert
         open={openModalSuccess}
-        message="Password berhasil diperbaharui"
+        message="Password success updated"
       />
       <ErrorPopupAlert
         open={openModalError}

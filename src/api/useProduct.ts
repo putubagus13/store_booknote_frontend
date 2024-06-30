@@ -147,7 +147,7 @@ export const getProductHistory = ({
 }: IGetProductHostory) => {
   return useQuery({
     queryKey: [
-      "getProductById",
+      "getProductHistory",
       [productId, page, limit, search, sort, status, startDate, endDate, order],
     ],
     queryFn: async () => {

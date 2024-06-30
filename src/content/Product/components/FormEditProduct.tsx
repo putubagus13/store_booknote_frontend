@@ -205,11 +205,11 @@ const FormEditProduct: FC<Props> = ({ onClose, productId, actionSuccess }) => {
                 </div>
               )}
               <div className="flex flex-col gap-2">
-                <Label>Nama Produk</Label>
+                <Label>Product Name</Label>
                 <Input
                   name="productName"
                   value={values.productName}
-                  placeholder="Masukan nama produk"
+                  placeholder="enter product name"
                   onChange={handleChange}
                   errors={errors.productName}
                   touched={touched.productName}
@@ -217,26 +217,26 @@ const FormEditProduct: FC<Props> = ({ onClose, productId, actionSuccess }) => {
               </div>
               <div className="flex gap-2">
                 <div className="flex flex-col gap-2">
-                  <Label>Jumlah Produk</Label>
+                  <Label>Product Quantiy</Label>
                   <Input
                     name="stock"
                     type="number"
                     value={values.stock}
-                    placeholder="Masukan jumlah produk"
+                    placeholder="enter product qty"
                     onChange={handleChange}
                     errors={errors.stock}
                     touched={touched.stock}
                   />
                 </div>
                 <div className="flex flex-col gap-2 w-34">
-                  <Label>Satuan</Label>
+                  <Label>Unit</Label>
                   <Select
                     value={values.unit}
                     name="unit"
                     onValueChange={(value) => setFieldValue("unit", value)}
                   >
                     <SelectTrigger>
-                      <SelectValue placeholder="Pilih satuan" />
+                      <SelectValue placeholder="choose product unit" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectGroup>
@@ -257,7 +257,7 @@ const FormEditProduct: FC<Props> = ({ onClose, productId, actionSuccess }) => {
                 </div>
               </div>
               <div className="flex flex-col gap-2">
-                <Label>Produk Kategory</Label>
+                <Label>Product Category</Label>
                 <MultipleSelector
                   value={selectedCategory}
                   defaultOptions={
@@ -270,7 +270,7 @@ const FormEditProduct: FC<Props> = ({ onClose, productId, actionSuccess }) => {
                   placeholder="Pilih kategory produk"
                   emptyIndicator={
                     <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">
-                      Kategory tidak ditemukan
+                      Category not found
                     </p>
                   }
                   inputProps={{ maxLength: 5 }}
@@ -289,28 +289,28 @@ const FormEditProduct: FC<Props> = ({ onClose, productId, actionSuccess }) => {
                 )}
               </div>
               <div className="relative flex flex-col gap-2">
-                <Label>Harga</Label>
+                <Label>Price</Label>
                 <Input
                   name="price"
                   className="pl-8"
                   type="number"
                   value={values.price}
                   onChange={handleChange}
-                  placeholder="Masukan harga produk"
+                  placeholder="enter product price"
                   errors={errors.price}
                   touched={touched.price}
                 />
                 <Label className="absolute bottom-[14px] left-2">Rp</Label>
               </div>
               <div className="relative flex flex-col gap-2">
-                <Label>Gambar Product</Label>
+                <Label>Product Picture</Label>
                 {errorMessage && (
                   <Label className="text-destructive">{errorMessage}</Label>
                 )}
                 <Input
                   name="productImage"
                   type="file"
-                  placeholder="Pilih gambar produk"
+                  placeholder="upload product image"
                   onChange={handleChageImage}
                 />
               </div>
@@ -321,14 +321,14 @@ const FormEditProduct: FC<Props> = ({ onClose, productId, actionSuccess }) => {
                     <LoaderIcon className="animate-spin" /> Proses..
                   </span>
                 ) : (
-                  "Ubah Product"
+                  "Edit Product"
                 )}
               </Button>
               <Button
                 onClick={() => navigate(`${PRODUCT_HISTORY}/${productId}`)}
                 variant="outline"
               >
-                Riwayat Produk
+                Product History
               </Button>
               <Button onClick={onClose} variant="outline">
                 Close
@@ -347,7 +347,7 @@ const FormEditProduct: FC<Props> = ({ onClose, productId, actionSuccess }) => {
         open={openModalError}
       />
       <SuccessPopupAlert
-        message="Product berhasil diperbaharui!"
+        message="Product success edited!"
         open={openModalSuccess}
       />
     </>

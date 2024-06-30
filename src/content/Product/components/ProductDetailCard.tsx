@@ -25,8 +25,8 @@ const CardProductDetail: FC<Props> = ({
         <p className="w-full flex justify-between text-[12px] items-center">
           {lable}:{" "}
           <span className=" font-semibold text-[16px]">
-            {lable == "Total Penjualan" ? conversion(value) : value}{" "}
-            {unit && lable !== "Total Penjualan" ? unit : ""}
+            {lable == "Total Seling" ? conversion(value) : value}{" "}
+            {unit && lable !== "Total Seling" ? unit : ""}
           </span>
         </p>
       </div>

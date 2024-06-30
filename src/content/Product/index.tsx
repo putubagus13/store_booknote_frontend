@@ -66,7 +66,7 @@ export default function Product() {
   return (
     <HeaderPage
       label="Product"
-      description="Kelola produkmu disini"
+      description="The Product menu allows you to efficiently manage your product inventory."
       modalComponent={<FormAdddProduct actionSuccess={() => refetch()} />}
     >
       <div className="flex gap-2 w-full h-auto flex-col lg:flex-row">
@@ -82,7 +82,7 @@ export default function Product() {
                 size="sm"
                 className="h-8"
               >
-                Terlaris
+                Bestseller
               </Button>
               <Button
                 onClick={() => {
@@ -92,7 +92,7 @@ export default function Product() {
                 size="sm"
                 className="h-8"
               >
-                Termurah
+                Cheapest
               </Button>
               <Button
                 onClick={() => {
@@ -102,7 +102,7 @@ export default function Product() {
                 size="sm"
                 className="h-8"
               >
-                Termahal
+                Expensive
               </Button>
               <Button
                 onClick={() => {
@@ -127,7 +127,7 @@ export default function Product() {
                 }
                 selected={category}
                 onClick={setCategory}
-                parentLabel="Kategori"
+                parentLabel="Category"
               />
               <div className="relative ml-auto flex-1 md:grow-0">
                 <Search className="absolute z-10 left-2.5 top-3 h-4 w-4 text-muted-foreground" />
@@ -136,7 +136,7 @@ export default function Product() {
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
                     setSearch(e.target.value)
                   }
-                  placeholder="Cari produk..."
+                  placeholder="Search product..."
                   className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[336px]"
                 />
               </div>

@@ -114,7 +114,7 @@ const Cashier: FC = () => {
   return (
     <HeaderPage
       label="Cashier"
-      description="Fitur untuk melakukan kalkulasi transaksi dengan mudah"
+      description="This menu allows you to make transactions with customers."
     >
       <div className="flex gap-2 w-full h-full">
         <div className="flex w-full h-full flex-col gap-4">
@@ -128,7 +128,7 @@ const Cashier: FC = () => {
                 size="sm"
                 className="h-8"
               >
-                Terlaris
+                Bestseller
               </Button>
               <Button
                 onClick={() => {
@@ -138,7 +138,7 @@ const Cashier: FC = () => {
                 size="sm"
                 className="h-8"
               >
-                Termurah
+                Cheapest
               </Button>
               <Button
                 onClick={() => {
@@ -148,7 +148,7 @@ const Cashier: FC = () => {
                 size="sm"
                 className="h-8"
               >
-                Termahal
+                Expensive
               </Button>
               <Button
                 onClick={() => {
@@ -181,7 +181,7 @@ const Cashier: FC = () => {
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
                     setSearch(e.target.value)
                   }
-                  placeholder="Cari produk..."
+                  placeholder="Search product..."
                   className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[336px]"
                 />
               </div>
@@ -212,7 +212,7 @@ const Cashier: FC = () => {
                   />
                 </div>
                 <TypographyH4 className="font-light text-[14px]">
-                  Produk tidak ditemukan
+                  Product not found
                 </TypographyH4>
               </div>
             )}
@@ -262,7 +262,7 @@ const Cashier: FC = () => {
                   );
                 })
               ) : (
-                <p>Belum ada order</p>
+                <p>No orders yet</p>
               )}
             </div>
             <Separator color="white" className="my-4" />
@@ -315,7 +315,7 @@ const Cashier: FC = () => {
         open={openModalError}
       />
       <SuccessPopupAlert
-        message="transaksi berhasil!"
+        message="Transaction Success!"
         open={openModalSuccess}
       />
     </HeaderPage>
