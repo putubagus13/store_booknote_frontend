@@ -198,6 +198,8 @@ const Cashier: FC = () => {
                     price={item.price}
                     image={item.imageUrl}
                     totalSold={item.totalSold}
+                    disabled={item.stock == 0}
+                    stock={item.stock}
                     onClick={() => handleClickProduct(item.id)}
                   />
                 );

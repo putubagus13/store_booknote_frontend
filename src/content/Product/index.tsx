@@ -155,6 +155,7 @@ export default function Product() {
                     price={item.price}
                     image={item.imageUrl}
                     totalSold={item.totalSold}
+                    stock={item.stock}
                     edit
                   />
                 );
