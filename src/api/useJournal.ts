@@ -70,11 +70,12 @@ export const getJournalHistory = ({
 };
 
 export const setSaldo = ({ onSuccess, onError }: IStatusResponse) => {
+  const { userProfile } = useAuthenticatedStore();
   return useMutation({
     mutationFn: async (payload: IPayloadSetSaldo) => {
       const response = await httpClient.post<ITampalteResponse>(
         "/journal/saldo",
-        payload
+        { ...payload, storeId: userProfile.storeId }
       );
       return response.data;
     },

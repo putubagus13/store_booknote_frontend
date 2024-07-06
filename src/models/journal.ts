@@ -47,7 +47,6 @@ export interface IResJournalHistory {
 }
 
 export interface IPayloadSetSaldo {
-  storeId: string;
   description: string;
   saldo: number | null;
   type: string;

@@ -1,5 +1,9 @@
 import { setSaldo } from "@/api/useJournal";
-import { ErrorPopupAlert, SuccessPopupAlert } from "@/components/AlertPopup";
+import {
+  ConfirmPopupAlert,
+  ErrorPopupAlert,
+  SuccessPopupAlert,
+} from "@/components/AlertPopup";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -13,10 +17,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { IPayloadSetSaldo } from "@/models/journal";
-import { useAuthenticatedStore } from "@/store";
+import { conversion } from "@/utils/general";
 import { useFormik } from "formik";
 import { Info, LoaderIcon } from "lucide-react";
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import * as Yup from "yup";
 
 const validationSchema = Yup.object().shape({
@@ -33,8 +37,9 @@ const ModalFormInputDebitCredit: FC<IProps> = ({ actionSuccess }) => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [openModalSuccess, setOpenModalSuccess] = useState<boolean>(false);
   const [openModalError, setOpenModalError] = useState<boolean>(false);
+  const [openModalConfirm, setOpenModalConfirm] = useState<boolean>(false);
 
-  const { userProfile } = useAuthenticatedStore();
+  // const { userProfile } = useAuthenticatedStore();
   const { mutate, isPending } = setSaldo({
     onError: (error: any) => {
       setErrorMessage(error.data.response.message);
@@ -57,28 +62,19 @@ const ModalFormInputDebitCredit: FC<IProps> = ({ actionSuccess }) => {
     touched,
     values,
     setFieldValue,
-    setValues,
     resetForm,
   } = useFormik<IPayloadSetSaldo>({
     initialValues: {
-      storeId: userProfile.storeId,
       description: "",
       saldo: null,
       type: "",
     },
     validationSchema,
     onSubmit: (value) => {
-      //   console.log(value);
-      mutate(value);
+      console.log(value);
+      // mutate(value);
     },
   });
-
-  useEffect(() => {
-    setValues((prev) => ({
-      ...prev,
-      storeId: userProfile.storeId,
-    }));
-  }, [userProfile.storeId]);
 
   return (
     <>
@@ -156,9 +152,14 @@ const ModalFormInputDebitCredit: FC<IProps> = ({ actionSuccess }) => {
               </div>
             </div>
             <Button
-              disabled={isPending}
+              onClick={() => setOpenModalConfirm(true)}
+              disabled={
+                isPending ||
+                !values.description ||
+                !values.saldo ||
+                !values.type
+              }
               size="lg"
-              type="submit"
               className="mt-4"
             >
               {isPending ? (
@@ -169,6 +170,18 @@ const ModalFormInputDebitCredit: FC<IProps> = ({ actionSuccess }) => {
                 "Save"
               )}
             </Button>
+            <ConfirmPopupAlert
+              open={openModalConfirm}
+              headerMessage="Are u sure?"
+              description={`You will add ${
+                values.type
+              } with amount ${conversion(values.saldo || 0)}`}
+              onClose={() => setOpenModalConfirm(!openModalConfirm)}
+              onClick={() => {
+                setOpenModalConfirm(false);
+                mutate(values);
+              }}
+            />
           </form>
         </DialogContent>
       </Dialog>

@@ -1,3 +1,4 @@
+import { ConfirmPopupAlert } from "@/components/AlertPopup";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -12,12 +13,13 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useAuthenticatedStore } from "@/store";
-import { FC } from "react";
+import { FC, useState } from "react";
 
 const FormEditStore: FC = () => {
   const handleLogout = () => {
     window.localStorage.removeItem("token");
   };
+  const [open, setOpen] = useState<boolean>(false);
   const { userProfile } = useAuthenticatedStore();
   return (
     <>
@@ -70,7 +72,11 @@ const FormEditStore: FC = () => {
           {/* <Button className="w-60">Simpan Perubahan</Button> */}
           <Separator />
           <div className="flex flex-col gap-2">
-            <Button variant="destructive" className="w-60">
+            <Button
+              onClick={() => setOpen(!open)}
+              variant="destructive"
+              className="w-60"
+            >
               Delete Account
             </Button>
             <Button onClick={handleLogout} variant="outline" className="w-60">
@@ -79,6 +85,13 @@ const FormEditStore: FC = () => {
           </div>
         </CardFooter>
       </Card>
+      <ConfirmPopupAlert
+        open={open}
+        headerMessage="Delete Account"
+        description="Are you sure want to delete this account? You will lost all data in this store!"
+        onClose={() => setOpen(!open)}
+        onClick={() => console.log("click")}
+      />
     </>
   );
 };
