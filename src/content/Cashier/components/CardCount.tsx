@@ -72,6 +72,7 @@ const CardCount: FC<Props> = ({ product, callBack, onDelete }) => {
             size="icon"
             className="rounded-full shadow-md"
             onClick={handleIncrement}
+            disabled={product.stock <= quantity}
           >
             <Plus size={16} />
           </Button>
