@@ -45,3 +45,10 @@ export interface IResJournalHistory {
   createdDt: Date;
   createdBy: string | null;
 }
+
+export interface IPayloadSetSaldo {
+  storeId: string;
+  description: string;
+  saldo: number | null;
+  type: string;
+}
