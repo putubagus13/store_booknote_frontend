@@ -10,7 +10,7 @@ import { Helmet } from "react-helmet-async";
 // import TableTrransaction from "./components/TableTransaction";
 import { TypographyH3, TypographyP } from "@/components/ui/typograpgy";
 // import FilterSearch from "../Analytic/components/FilterSearch";
-import { ChevronsLeftRight, Search } from "lucide-react";
+import { ArrowDownToLine, ChevronsLeftRight, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import {
   Table,
@@ -40,6 +40,9 @@ import { Option } from "@/components/ui/multiple-selector";
 import { MONTH_LIST } from "@/utils/options-select";
 import { IResJournalHistory } from "@/models/journal";
 import { Badge } from "@/components/ui/badge";
+import httpClient from "@/helpers/httpClient";
+import { useAuthenticatedStore } from "@/store";
+import ModalFormInputDebitCredit from "./components/ModalFormInputDebitCredit";
 
 const HEAD_TABLE: IHeadPayload[] = [
   { key: null, label: "No" },
@@ -59,6 +62,8 @@ const History: FC = () => {
   const [offset, setOffset] = useState<number>(0);
   const [limit, setLimit] = useState<number>(10);
   const [dataJournal, setDataJournal] = useState<IResJournalHistory[]>([]);
+
+  const { userProfile } = useAuthenticatedStore();
 
   const [monthOptions, setMonthOptions] = useState<Option[]>([]);
   const [selectedMonthTimeframe, setSelectedMonthTimeframe] = useState<string>(
@@ -82,12 +87,15 @@ const History: FC = () => {
     return listMonth;
   };
 
-  const { data: dataIncomeExpenses, isLoading: isLoadingIncomeExpenses } =
-    getIncomeExpenses({
-      monthTimeFrame: selectedMonthTimeframe || moment().format("YYYY-MM-DD"),
-    });
+  const {
+    data: dataIncomeExpenses,
+    isLoading: isLoadingIncomeExpenses,
+    refetch: refetchIncomeExpenses,
+  } = getIncomeExpenses({
+    monthTimeFrame: selectedMonthTimeframe || moment().format("YYYY-MM-DD"),
+  });
 
-  const { data, isLoading } = getJournalHistory({
+  const { data, isLoading, refetch } = getJournalHistory({
     page,
     limit,
     sort,
@@ -96,6 +104,30 @@ const History: FC = () => {
     status: "",
     search,
   });
+
+  const handleExportXlsx = async () => {
+    try {
+      const response = await httpClient.get(
+        `/journal/export/${userProfile.storeId}`,
+        {
+          params: {
+            monthTimeFrame: selectedMonthTimeframe,
+          },
+          responseType: "blob", // Important to handle binary data
+        }
+      );
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "journal.xlsx");
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } catch (error) {
+      console.error("Error downloading the file", error);
+    }
+  };
 
   const handleSort = useHandleSort({
     setSort,
@@ -127,44 +159,54 @@ const History: FC = () => {
       <HeaderPage label="Store Journal">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between">
-            <div className="flex gap-2 items-center">
-              <div className="flex gap-2 pt-7">
-                {/* <FilterSearch /> */}
-                <div className="relative ml-auto flex-1 md:grow-0">
-                  <Input
-                    type="search"
-                    placeholder="search..."
-                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                      setSearch(e.target.value)
-                    }
-                    className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[336px]"
-                  />
-                  <Search className="absolute left-2.5 top-3 h-4 w-4 text-muted-foreground" />
+            <div className="flex justify-between w-full ">
+              <div className="flex gap-2 items-center">
+                <div className="flex gap-2 pt-7">
+                  {/* <FilterSearch /> */}
+                  <div className="relative ml-auto flex-1 md:grow-0">
+                    <Input
+                      type="search"
+                      placeholder="search..."
+                      onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                        setSearch(e.target.value)
+                      }
+                      className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[336px]"
+                    />
+                    <Search className="absolute left-2.5 top-3 h-4 w-4 text-muted-foreground" />
+                  </div>
+                </div>
+                <div>
+                  <TypographyP className="font-semibold">
+                    Month Timeframe :
+                  </TypographyP>
+                  {/* <DatePickerWithRange /> */}
+                  <Select
+                    onValueChange={(value) => setSelectedMonthTimeframe(value)}
+                    value={selectedMonthTimeframe}
+                  >
+                    <SelectTrigger className="w-[180px]">
+                      <SelectValue placeholder="Select a month" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectLabel>Month</SelectLabel>
+                        {monthOptions.map((option) => (
+                          <SelectItem key={option.value} value={option.value}>
+                            {option.label}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
                 </div>
               </div>
-              <div>
-                <TypographyP className="font-semibold">
-                  Month Timeframe :
-                </TypographyP>
-                {/* <DatePickerWithRange /> */}
-                <Select
-                  onValueChange={(value) => setSelectedMonthTimeframe(value)}
-                  value={selectedMonthTimeframe}
-                >
-                  <SelectTrigger className="w-[180px]">
-                    <SelectValue placeholder="Select a month" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      <SelectLabel>Month</SelectLabel>
-                      {monthOptions.map((option) => (
-                        <SelectItem key={option.value} value={option.value}>
-                          {option.label}
-                        </SelectItem>
-                      ))}
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
+              <div className=" flex gap-4">
+                <ModalFormInputDebitCredit
+                  actionSuccess={() => {
+                    refetchIncomeExpenses();
+                    refetch();
+                  }}
+                />
               </div>
             </div>
           </CardHeader>
@@ -181,7 +223,7 @@ const History: FC = () => {
                 }
                 description="from 100%"
                 isLoading={isLoadingIncomeExpenses}
-                timeLabel={selectedMonthLable}
+                timeLabel={selectedMonthLable || "This Month"}
                 count={
                   dataIncomeExpenses?.data?.income.countIncomeThisMonth || 0
                 }
@@ -197,7 +239,7 @@ const History: FC = () => {
                 }
                 description="from 100%"
                 isLoading={isLoadingIncomeExpenses}
-                timeLabel={selectedMonthLable}
+                timeLabel={selectedMonthLable || "This Month"}
                 count={
                   dataIncomeExpenses?.data?.expenses.countExpensesThisMonth || 0
                 }
@@ -208,15 +250,24 @@ const History: FC = () => {
                   dataIncomeExpenses?.data?.provit.provitGrowth || "0%"
                 }
                 values={dataIncomeExpenses?.data?.provit.provitThisMonth || 0}
-                description="from 100%"
+                description="from last month"
                 isLoading={isLoadingIncomeExpenses}
-                timeLabel={selectedMonthLable}
+                timeLabel={selectedMonthLable || "This Month"}
                 count={dataIncomeExpenses?.data?.provit.marginProv || 0}
               />
             </div>
-            <Table className="w-full mt-4">
-              {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
+            <div className="flex justify-end">
+              <Button
+                onClick={handleExportXlsx}
+                variant="outline"
+                className="flex gap-2"
+              >
+                <ArrowDownToLine size={20} />
+                Download File
+              </Button>
+            </div>
 
+            <Table className="w-full mt-4">
               <TableHeader>
                 <TableRow>
                   {HEAD_TABLE.map((item, index) => {
