@@ -32,7 +32,7 @@ const HeaderPage: FC<Props> = ({
       <CardHeader>
         <div className="flex justify-between w-full items-center">
           <div className="flex flex-col gap-4">
-            <div>
+            <div className="pt-4">
               <TypographyH1 className="lg:text-4xl dark:text-primary">
                 {label}
               </TypographyH1>
