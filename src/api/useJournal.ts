@@ -1,13 +1,19 @@
 import httpClient from "@/helpers/httpClient";
-import { IBaseResponse, IPaginationAtribute } from "@/models/general";
+import {
+  IBaseResponse,
+  IPaginationAtribute,
+  IStatusResponse,
+  ITampalteResponse,
+} from "@/models/general";
 import {
   IGetJournalHostory,
+  IPayloadSetSaldo,
   IPayloadTimeFrame,
   IResIncomeExpenses,
   IResJournalHistory,
 } from "@/models/journal";
 import { useAuthenticatedStore } from "@/store";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 export const getIncomeExpenses = ({ monthTimeFrame }: IPayloadTimeFrame) => {
   const { userProfile } = useAuthenticatedStore();
@@ -60,5 +66,19 @@ export const getJournalHistory = ({
       return response.data;
     },
     refetchOnWindowFocus: false,
+  });
+};
+
+export const setSaldo = ({ onSuccess, onError }: IStatusResponse) => {
+  return useMutation({
+    mutationFn: async (payload: IPayloadSetSaldo) => {
+      const response = await httpClient.post<ITampalteResponse>(
+        "/journal/saldo",
+        payload
+      );
+      return response.data;
+    },
+    onSuccess,
+    onError,
   });
 };
