@@ -27,3 +27,7 @@ export interface IPayloadResetPassword {
   confirmPassword: string;
   token: string;
 }
+
+export interface IPayloadResendOtpRegister {
+  token: string;
+}
