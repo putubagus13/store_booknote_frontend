@@ -14,6 +14,19 @@ interface Props {
   totalTransaction: number;
 }
 
+const bgTheme = (label: string) => {
+  switch (label) {
+    case "from the previous month":
+      return "to-indigo-500/80";
+    case "from the previous week":
+      return "to-orange-500/80";
+    case "Provit":
+      return "to-primary/80";
+    default:
+      return "";
+  }
+};
+
 const CardValue: FC<Props> = ({
   label,
   timeLabel,
@@ -31,7 +44,11 @@ const CardValue: FC<Props> = ({
     }
   };
   return (
-    <Card className="w-full md:w-96 p-1 md:p-4 shadow-md">
+    <Card
+      className={`w-full md:w-96 p-1 md:p-4 shadow-md bg-gradient-to-tl from-white/10 via-transparent via-70% ${bgTheme(
+        description
+      )}`}
+    >
       <CardContent>
         <div className="flex justify-between items-center">
           <TypographyP>{timeLabel || "Not Found"}</TypographyP>

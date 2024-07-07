@@ -163,8 +163,8 @@ const History: FC = () => {
       <HeaderPage label="Store Journal">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between">
-            <div className="flex justify-between w-full ">
-              <div className="flex gap-2 items-center">
+            <div className="flex flex-wrap gap-2 justify-between w-full ">
+              <div className="flex flex-wrap gap-2 items-center">
                 <div className="flex gap-2 pt-7">
                   {/* <FilterSearch /> */}
                   <div className="relative ml-auto flex-1 md:grow-0">
@@ -215,7 +215,7 @@ const History: FC = () => {
             </div>
           </CardHeader>
           <CardContent className="h-[90%] overflow-auto scrollbar-hide">
-            <div className="w-full flex gap-10">
+            <div className="w-full flex flex-wrap gap-10">
               <CardIncomeExpenses
                 label="Income"
                 percentage={

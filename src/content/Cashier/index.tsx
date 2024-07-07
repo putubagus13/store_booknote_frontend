@@ -118,7 +118,7 @@ const Cashier: FC = () => {
     >
       <div className="flex flex-col lg:flex-row gap-2 w-full h-full">
         <div className="flex w-full h-full flex-col gap-4">
-          <div className="flex w-full items-center justify-between gap-10 pt-2">
+          <div className="flex flex-col-reverse lg:flex-row w-full lg:items-center justify-between gap-2 lg:gap-10 pt-2">
             <div className="flex gap-2">
               <Button
                 onClick={() => {
@@ -174,7 +174,7 @@ const Cashier: FC = () => {
                 selected={category}
                 onClick={setCategory}
               />
-              <div className="relative ml-auto flex-1 md:grow-0">
+              <div className="relative lg:ml-auto flex-1 md:grow-0">
                 <Search className="absolute z-10 left-2.5 top-3 h-4 w-4 text-muted-foreground" />
                 <Input
                   type="search"
@@ -220,7 +220,7 @@ const Cashier: FC = () => {
             )}
           </div>
         </div>
-        <Card className="w-[600px] h-max bg-secondary">
+        <Card className="w-full lg:w-[600px] h-max bg-secondary">
           <CardHeader>
             <TypographyH3 className="flex gap-2">
               Customer Order <ShoppingCart className="h-7 w-7" />

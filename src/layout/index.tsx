@@ -45,7 +45,6 @@ import {
   Calculator,
   CircleUser,
   History,
-  Home,
   LineChart,
   Moon,
   Notebook,
@@ -57,7 +56,6 @@ import {
   Squirrel,
   Store,
   Sun,
-  Users2,
 } from "lucide-react";
 import { FC, ReactNode, useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
@@ -191,11 +189,11 @@ const Layout: FC<Props> = ({ children }) => {
                   <span className="sr-only">Acme Inc</span>
                 </Link>
                 <Link
-                  to="#"
+                  to={CASHIER}
                   className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
                 >
-                  <Home className="h-5 w-5" />
-                  Dashboard
+                  <Calculator className="h-5 w-5" />
+                  Cashier
                 </Link>
                 {/* <Link
                   to="#"
@@ -205,25 +203,39 @@ const Layout: FC<Props> = ({ children }) => {
                   Orders
                 </Link> */}
                 <Link
-                  to="#"
+                  to={PRODUCT}
                   className="flex items-center gap-4 px-2.5 text-foreground"
                 >
                   <Package className="h-5 w-5" />
                   Products
                 </Link>
                 <Link
-                  to="#"
-                  className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-                >
-                  <Users2 className="h-5 w-5" />
-                  Customers
-                </Link>
-                <Link
-                  to="#"
+                  to={ANALYTIC}
                   className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
                 >
                   <LineChart className="h-5 w-5" />
-                  Settings
+                  Analitycs
+                </Link>
+                <Link
+                  to={HISTORY}
+                  className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
+                >
+                  <History className="h-5 w-5" />
+                  Histories
+                </Link>
+                <Link
+                  to={JOURNAL}
+                  className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
+                >
+                  <Notebook className="h-5 w-5" />
+                  Journal
+                </Link>
+                <Link
+                  to={SETTING}
+                  className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
+                >
+                  <Settings className="h-5 w-5" />
+                  Setting
                 </Link>
                 <button
                   onClick={handleSwitchSelect}
@@ -279,7 +291,7 @@ const Layout: FC<Props> = ({ children }) => {
                     </AvatarFallback>
                   </Avatar>
                 ) : (
-                  <CircleUser className="overflow-hidden rounded-full h-36 w-36"></CircleUser>
+                  <CircleUser className="overflow-hidden rounded-full pl-2 h-10 w-10"></CircleUser>
                 )}
                 <span>
                   {data?.data?.fullname ||

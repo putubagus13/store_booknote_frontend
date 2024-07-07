@@ -89,11 +89,11 @@ const History: FC = () => {
       <Helmet title="Squirrel - History" />
       <HeaderPage label="History">
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between">
+          <CardHeader className="flex flex-col lg:flex-row items-center justify-between">
             <TypographyH3 className="text-[20px]">
               Transaction History
             </TypographyH3>
-            <div className="flex gap-2 items-center">
+            <div className="flex flex-wrap gap-2 items-center">
               <div className="flex gap-2 pt-7">
                 {/* <FilterSearch /> */}
                 <div className="relative ml-auto flex-1 md:grow-0">
