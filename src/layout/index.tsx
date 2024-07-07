@@ -172,7 +172,7 @@ const Layout: FC<Props> = ({ children }) => {
           </nav>
         </TooltipProvider>
       </aside>
-      <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14 w-full h-full">
+      <div className="flex flex-col md:gap-4 sm:py-4 sm:pl-14 w-full h-full">
         <header className="sticky md:fixed justify-between w-full top-0 right-0 flex h-14 items-center gap-4 border-b bg-background px-4 sm:border-0 sm:px-6 sm:pl-20 shadow-sm">
           <Sheet>
             <SheetTrigger asChild>
@@ -236,7 +236,7 @@ const Layout: FC<Props> = ({ children }) => {
             </SheetContent>
           </Sheet>
           <div className="flex gap-4 items-center">
-            <Badge className="h-10 flex gap-2" variant="secondary">
+            <Badge className="hidden h-10 md:flex gap-2" variant="secondary">
               <Store size={20} />
               {data?.data?.name}
             </Badge>

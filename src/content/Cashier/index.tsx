@@ -116,7 +116,7 @@ const Cashier: FC = () => {
       label="Cashier"
       description="This menu allows you to make transactions with customers."
     >
-      <div className="flex gap-2 w-full h-full">
+      <div className="flex flex-col lg:flex-row gap-2 w-full h-full">
         <div className="flex w-full h-full flex-col gap-4">
           <div className="flex w-full items-center justify-between gap-10 pt-2">
             <div className="flex gap-2">

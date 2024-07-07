@@ -28,8 +28,8 @@ const HeaderPage: FC<Props> = ({
 }) => {
   const navigate = useNavigate();
   return (
-    <Card className="flex flex-col w-full h-full pt-6">
-      <CardHeader>
+    <Card className="flex flex-col w-full h-full">
+      <CardHeader className="pt-0 md:pt-10">
         <div className="flex justify-between w-full items-center">
           <div className="flex flex-col gap-4">
             <div className="pt-4">
