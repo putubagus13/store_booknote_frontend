@@ -8,7 +8,11 @@ import {
 import { ChangeEvent, FC, useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 // import TableTrransaction from "./components/TableTransaction";
-import { TypographyH3, TypographyP } from "@/components/ui/typograpgy";
+import {
+  TypographyH3,
+  TypographyH4,
+  TypographyP,
+} from "@/components/ui/typograpgy";
 // import FilterSearch from "../Analytic/components/FilterSearch";
 import { ArrowDownToLine, ChevronsLeftRight, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -324,6 +328,20 @@ const History: FC = () => {
                   ))}
               </TableBody>
             </Table>
+            {dataJournal.length <= 0 && (
+              <div className="flex flex-col gap-1 justify-center items-center pt-10">
+                <div className="w-32 h-32 overflow-hidden">
+                  <img
+                    src="/src/assets/empty-data.svg"
+                    alt="empty"
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+                <TypographyH4 className="font-light text-[14px]">
+                  data not found
+                </TypographyH4>
+              </div>
+            )}
           </CardContent>
           <CardFooter className="w-full flex justify-between px-10">
             <TypographyH3>Total</TypographyH3>
@@ -340,18 +358,20 @@ const History: FC = () => {
               )}
             </TypographyH3>
           </CardFooter>
-          <PaginationCustom
-            dataPagination={
-              (data?.data && data.data) || {
-                totalPage: 0,
-                currentPage: 0,
-                totalData: 0,
-                items: [],
+          {dataJournal.length > 0 && (
+            <PaginationCustom
+              dataPagination={
+                (data?.data && data.data) || {
+                  totalPage: 0,
+                  currentPage: 0,
+                  totalData: 0,
+                  items: [],
+                }
               }
-            }
-            limit={(value) => setLimit(Number(value))}
-            page={setPage}
-          />
+              limit={(value) => setLimit(Number(value))}
+              page={setPage}
+            />
+          )}
         </Card>
       </HeaderPage>
     </>

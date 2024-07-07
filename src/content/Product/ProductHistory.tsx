@@ -283,19 +283,35 @@ const ProductHistory: FC = () => {
                     )}
                 </TableBody>
               </Table>
+              {listProductHistory.length <= 0 && (
+                <div className="flex flex-col gap-1 justify-center items-center pt-10">
+                  <div className="w-32 h-32 overflow-hidden">
+                    <img
+                      src="/src/assets/empty-data.svg"
+                      alt="empty"
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                  <TypographyH4 className="font-light text-[14px]">
+                    data not found
+                  </TypographyH4>
+                </div>
+              )}
             </CardContent>
-            <PaginationCustom
-              dataPagination={
-                (data?.data && data.data) || {
-                  totalPage: 0,
-                  currentPage: 0,
-                  totalData: 0,
-                  items: [],
+            {listProductHistory.length > 0 && (
+              <PaginationCustom
+                dataPagination={
+                  (data?.data && data.data) || {
+                    totalPage: 0,
+                    currentPage: 0,
+                    totalData: 0,
+                    items: [],
+                  }
                 }
-              }
-              limit={(value) => setLimit(Number(value))}
-              page={setPage}
-            />
+                limit={(value) => setLimit(Number(value))}
+                page={setPage}
+              />
+            )}
           </Card>
 
           {/* <Card className="x-4 pt-2">
