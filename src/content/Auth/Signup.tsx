@@ -20,7 +20,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { ErrorPopupAlert } from "@/components/AlertPopup";
-import { useStoreType } from "@/api/useStoreType";
+import { useStoreType } from "@/api/useStore";
 import { IResListStoreType } from "@/models/storeType";
 import { IPayloadRegister } from "@/models/auth";
 import { useFormik } from "formik";
