@@ -3,6 +3,7 @@ import {
   IPayloadLogin,
   IPayloadOtpRegister,
   IPayloadRegister,
+  IPayloadResendOtpRegister,
   IPayloadResetPassword,
   IResToken,
 } from "@/models/auth";
@@ -107,5 +108,20 @@ export const useResetPassword = ({ onSuccess, onError }: IStatusResponse) => {
     },
     onSuccess,
     onError,
+  });
+};
+
+export const resendOTPRegister = ({ onError, onSuccess }: IStatusResponse) => {
+  return useMutation({
+    mutationFn: async (payload: IPayloadResendOtpRegister) => {
+      const response = await httpClient.post<ITampalteResponse>(
+        "/otp/register/resend",
+        payload
+      );
+
+      return response.data;
+    },
+    onError,
+    onSuccess,
   });
 };

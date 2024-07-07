@@ -12,7 +12,7 @@ import { InputOTP, InputOTPGroup, InputOTPSlot } from "./ui/input-otp";
 import { REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp";
 import { Button } from "./ui/button";
 import { SuccessPopupAlert } from "./AlertPopup";
-import { useOtpRegisterVerification } from "@/api/useAuth";
+import { resendOTPRegister, useOtpRegisterVerification } from "@/api/useAuth";
 import { IPayloadOtpRegister } from "@/models/auth";
 import { useTokenStore } from "@/store";
 import { LoaderIcon } from "lucide-react";
@@ -44,6 +44,15 @@ const ModalFormOtp: FC<Props> = ({ open }) => {
     },
   });
 
+  const { mutate: resendOtp } = resendOTPRegister({
+    onError: (error: any) => {
+      setErrorMessages(error.response.data.message);
+    },
+    onSuccess: () => {
+      setErrorMessages("");
+    },
+  });
+
   const handleVariation = () => {
     const payload: IPayloadOtpRegister = {
       codeOtp: otp,
@@ -53,9 +62,11 @@ const ModalFormOtp: FC<Props> = ({ open }) => {
   };
 
   const countDownTimer = useCallback(() => {
+    setErrorMessages("");
+    resendOtp({ token });
     setTime(60);
     setIsCounting(true);
-  }, []);
+  }, [token]);
 
   useEffect(() => {
     if (time > 0) {
@@ -117,14 +128,16 @@ const ModalFormOtp: FC<Props> = ({ open }) => {
                   "Verify OTP"
                 )}
               </AlertDialogAction>
-              <Button
-                disabled={isCounting}
-                onClick={countDownTimer}
-                variant="secondary"
-                className="text-accent-foreground min-w-36"
-              >
-                {isCounting ? `Resend in ${time}s` : "Resend OTP"}
-              </Button>
+              {token && (
+                <Button
+                  disabled={isCounting}
+                  onClick={countDownTimer}
+                  variant="secondary"
+                  className="text-accent-foreground min-w-36"
+                >
+                  {isCounting ? `Resend in ${time}s` : "Resend OTP"}
+                </Button>
+              )}
             </div>
           </AlertDialogFooter>
         </AlertDialogContent>
