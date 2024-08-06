@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import { FC } from "react";
 import CardOrder from "./components/CardOrder";
-import PaginationCustom from "@/components/PaginationCustom";
+// import PaginationCustom from "@/components/PaginationCustom";
 import { TypographyH4 } from "@/components/ui/typograpgy";
 
 const Order: FC = () => {
@@ -36,9 +36,7 @@ const Order: FC = () => {
               <CardOrder />
               <CardOrder />
             </CardContent>
-            <CardFooter>
-              <PaginationCustom />
-            </CardFooter>
+            <CardFooter>{/* <PaginationCustom /> */}</CardFooter>
           </Card>
         </div>
       </div>
