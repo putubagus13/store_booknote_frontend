@@ -1,0 +1,1 @@
+serve -l 4000 -s dist
